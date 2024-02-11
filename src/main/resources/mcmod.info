@@ -1,0 +1,16 @@
+[
+{
+  "modid": "${modId}",
+  "name": "${modName}",
+  "description": "Adds lightsabers'n'stuff.",
+  "version": "${modVersion}",
+  "mcversion": "${minecraftVersion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["FiskFille"],
+  "credits": "Void Adept",
+  "logoFile": "al-banner.png",
+  "screenshots": [],
+  "dependencies": []
+}
+]
