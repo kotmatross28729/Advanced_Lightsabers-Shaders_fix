@@ -89,6 +89,7 @@ public class ModelLightsaberBlade extends ModelBase
 
                 if (!fineCut)
                 {
+                    Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
                     blade.render(0.0625F);
                     GL11.glTranslatef(0, -(0.5F + bladeLength) / 16, 1F / 32);
                     ALRenderHelper.drawTip(0.03125F, 0.125F);
@@ -149,10 +150,12 @@ public class ModelLightsaberBlade extends ModelBase
             tessellator.addVertex(f / 2, 0 - f * bladeLength, f / 2);
             tessellator.draw();
 
+            Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
             blade.render(0.0625F);
         }
         else
         {
+            Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
             blade.render(0.0625F);
             GL11.glTranslatef(0, -0.0625F * (0.5F + bladeLength), 0.0625F / 2);
             ALRenderHelper.drawTip(0.03125F, 0.125F);
@@ -221,6 +224,7 @@ public class ModelLightsaberBlade extends ModelBase
                 GL11.glTranslatef(0, 0, 0.005F + f4 * 0.00001F);
             }
 
+            Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
             blade.render(0.0625F);
             GL11.glPopMatrix();
         }
@@ -292,6 +296,7 @@ public class ModelLightsaberBlade extends ModelBase
                 GL11.glTranslatef(0, 0, 0.005F + f4 * 0.00001F);
             }
 
+            Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
             blade.render(0.0625F);
             GL11.glPopMatrix();
         }

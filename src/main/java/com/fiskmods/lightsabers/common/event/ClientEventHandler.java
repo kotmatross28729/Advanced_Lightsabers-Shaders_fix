@@ -1,7 +1,12 @@
 package com.fiskmods.lightsabers.common.event;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 
+import io.netty.buffer.ByteBuf;
+import net.minecraft.entity.player.EntityPlayerMP;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
@@ -60,6 +65,7 @@ public class ClientEventHandler
 
     private Map<String, ItemStack> prevLightsaber1 = Maps.newHashMap();
     private Map<String, Boolean> hasPlayedSound = Maps.newHashMap();
+    private boolean islightsaber = false;
 
     @SubscribeEvent
     public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event)
@@ -118,15 +124,15 @@ public class ClientEventHandler
                 InventoryPlayer inventory = player.inventory;
                 ItemStack lightsaber = null;
 
-                for (int i = 0; i < inventory.mainInventory.length; ++i)
-                {
-                    if (inventory.mainInventory[i] != null && inventory.mainInventory[i].getItem() == ModItems.lightsaber)
-                    {
-                        lightsaber = inventory.mainInventory[i];
-                        break;
-                    }
-                }
-
+    for (int i = 0; i < inventory.mainInventory.length; ++i) {
+        if (inventory.mainInventory[i] != null && inventory.mainInventory[i].getItem() == ModItems.lightsaber) {
+            lightsaber = inventory.mainInventory[i];
+            islightsaber = true;
+            break;
+        } else {
+            islightsaber = false;
+        }
+    }
                 ALData.LIGHTSABER.set(player, LightsaberData.get(lightsaber));
 
                 Power power = PowerManager.getSelectedPower(player);
@@ -186,13 +192,13 @@ public class ClientEventHandler
     }
 
     @SubscribeEvent
-    public void onRenderPlayerSpecialsPre(RenderPlayerEvent.Specials.Pre event)
-    {
+    public void onRenderPlayerSpecialsPre(RenderPlayerEvent.Specials.Pre event) {
         EntityPlayer player = event.entityPlayer;
         LightsaberData data = ALData.LIGHTSABER.get(player);
+/*
 
-        if (data != null && data != LightsaberData.EMPTY && (player.getHeldItem() == null || player.getHeldItem().getItem() != ModItems.lightsaber))
-        {
+      // So far, it’s causing only problems, I don’t know if I’ll return to this, but it’s unlikely
+        if (islightsaber && data != null && data != LightsaberData.EMPTY && player.getHeldItem() == null || islightsaber &&  data != null && data != LightsaberData.EMPTY && player.getHeldItem().getItem() != ModItems.lightsaber) {
             GL11.glPushMatrix();
             event.renderer.modelBipedMain.bipedBody.postRender(0.0625F);
             GL11.glRotatef(180, 1, 0, 0);
@@ -205,7 +211,8 @@ public class ClientEventHandler
             GL11.glTranslatef(0, -(data.getPart(PartType.BODY).height + data.getPart(PartType.POMMEL).height / 2) * 0.0625F, 0);
             ALRenderHelper.renderLightsaberHilt(data);
             GL11.glPopMatrix();
-        }
+    }
+*/
 
         for (StatusEffect status : StatusEffect.get(player))
         {

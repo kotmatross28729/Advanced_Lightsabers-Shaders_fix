@@ -2,6 +2,7 @@ package com.fiskmods.lightsabers.client.render.tile;
 
 import java.util.Random;
 
+import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
 
 import com.fiskmods.lightsabers.client.model.tile.ModelCrystal;
@@ -10,6 +11,8 @@ import com.fiskmods.lightsabers.helper.ALRenderHelper;
 
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
+
+import static com.fiskmods.lightsabers.client.render.entity.RenderLightsaber.shaders_fix;
 
 public class RenderCrystal extends TileEntitySpecialRenderer
 {
@@ -21,7 +24,7 @@ public class RenderCrystal extends TileEntitySpecialRenderer
         GL11.glPushMatrix();
         GL11.glTranslatef((float) x + 0.5F, (float) y + 1.5F, (float) z + 0.5F);
         GL11.glScalef(1, -1, -1);
-        
+
         if (tile.getWorldObj() != null)
         {
             adjustRotation(tile, tile.getBlockMetadata());
@@ -30,13 +33,14 @@ public class RenderCrystal extends TileEntitySpecialRenderer
         {
             alpha *= ALRenderHelper.getAlpha();
         }
-        
+
         float[] rgb = tile.getColor().getRGB();
         GL11.glColor4f(rgb[0], rgb[1], rgb[2], alpha);
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         ALRenderHelper.setLighting(ALRenderHelper.LIGHTING_LUMINOUS);
+        Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
         model.render();
         ALRenderHelper.resetLighting();
         GL11.glEnable(GL11.GL_TEXTURE_2D);
