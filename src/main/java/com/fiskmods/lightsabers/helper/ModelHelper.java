@@ -2,6 +2,8 @@ package com.fiskmods.lightsabers.helper;
 
 import java.util.Map;
 
+import com.fiskmods.lightsabers.common.config.ItemsRegistry;
+import com.fiskmods.lightsabers.common.config.ModConfig;
 import org.lwjgl.opengl.GL11;
 
 import com.fiskmods.lightsabers.Lightsabers;
@@ -29,22 +31,53 @@ public class ModelHelper
 {
     public static final Map<Class<? extends ModelBiped>, Float> ARMS = Maps.newHashMap();
 
-    public static void renderBipedPre(ModelBiped model, Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-    {
-        if (!ARMS.containsKey(model.getClass()))
-        {
-            ARMS.put(model.getClass(), model.bipedRightArm.rotationPointY);
+    public static boolean isAnimationsDenyed(Entity entity) {
+        if (ModConfig.fullDenyAnimations) {
+            return true;
         }
 
-        model.bipedRightArm.rotationPointY = ARMS.get(model.getClass());
-        model.bipedLeftArm.rotationPointY = ARMS.get(model.getClass());
-
-        if (Lightsabers.isBattlegearLoaded)
-        {
-            BattlegearRenderHelper.moveOffHandArm(entity, model, f5);
+        if(ModConfig.denyAnimations) {
+            if (entity instanceof EntityPlayer player) {
+                if(player.inventory != null) {
+                    ItemStack plate = player.inventory.armorInventory[2];
+                    if (plate != null) {
+                        for (ItemsRegistry.ItemWM itemWM : ItemsRegistry.excludedItems) {
+                            if (plate.getItem() == itemWM.item) {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            } else if (entity instanceof EntityLivingBase entity2) {
+                    ItemStack plate = entity2.getEquipmentInSlot(3);
+                    if (plate != null) {
+                        for (ItemsRegistry.ItemWM itemWM : ItemsRegistry.excludedItems) {
+                            if (plate.getItem() == itemWM.item) {
+                                return true;
+                            }
+                        }
+                    }
+                }
         }
+        return false;
+    }
+    public static void renderBipedPre(ModelBiped model, Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
 
-        setRotationAngles(model, f, f1, f2, f3, f4, f5, entity);
+        if (!isAnimationsDenyed(entity)) {
+
+            if (!ARMS.containsKey(model.getClass())) {
+                ARMS.put(model.getClass(), model.bipedRightArm.rotationPointY);
+            }
+
+            model.bipedRightArm.rotationPointY = ARMS.get(model.getClass());
+            model.bipedLeftArm.rotationPointY = ARMS.get(model.getClass());
+
+            if (Lightsabers.isBattlegearLoaded) {
+                BattlegearRenderHelper.moveOffHandArm(entity, model, f5);
+            }
+
+            setRotationAngles(model, f, f1, f2, f3, f4, f5, entity);
+        }
     }
 
     public static void renderBipedPost(ModelBiped model, Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
@@ -53,179 +86,167 @@ public class ModelHelper
 
     public static void setRotationAngles(ModelBiped model, float f, float f1, float f2, float f3, float f4, float f5, Entity entity1)
     {
-        if (entity1 instanceof EntityLivingBase entity)
-        {
+        if (entity1 instanceof EntityLivingBase entity) {
             ItemStack heldItem = entity.getHeldItem();
 
-            if (heldItem != null && heldItem.getItem() instanceof ItemLightsaberBase && !entity.isSneaking())
-            {
-                float f6 = model.onGround;
-                float f7 = (f6 > 0.5F ? 1 - f6 : f6) * 2;
+        if (!isAnimationsDenyed(entity)) {
 
-                if (heldItem.getItem() == ModItems.doubleLightsaber)
-                {
-                    if (model.heldItemRight != 0)
-                    {
-                        float f8 = 1 - f1;
-                        model.bipedRightArm.rotateAngleX = model.bipedRightArm.rotateAngleX * f1 - (((float) Math.PI / 2.5F) * model.heldItemRight) * f8;
-                        model.bipedRightArm.rotateAngleY = model.bipedRightArm.rotateAngleY * f1 + (model.bipedRightArm.rotateAngleY * 0.5F - ((float) Math.PI / 15F) * model.heldItemRight) * f8;
-                    }
+                if (heldItem != null && heldItem.getItem() instanceof ItemLightsaberBase && !entity.isSneaking()) {
+                    float f6 = model.onGround;
+                    float f7 = (f6 > 0.5F ? 1 - f6 : f6) * 2;
 
-                    model.bipedRightArm.rotateAngleX -= f7;
-                    model.bipedRightArm.rotateAngleY += f7;
-                }
-                else if (heldItem.getItem() == ModItems.lightsaber)
-                {
-                    if (model.heldItemRight != 0 && !isDualWielding(entity))
-                    {
-                        float f8 = 1 - f1;
-                        model.bipedRightArm.rotateAngleX = model.bipedRightArm.rotateAngleX * f1 - (1 * (float) model.heldItemRight) * f8;
-                        model.bipedRightArm.rotateAngleY = model.bipedRightArm.rotateAngleY * f1 + (model.bipedRightArm.rotateAngleY * 0.5F - 0.5F * model.heldItemRight) * f8;
-                        model.bipedRightArm.rotateAngleZ = model.bipedRightArm.rotateAngleZ * f1 + (model.bipedRightArm.rotateAngleZ * 0.5F - 0.2F * model.heldItemRight) * f8;
-                        model.bipedRightArm.rotationPointX += 0.5F * f8;
+                    if (heldItem.getItem() == ModItems.doubleLightsaber) {
+                        if (model.heldItemRight != 0) {
+                            float f8 = 1 - f1;
+                            model.bipedRightArm.rotateAngleX = model.bipedRightArm.rotateAngleX * f1 - (((float) Math.PI / 2.5F) * model.heldItemRight) * f8;
+                            model.bipedRightArm.rotateAngleY = model.bipedRightArm.rotateAngleY * f1 + (model.bipedRightArm.rotateAngleY * 0.5F - ((float) Math.PI / 15F) * model.heldItemRight) * f8;
+                        }
 
-                        float f9 = f1 > 0.5F ? 1 : f1 * 2;
-                        float f10 = 1 - f9;
-                        model.bipedLeftArm.rotateAngleX = model.bipedLeftArm.rotateAngleX * f9 - (1 * (float) model.heldItemRight) * f10;
-                        model.bipedLeftArm.rotateAngleY = model.bipedLeftArm.rotateAngleY * f9 + (model.bipedLeftArm.rotateAngleY * 0.5F + 0.75F * model.heldItemRight) * f10;
-                        model.bipedLeftArm.rotateAngleZ = model.bipedLeftArm.rotateAngleZ * f9 + (model.bipedLeftArm.rotateAngleZ * 0.5F + 0.0F * model.heldItemRight) * f10;
-                        model.bipedLeftArm.rotationPointX -= 0.5F * f8;
-                    }
-
-                    if (!isDualWielding(entity))
-                    {
                         model.bipedRightArm.rotateAngleX -= f7;
-                        model.bipedRightArm.rotateAngleY -= f7 * 0.4F;
-                        model.bipedLeftArm.rotateAngleX -= f7 * 1.6F;
-                        model.bipedLeftArm.rotateAngleY -= f7 * 0.9F;
+                        model.bipedRightArm.rotateAngleY += f7;
+                    } else if (heldItem.getItem() == ModItems.lightsaber) {
+                        if (model.heldItemRight != 0 && !isDualWielding(entity)) {
+                            float f8 = 1 - f1;
+                            model.bipedRightArm.rotateAngleX = model.bipedRightArm.rotateAngleX * f1 - (1 * (float) model.heldItemRight) * f8;
+                            model.bipedRightArm.rotateAngleY = model.bipedRightArm.rotateAngleY * f1 + (model.bipedRightArm.rotateAngleY * 0.5F - 0.5F * model.heldItemRight) * f8;
+                            model.bipedRightArm.rotateAngleZ = model.bipedRightArm.rotateAngleZ * f1 + (model.bipedRightArm.rotateAngleZ * 0.5F - 0.2F * model.heldItemRight) * f8;
+                            model.bipedRightArm.rotationPointX += 0.5F * f8;
+
+                            float f9 = f1 > 0.5F ? 1 : f1 * 2;
+                            float f10 = 1 - f9;
+                            model.bipedLeftArm.rotateAngleX = model.bipedLeftArm.rotateAngleX * f9 - (1 * (float) model.heldItemRight) * f10;
+                            model.bipedLeftArm.rotateAngleY = model.bipedLeftArm.rotateAngleY * f9 + (model.bipedLeftArm.rotateAngleY * 0.5F + 0.75F * model.heldItemRight) * f10;
+                            model.bipedLeftArm.rotateAngleZ = model.bipedLeftArm.rotateAngleZ * f9 + (model.bipedLeftArm.rotateAngleZ * 0.5F + 0.0F * model.heldItemRight) * f10;
+                            model.bipedLeftArm.rotationPointX -= 0.5F * f8;
+                        }
+
+                        if (!isDualWielding(entity)) {
+                            model.bipedRightArm.rotateAngleX -= f7;
+                            model.bipedRightArm.rotateAngleY -= f7 * 0.4F;
+                            model.bipedLeftArm.rotateAngleX -= f7 * 1.6F;
+                            model.bipedLeftArm.rotateAngleY -= f7 * 0.9F;
+                        }
                     }
                 }
-            }
 
-            float push = MathHelper.clamp_float(MathHelper.sin(ALData.FORCE_PUSHING_TIMER.interpolate(entity) * 3) * 1.5F, 0, 1);
-            float drain = MathHelper.clamp_float(MathHelper.sin(ALData.DRAIN_LIFE_TIMER.interpolate(entity) * 3) * 4F, 0, 1);
-            float right = ALData.RIGHT_ARM_TIMER.interpolate(entity);
-            float left = ALData.LEFT_ARM_TIMER.interpolate(entity);
+                float push = MathHelper.clamp_float(MathHelper.sin(ALData.FORCE_PUSHING_TIMER.interpolate(entity) * 3) * 1.5F, 0, 1);
+                float drain = MathHelper.clamp_float(MathHelper.sin(ALData.DRAIN_LIFE_TIMER.interpolate(entity) * 3) * 4F, 0, 1);
+                float right = ALData.RIGHT_ARM_TIMER.interpolate(entity);
+                float left = ALData.LEFT_ARM_TIMER.interpolate(entity);
 
-            // TODO: Use one of the interpolate methods instead
-            model.bipedRightArm.rotateAngleX = model.bipedRightArm.rotateAngleX * (1 - push) + (f4 / (180F / (float) Math.PI) - (float) Math.PI / 2) * push;
-            model.bipedRightArm.rotateAngleY = model.bipedRightArm.rotateAngleY * (1 - push) + (f3 / (180F / (float) Math.PI)) * push;
-            model.bipedRightArm.rotateAngleZ = model.bipedRightArm.rotateAngleZ * (1 - push) + 0 * push;
+                // TODO: Use one of the interpolate methods instead
+                model.bipedRightArm.rotateAngleX = model.bipedRightArm.rotateAngleX * (1 - push) + (f4 / (180F / (float) Math.PI) - (float) Math.PI / 2) * push;
+                model.bipedRightArm.rotateAngleY = model.bipedRightArm.rotateAngleY * (1 - push) + (f3 / (180F / (float) Math.PI)) * push;
+                model.bipedRightArm.rotateAngleZ = model.bipedRightArm.rotateAngleZ * (1 - push) + 0 * push;
 
-            model.bipedRightArm.rotateAngleX = model.bipedRightArm.rotateAngleX * (1 - drain) + (f4 / (180F / (float) Math.PI) - (float) Math.PI / 2) * drain;
-            model.bipedRightArm.rotateAngleY = model.bipedRightArm.rotateAngleY * (1 - drain) + (f3 / (180F / (float) Math.PI)) * drain;
-            model.bipedRightArm.rotateAngleZ = model.bipedRightArm.rotateAngleZ * (1 - drain) + 0 * drain;
+                model.bipedRightArm.rotateAngleX = model.bipedRightArm.rotateAngleX * (1 - drain) + (f4 / (180F / (float) Math.PI) - (float) Math.PI / 2) * drain;
+                model.bipedRightArm.rotateAngleY = model.bipedRightArm.rotateAngleY * (1 - drain) + (f3 / (180F / (float) Math.PI)) * drain;
+                model.bipedRightArm.rotateAngleZ = model.bipedRightArm.rotateAngleZ * (1 - drain) + 0 * drain;
 
-            model.bipedRightArm.rotateAngleX = model.bipedRightArm.rotateAngleX * (1 - right) + (f4 / (180F / (float) Math.PI) - (float) Math.PI / 2) * right;
-            model.bipedRightArm.rotateAngleY = model.bipedRightArm.rotateAngleY * (1 - right) + (f3 / (180F / (float) Math.PI)) * right;
-            model.bipedRightArm.rotateAngleZ = model.bipedRightArm.rotateAngleZ * (1 - right) + 0 * right;
-            model.bipedLeftArm.rotateAngleX = model.bipedLeftArm.rotateAngleX * (1 - left) + (f4 / (180F / (float) Math.PI) - (float) Math.PI / 2) * left;
-            model.bipedLeftArm.rotateAngleY = model.bipedLeftArm.rotateAngleY * (1 - left) + (f3 / (180F / (float) Math.PI)) * left;
-            model.bipedLeftArm.rotateAngleZ = model.bipedLeftArm.rotateAngleZ * (1 - left) + 0 * left;
+                model.bipedRightArm.rotateAngleX = model.bipedRightArm.rotateAngleX * (1 - right) + (f4 / (180F / (float) Math.PI) - (float) Math.PI / 2) * right;
+                model.bipedRightArm.rotateAngleY = model.bipedRightArm.rotateAngleY * (1 - right) + (f3 / (180F / (float) Math.PI)) * right;
+                model.bipedRightArm.rotateAngleZ = model.bipedRightArm.rotateAngleZ * (1 - right) + 0 * right;
+                model.bipedLeftArm.rotateAngleX = model.bipedLeftArm.rotateAngleX * (1 - left) + (f4 / (180F / (float) Math.PI) - (float) Math.PI / 2) * left;
+                model.bipedLeftArm.rotateAngleY = model.bipedLeftArm.rotateAngleY * (1 - left) + (f3 / (180F / (float) Math.PI)) * left;
+                model.bipedLeftArm.rotateAngleZ = model.bipedLeftArm.rotateAngleZ * (1 - left) + 0 * left;
 
-            StatusEffect effectChoke = StatusEffect.get(entity, Effect.CHOKE);
+                StatusEffect effectChoke = StatusEffect.get(entity, Effect.CHOKE);
 
-            if (effectChoke != null)
-            {
-                int durationMax = 60;
-                float duration = effectChoke.duration - ClientEventHandler.renderTick;
-                float fade = 3;
+                if (effectChoke != null) {
+                    int durationMax = 60;
+                    float duration = effectChoke.duration - ClientEventHandler.renderTick;
+                    float fade = 3;
 
-                float f6 = duration > fade ? (duration < durationMax - fade ? 1 : Math.min(durationMax - duration, fade) / fade) : Math.min(duration, fade) / fade;
-                float f7 = 1 - f6;
-                float f8 = entity1.ticksExisted + ClientEventHandler.renderTick;
+                    float f6 = duration > fade ? (duration < durationMax - fade ? 1 : Math.min(durationMax - duration, fade) / fade) : Math.min(duration, fade) / fade;
+                    float f7 = 1 - f6;
+                    float f8 = entity1.ticksExisted + ClientEventHandler.renderTick;
 
-                if (effectChoke.amplifier > 0)
-                {
-                    model.bipedHead.rotationPointX *= f7;
-                    model.bipedHead.rotationPointY *= f7;
-                    model.bipedHead.rotationPointZ *= f7;
-                    model.bipedHeadwear.rotationPointX *= f7;
-                    model.bipedHeadwear.rotationPointY *= f7;
-                    model.bipedHeadwear.rotationPointZ *= f7;
-                    model.bipedBody.rotationPointX *= f7;
-                    model.bipedBody.rotationPointY *= f7;
-                    model.bipedBody.rotationPointZ *= f7;
-                    model.bipedBody.rotateAngleX *= f7;
-                    model.bipedBody.rotateAngleY *= f7;
-                    model.bipedBody.rotateAngleZ *= f7;
-                    model.bipedRightLeg.rotationPointY *= f7;
-                    model.bipedRightLeg.rotationPointZ *= f7;
-                    model.bipedRightLeg.rotateAngleX *= f7;
-                    model.bipedRightLeg.rotateAngleY *= f7;
-                    model.bipedRightLeg.rotateAngleZ *= f7;
-                    model.bipedLeftLeg.rotationPointY *= f7;
-                    model.bipedLeftLeg.rotationPointZ *= f7;
-                    model.bipedLeftLeg.rotateAngleX *= f7;
-                    model.bipedLeftLeg.rotateAngleY *= f7;
-                    model.bipedLeftLeg.rotateAngleZ *= f7;
-                    model.bipedRightArm.rotationPointX *= f7;
-                    model.bipedRightArm.rotationPointY *= f7;
-                    model.bipedRightArm.rotationPointZ *= f7;
-                    model.bipedRightArm.rotateAngleX *= f7;
-                    model.bipedRightArm.rotateAngleY *= f7;
-                    model.bipedRightArm.rotateAngleZ *= f7;
-                }
+                    if (effectChoke.amplifier > 0) {
+                        model.bipedHead.rotationPointX *= f7;
+                        model.bipedHead.rotationPointY *= f7;
+                        model.bipedHead.rotationPointZ *= f7;
+                        model.bipedHeadwear.rotationPointX *= f7;
+                        model.bipedHeadwear.rotationPointY *= f7;
+                        model.bipedHeadwear.rotationPointZ *= f7;
+                        model.bipedBody.rotationPointX *= f7;
+                        model.bipedBody.rotationPointY *= f7;
+                        model.bipedBody.rotationPointZ *= f7;
+                        model.bipedBody.rotateAngleX *= f7;
+                        model.bipedBody.rotateAngleY *= f7;
+                        model.bipedBody.rotateAngleZ *= f7;
+                        model.bipedRightLeg.rotationPointY *= f7;
+                        model.bipedRightLeg.rotationPointZ *= f7;
+                        model.bipedRightLeg.rotateAngleX *= f7;
+                        model.bipedRightLeg.rotateAngleY *= f7;
+                        model.bipedRightLeg.rotateAngleZ *= f7;
+                        model.bipedLeftLeg.rotationPointY *= f7;
+                        model.bipedLeftLeg.rotationPointZ *= f7;
+                        model.bipedLeftLeg.rotateAngleX *= f7;
+                        model.bipedLeftLeg.rotateAngleY *= f7;
+                        model.bipedLeftLeg.rotateAngleZ *= f7;
+                        model.bipedRightArm.rotationPointX *= f7;
+                        model.bipedRightArm.rotationPointY *= f7;
+                        model.bipedRightArm.rotationPointZ *= f7;
+                        model.bipedRightArm.rotateAngleX *= f7;
+                        model.bipedRightArm.rotateAngleY *= f7;
+                        model.bipedRightArm.rotateAngleZ *= f7;
+                    }
 
-                model.bipedLeftArm.rotationPointX *= f7;
-                model.bipedLeftArm.rotationPointY *= f7;
-                model.bipedLeftArm.rotationPointZ *= f7;
-                model.bipedLeftArm.rotateAngleX *= f7;
-                model.bipedLeftArm.rotateAngleY *= f7;
-                model.bipedLeftArm.rotateAngleZ *= f7;
+                    model.bipedLeftArm.rotationPointX *= f7;
+                    model.bipedLeftArm.rotationPointY *= f7;
+                    model.bipedLeftArm.rotationPointZ *= f7;
+                    model.bipedLeftArm.rotateAngleX *= f7;
+                    model.bipedLeftArm.rotateAngleY *= f7;
+                    model.bipedLeftArm.rotateAngleZ *= f7;
 
-                if (effectChoke.amplifier == 0)
-                {
-                    model.bipedLeftArm.rotateAngleX -= 1.2F * f6;
-                    model.bipedLeftArm.rotateAngleY += 1.3F * f6;
-                    model.bipedLeftArm.rotationPointX += 5 * f6;
-                    model.bipedLeftArm.rotationPointY += 2 * f6;
-                }
-                else if (effectChoke.amplifier == 1)
-                {
-                    model.bipedHead.rotateAngleX -= 0.5F * f6;
-                    model.bipedHeadwear.rotateAngleX -= 0.5F * f6;
+                    if (effectChoke.amplifier == 0) {
+                        model.bipedLeftArm.rotateAngleX -= 1.2F * f6;
+                        model.bipedLeftArm.rotateAngleY += 1.3F * f6;
+                        model.bipedLeftArm.rotationPointX += 5 * f6;
+                        model.bipedLeftArm.rotationPointY += 2 * f6;
+                    } else if (effectChoke.amplifier == 1) {
+                        model.bipedHead.rotateAngleX -= 0.5F * f6;
+                        model.bipedHeadwear.rotateAngleX -= 0.5F * f6;
 
-                    model.bipedRightArm.rotateAngleX -= 2.1F * f6;
-                    model.bipedRightArm.rotateAngleY -= 1.3F * f6;
-                    model.bipedRightArm.rotationPointX -= 6 * f6;
-                    model.bipedRightArm.rotationPointY += 3.5F * f6;
-                    model.bipedRightArm.rotationPointZ += 1 * f6;
+                        model.bipedRightArm.rotateAngleX -= 2.1F * f6;
+                        model.bipedRightArm.rotateAngleY -= 1.3F * f6;
+                        model.bipedRightArm.rotationPointX -= 6 * f6;
+                        model.bipedRightArm.rotationPointY += 3.5F * f6;
+                        model.bipedRightArm.rotationPointZ += 1 * f6;
 
-                    model.bipedLeftArm.rotateAngleX -= 2.1F * f6;
-                    model.bipedLeftArm.rotateAngleY += 1.3F * f6;
-                    model.bipedLeftArm.rotationPointX += 6 * f6;
-                    model.bipedLeftArm.rotationPointY += 3.5F * f6;
-                    model.bipedLeftArm.rotationPointZ += 1 * f6;
+                        model.bipedLeftArm.rotateAngleX -= 2.1F * f6;
+                        model.bipedLeftArm.rotateAngleY += 1.3F * f6;
+                        model.bipedLeftArm.rotationPointX += 6 * f6;
+                        model.bipedLeftArm.rotationPointY += 3.5F * f6;
+                        model.bipedLeftArm.rotationPointZ += 1 * f6;
 
-                    model.bipedRightLeg.rotationPointY += 12 * f6;
-                    model.bipedRightLeg.rotateAngleX = MathHelper.cos(f8 * 0.6662F) * 1.1F * f6;
-                    model.bipedLeftLeg.rotationPointY += 12 * f6;
-                    model.bipedLeftLeg.rotateAngleX = MathHelper.cos(f8 * 0.6662F + (float) Math.PI) * 1.1F * f6;
-                }
-                else if (effectChoke.amplifier == 2)
-                {
-                    model.bipedHead.rotateAngleX = -0.8F * f6;
-                    model.bipedHeadwear.rotateAngleX = -0.8F * f6;
-                    model.bipedHead.rotateAngleY = MathHelper.cos(f8 * 3) * 0.2F * f6;
-                    model.bipedHeadwear.rotateAngleY = MathHelper.cos(f8 * 3) * 0.2F * f6;
+                        model.bipedRightLeg.rotationPointY += 12 * f6;
+                        model.bipedRightLeg.rotateAngleX = MathHelper.cos(f8 * 0.6662F) * 1.1F * f6;
+                        model.bipedLeftLeg.rotationPointY += 12 * f6;
+                        model.bipedLeftLeg.rotateAngleX = MathHelper.cos(f8 * 0.6662F + (float) Math.PI) * 1.1F * f6;
+                    } else if (effectChoke.amplifier == 2) {
+                        model.bipedHead.rotateAngleX = -0.8F * f6;
+                        model.bipedHeadwear.rotateAngleX = -0.8F * f6;
+                        model.bipedHead.rotateAngleY = MathHelper.cos(f8 * 3) * 0.2F * f6;
+                        model.bipedHeadwear.rotateAngleY = MathHelper.cos(f8 * 3) * 0.2F * f6;
 
-                    model.bipedRightArm.rotateAngleX -= 3.5F * f6;
-                    model.bipedRightArm.rotateAngleY -= 0.1F * f6;
-                    model.bipedRightArm.rotateAngleZ += 0.3F * f6;
-                    model.bipedRightArm.rotationPointX -= 5.25F * f6;
-                    model.bipedRightArm.rotationPointY += 3F * f6;
+                        model.bipedRightArm.rotateAngleX -= 3.5F * f6;
+                        model.bipedRightArm.rotateAngleY -= 0.1F * f6;
+                        model.bipedRightArm.rotateAngleZ += 0.3F * f6;
+                        model.bipedRightArm.rotationPointX -= 5.25F * f6;
+                        model.bipedRightArm.rotationPointY += 3F * f6;
 
-                    model.bipedLeftArm.rotateAngleX -= 3.5F * f6;
-                    model.bipedLeftArm.rotateAngleY += 0.1F * f6;
-                    model.bipedLeftArm.rotateAngleZ -= 0.3F * f6;
-                    model.bipedLeftArm.rotationPointX += 5.25F * f6;
-                    model.bipedLeftArm.rotationPointY += 3F * f6;
+                        model.bipedLeftArm.rotateAngleX -= 3.5F * f6;
+                        model.bipedLeftArm.rotateAngleY += 0.1F * f6;
+                        model.bipedLeftArm.rotateAngleZ -= 0.3F * f6;
+                        model.bipedLeftArm.rotationPointX += 5.25F * f6;
+                        model.bipedLeftArm.rotationPointY += 3F * f6;
 
-                    model.bipedRightLeg.rotationPointY += 12 * f6;
-                    model.bipedRightLeg.rotateAngleX = MathHelper.cos(f8 * 0.8662F) * 1.1F * f6;
-                    model.bipedLeftLeg.rotationPointY += 12 * f6;
-                    model.bipedLeftLeg.rotateAngleX = MathHelper.cos(f8 * 0.8662F + (float) Math.PI) * 1.1F * f6;
+                        model.bipedRightLeg.rotationPointY += 12 * f6;
+                        model.bipedRightLeg.rotateAngleX = MathHelper.cos(f8 * 0.8662F) * 1.1F * f6;
+                        model.bipedLeftLeg.rotationPointY += 12 * f6;
+                        model.bipedLeftLeg.rotateAngleX = MathHelper.cos(f8 * 0.8662F + (float) Math.PI) * 1.1F * f6;
+                    }
                 }
             }
         }
@@ -233,7 +254,7 @@ public class ModelHelper
 
     public static void applyLightsaberItemRotation(EntityLivingBase entity, ItemStack heldItem)
     {
-        if (heldItem.getItem() instanceof ItemLightsaberBase)
+        if (heldItem.getItem() instanceof ItemLightsaberBase && !isAnimationsDenyed(entity))
         {
             float f = entity.prevLimbSwingAmount - (entity.prevLimbSwingAmount - entity.limbSwingAmount) * ClientEventHandler.renderTick;
             float f1 = MathHelper.cos((entity.limbSwing - entity.limbSwingAmount * (1.0F - ClientEventHandler.renderTick)) * 0.6662F) * 1.4F * f;

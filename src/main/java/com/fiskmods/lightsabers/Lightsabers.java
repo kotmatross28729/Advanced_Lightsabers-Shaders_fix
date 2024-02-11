@@ -2,6 +2,7 @@ package com.fiskmods.lightsabers;
 
 import com.fiskmods.lightsabers.client.gui.GuiHandlerAL;
 import com.fiskmods.lightsabers.common.command.CommandForce;
+import com.fiskmods.lightsabers.common.config.ItemsRegistry;
 import com.fiskmods.lightsabers.common.config.ModConfig;
 import com.fiskmods.lightsabers.common.generator.WorldGeneratorStructures;
 import com.fiskmods.lightsabers.common.item.ModItems;
@@ -24,6 +25,8 @@ import fiskfille.utils.FiskUtils.Hook;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.config.Configuration;
+
+import static com.fiskmods.lightsabers.common.config.ModConfig.denyAnimationslist;
 
 @Mod(modid = Lightsabers.MODID, name = Lightsabers.NAME, version = Lightsabers.VERSION, dependencies = "required-after:Forge@[10.13.4.1558,);after:" + ALConstants.BATTLEGEAR + ";after:" + ALConstants.DYNAMIC_LIGHTS, guiFactory = "com.fiskmods.lightsabers.client.gui.GuiFactoryAL")
 public class Lightsabers
@@ -54,7 +57,7 @@ public class Lightsabers
     public void preInit(FMLPreInitializationEvent event)
     {
         FiskUtils.hook(Hook.PREINIT);
-        
+
         isBattlegearLoaded = Loader.isModLoaded(ALConstants.BATTLEGEAR);
         isDynamicLightsLoaded = Loader.isModLoaded(ALConstants.DYNAMIC_LIGHTS);
 
@@ -66,7 +69,23 @@ public class Lightsabers
         {
             config.save();
         }
-        
+
+        for (String itemName : denyAnimationslist) {
+            String modId;
+            String itemNameOnly;
+
+            String[] parts = itemName.split(":");
+            if (parts.length >= 2) {
+                modId = parts[0];
+                itemNameOnly = parts[1];
+
+                Item item = GameRegistry.findItem(modId, itemNameOnly);
+                if (item != null) {
+                    ItemsRegistry.ItemWM excludedItem = new ItemsRegistry.ItemWM(item);
+                    ItemsRegistry.excludedItems.add(excludedItem);
+                }
+            }
+        }
         proxy.preInit();
     }
 
@@ -76,7 +95,7 @@ public class Lightsabers
         FiskUtils.hook(Hook.INIT);
         proxy.init();
     }
-    
+
     @EventHandler
     public void postInit(FMLPostInitializationEvent event)
     {
