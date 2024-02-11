@@ -16,6 +16,8 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.item.ItemStack;
 
+import static com.fiskmods.lightsabers.client.render.entity.RenderLightsaber.shaders_fix;
+
 public class ModelLightsaberBlade extends ModelBase
 {
     public ModelRenderer blade;
@@ -33,7 +35,7 @@ public class ModelLightsaberBlade extends ModelBase
     public void renderInner(LightsaberData data, ItemStack stack, float[] rgb, boolean inWorld, boolean isCrossguard)
     {
         boolean fineCut = data.hasFocusingCrystal(FocusingCrystal.FINE_CUT);
-        
+
         if (isCrossguard && fineCut)
         {
             GL11.glScalef(1, 1.2F, 1);
@@ -108,6 +110,7 @@ public class ModelLightsaberBlade extends ModelBase
             float tip = f * 1.5F;
 
             tessellator.startDrawingQuads();
+            Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
             tessellator.addVertex(-f / 2, -length, f / 2);
             tessellator.addVertex(0, -length, edge);
             tessellator.addVertex(0, edgeAngle, edge);
@@ -174,7 +177,7 @@ public class ModelLightsaberBlade extends ModelBase
             smooth = 7;
             f3 = 0.07F;
         }
-        
+
         if (data.hasFocusingCrystal(FocusingCrystal.INVERTING) && data.hasFocusingCrystal(FocusingCrystal.PRISMATIC))
         {
             rgb = new float[3];
@@ -221,7 +224,7 @@ public class ModelLightsaberBlade extends ModelBase
             blade.render(0.0625F);
             GL11.glPopMatrix();
         }
-        
+
 //        if (data.hasFocusingCrystal(FocusingCrystal.CHARGED))
 //        {
 //            renderLightning(data, itemstack, rgb, inWorld, true);
@@ -239,7 +242,7 @@ public class ModelLightsaberBlade extends ModelBase
         float f1 = 1;
         float f2 = 1;
         float f3 = 0.1F;
-        
+
         if (data.hasFocusingCrystal(FocusingCrystal.INVERTING) && data.hasFocusingCrystal(FocusingCrystal.PRISMATIC))
         {
             rgb = new float[3];
@@ -292,7 +295,7 @@ public class ModelLightsaberBlade extends ModelBase
             blade.render(0.0625F);
             GL11.glPopMatrix();
         }
-        
+
 //        if (data.hasFocusingCrystal(FocusingCrystal.CHARGED))
 //        {
 //            renderLightning(data, itemstack, rgb, inWorld, true);
@@ -300,7 +303,7 @@ public class ModelLightsaberBlade extends ModelBase
 
         GL11.glColor4f(1, 1, 1, 1);
     }
-    
+
 //    private void renderLightning(LightsaberData data, ItemStack itemstack, float[] rgb, boolean inWorld, boolean isCrossguard)
 //    {
 //        float divider = 60;

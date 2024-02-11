@@ -44,6 +44,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
 import net.minecraftforge.common.util.Constants.NBT;
 
+import static com.fiskmods.lightsabers.client.render.entity.RenderLightsaber.shaders_fix;
+
 public class ALRenderHelper
 {
     private static final Minecraft mc = Minecraft.getMinecraft();
@@ -260,6 +262,7 @@ public class ALRenderHelper
                     }
 
                     mc.getTextureManager().bindTexture(TextureMap.locationItemsTexture);
+                    Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
                     TextureUtil.func_152777_a(false, false, 1.0F);
                     GL11.glPushMatrix();
                     GL11.glEnable(GL12.GL_RESCALE_NORMAL);
@@ -365,6 +368,7 @@ public class ALRenderHelper
 
         Tessellator tessellator = Tessellator.instance;
         tessellator.startDrawingQuads();
+        Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
         tessellator.addVertex(size, size, 0);
         tessellator.addVertex(-size, size, 0);
         tessellator.addVertex(-size + f1, -size - tip, -f1);
@@ -502,6 +506,7 @@ public class ALRenderHelper
         {
             GL11.glLineWidth(lineWidth);
             tessellator.startDrawing(3);
+            Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
             tessellator.setColorRGBA_F((float) color.xCoord, (float) color.yCoord, (float) color.zCoord, alpha);
             tessellator.addVertex(start.xCoord, start.yCoord, start.zCoord);
             tessellator.addVertex(end.xCoord, end.yCoord, end.zCoord);
@@ -512,6 +517,7 @@ public class ALRenderHelper
         {
             GL11.glLineWidth(innerLineWidth);
             tessellator.startDrawing(3);
+            Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
             tessellator.setColorRGBA_F(1.0F, 1.0F, 1.0F, MathHelper.clamp_float(alpha - 0.2F, 0.0F, 1.0F));
             tessellator.addVertex(start.xCoord, start.yCoord, start.zCoord);
             tessellator.addVertex(end.xCoord, end.yCoord, end.zCoord);

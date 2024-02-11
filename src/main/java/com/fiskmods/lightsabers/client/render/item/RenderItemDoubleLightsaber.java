@@ -1,5 +1,6 @@
 package com.fiskmods.lightsabers.client.render.item;
 
+import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
 
 import com.fiskmods.lightsabers.common.event.ClientEventHandler;
@@ -16,6 +17,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraftforge.client.IItemRenderer;
+
+import static com.fiskmods.lightsabers.client.render.entity.RenderLightsaber.shaders_fix;
 
 public class RenderItemDoubleLightsaber implements IItemRenderer
 {
@@ -103,6 +106,7 @@ public class RenderItemDoubleLightsaber implements IItemRenderer
             GL11.glDisable(GL11.GL_TEXTURE_2D);
             GL11.glColor4f(rgb[0], rgb[1], rgb[2], 1);
             tessellator.startDrawing(GL11.GL_TRIANGLES);
+            Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
             tessellator.addVertex(triangle / 2, triangle / 2, 0);
             tessellator.addVertex(triangle, 0, 0);
             tessellator.addVertex(0, 0, 0);
@@ -110,6 +114,7 @@ public class RenderItemDoubleLightsaber implements IItemRenderer
             rgb = array[1].getRGB(itemstack);
             GL11.glColor4f(rgb[0], rgb[1], rgb[2], 1);
             tessellator.startDrawing(GL11.GL_TRIANGLES);
+            Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
             tessellator.addVertex(0, triangle, 0);
             tessellator.addVertex(triangle / 2, triangle / 2, 0);
             tessellator.addVertex(0, 0, 0);
@@ -121,6 +126,7 @@ public class RenderItemDoubleLightsaber implements IItemRenderer
             if (array[0].hasFocusingCrystal(FocusingCrystal.INVERTING))
             {
                 tessellator.startDrawing(GL11.GL_TRIANGLES);
+                Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
                 tessellator.addVertex(triangle / 2, triangle / 2, 0);
                 tessellator.addVertex(triangle, 0, 0);
                 tessellator.addVertex(0, 0, 0);
@@ -130,6 +136,7 @@ public class RenderItemDoubleLightsaber implements IItemRenderer
             if (array[1].hasFocusingCrystal(FocusingCrystal.INVERTING))
             {
                 tessellator.startDrawing(GL11.GL_TRIANGLES);
+                Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
                 tessellator.addVertex(0, triangle, 0);
                 tessellator.addVertex(triangle / 2, triangle / 2, 0);
                 tessellator.addVertex(0, 0, 0);

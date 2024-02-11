@@ -51,6 +51,8 @@ import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.client.event.sound.PlaySoundEvent17;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 
+import static com.fiskmods.lightsabers.client.render.entity.RenderLightsaber.shaders_fix;
+
 public class ClientEventHandler
 {
     private Minecraft mc = Minecraft.getMinecraft();
@@ -91,7 +93,7 @@ public class ClientEventHandler
 //        }
 //
 //        prevLightsaber1.put(entity.getUniqueID().toString(), itemstack);
-//        
+//
 //        if (itemstack != null && itemstack.getItem() instanceof ItemLightsaberBase && ItemLightsaberBase.isActive(itemstack))
 //        {
 //            if (!ASMHooksClient.hasHumSound(entity))
@@ -126,7 +128,7 @@ public class ClientEventHandler
                 }
 
                 ALData.LIGHTSABER.set(player, LightsaberData.get(lightsaber));
-                
+
                 Power power = PowerManager.getSelectedPower(player);
                 boolean flag = false;
 
@@ -265,6 +267,7 @@ public class ClientEventHandler
                         }
 
                         tessellator.startDrawing(3);
+                        Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
                         tessellator.setColorRGBA(54, 84, 181, (int) (50 * Math.min((effectStun.duration - renderTick) / 20, 1)));
 
                         for (int l = 0; l <= coverage / angleIncr; ++l)

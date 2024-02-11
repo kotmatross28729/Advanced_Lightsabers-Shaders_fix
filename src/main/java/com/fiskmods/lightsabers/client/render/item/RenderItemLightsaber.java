@@ -1,5 +1,6 @@
 package com.fiskmods.lightsabers.client.render.item;
 
+import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
 
 import com.fiskmods.lightsabers.common.hilt.HiltManager;
@@ -13,6 +14,8 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
+
+import static com.fiskmods.lightsabers.client.render.entity.RenderLightsaber.shaders_fix;
 
 public class RenderItemLightsaber implements IItemRenderer
 {
@@ -90,6 +93,7 @@ public class RenderItemLightsaber implements IItemRenderer
             GL11.glDisable(GL11.GL_TEXTURE_2D);
             GL11.glColor4f(rgb[0], rgb[1], rgb[2], 1);
             tessellator.startDrawingQuads();
+            Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
             tessellator.addVertex(triangle / 2, triangle / 2, 0);
             tessellator.addVertex(triangle, 0, 0);
             tessellator.addVertex(0, 0, 0);
@@ -103,6 +107,7 @@ public class RenderItemLightsaber implements IItemRenderer
                 GL11.glColor4f(0, 0, 0, 1);
                 GL11.glTranslatef(triangle / 8, triangle / 8, 0);
                 tessellator.startDrawingQuads();
+                Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
                 tessellator.addVertex(triangle / 2, triangle / 2, 0);
                 tessellator.addVertex(triangle, 0, 0);
                 tessellator.addVertex(0, 0, 0);
