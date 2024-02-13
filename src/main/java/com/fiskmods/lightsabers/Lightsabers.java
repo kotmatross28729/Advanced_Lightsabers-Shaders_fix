@@ -25,6 +25,8 @@ import fiskfille.utils.FiskUtils.Hook;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.config.Configuration;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import static com.fiskmods.lightsabers.common.config.ModConfig.denyAnimationslist;
 
@@ -34,6 +36,8 @@ public class Lightsabers
     public static final String NAME = "Advanced Lightsabers";
     public static final String MODID = "lightsabers";
     public static final String VERSION = "${version}";
+
+    public static final Logger logger = LogManager.getLogger(NAME);
 
     @Instance
     public static Lightsabers instance;
@@ -70,22 +74,6 @@ public class Lightsabers
             config.save();
         }
 
-        for (String itemName : denyAnimationslist) {
-            String modId;
-            String itemNameOnly;
-
-            String[] parts = itemName.split(":");
-            if (parts.length >= 2) {
-                modId = parts[0];
-                itemNameOnly = parts[1];
-
-                Item item = GameRegistry.findItem(modId, itemNameOnly);
-                if (item != null) {
-                    ItemsRegistry.ItemWM excludedItem = new ItemsRegistry.ItemWM(item);
-                    ItemsRegistry.excludedItems.add(excludedItem);
-                }
-            }
-        }
         proxy.preInit();
     }
 
@@ -100,6 +88,26 @@ public class Lightsabers
     public void postInit(FMLPostInitializationEvent event)
     {
         FiskUtils.hook(Hook.POSTINIT);
+
+        for (String itemName : denyAnimationslist) {
+            String modId;
+            String itemNameOnly;
+
+            String[] parts = itemName.split(":");
+            if (parts.length >= 2) {
+                modId = parts[0];
+                itemNameOnly = parts[1];
+
+                Item item = GameRegistry.findItem(modId, itemNameOnly);
+                if (item != null) {
+                    ItemsRegistry.ItemWM excludedItem = new ItemsRegistry.ItemWM(item);
+                    ItemsRegistry.excludedItems.add(excludedItem);
+//                    logger.info("Added excluded item: " + excludedItem);
+                } else {
+                    logger.error(modId+":"+itemNameOnly + " in denyAnimationslist == null (not found), check if the " + modId + " is present in the current instance");
+                }
+            }
+        }
     }
 
     @EventHandler
