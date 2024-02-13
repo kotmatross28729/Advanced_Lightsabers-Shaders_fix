@@ -186,6 +186,21 @@ A mod that adds lightsabers from Star Wars, but now works with shaders.
 > </details>
 >
 > </details>
+>
+>
+>
+> </details>
+>
+> <details>
+>
+> <summary> How to disable mod animations for certain armor (For example, 3D armor, from under which arms come out) </summary>
+>
+> https://github.com/kotmatross28729/Advanced_Lightsabers-Shaders_fix/assets/110309314/dae57d57-f843-4732-b43d-d9323855560e
+> </details>
+>
+
+
+
 
 > [!NOTE]
 > This fork fixes all the problems with shaders known to me (the lightsabers themselves and some abilities, such as lightning and stun)

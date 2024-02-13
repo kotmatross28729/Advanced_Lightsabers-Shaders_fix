@@ -91,7 +91,7 @@ public class ModConfig {
         denyAnimationslist = config.getStringList(
             "Deny animations list",
             CATEGORY_OTHER,
-            new String[]{"hbm:item.dieselsuit_plate", "hbm:item.t45_plate", "hbm:item.ajr_plate", "hbm:item.ajro_plate", "hbm:item.rpa_plate", "hbm:item.bj_plate", "hbm:item.bj_plate_jetpack", "hbm:item.envsuit_plate", "hbm:item.hev_plate", "hbm:item.fau_plate", "hbm:item.dns_plate", "hbm:item.trenchmaster_plate", "hbm:item.steamsuit_plate"},
+            new String[]{"hbm:item.dieselsuit_plate", "hbm:item.t45_plate", "hbm:item.ajr_plate", "hbm:item.ajro_plate", "hbm:item.rpa_plate", "hbm:item.bj_plate", "hbm:item.bj_plate_jetpack", "hbm:item.envsuit_plate", "hbm:item.hev_plate", "hbm:item.fau_plate", "hbm:item.dns_plate", "hbm:item.trenchmaster_plate", "hbm:item.steamsuit_plate", "Thaumcraft:ItemChestplateCultistRobe", "Thaumcraft:ItemChestplateFortress","Thaumcraft:ItemChestplateVoidFortress","Thaumcraft:ItemChestplateCultistPlate","Thaumcraft:ItemChestplateCultistLeaderPlate" },
             "List of items for which animation will be denied (chestplate, modid:itemName)");
     }
 }
