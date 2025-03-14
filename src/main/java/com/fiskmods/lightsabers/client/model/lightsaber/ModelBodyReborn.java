@@ -4,8 +4,8 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class ModelBodyReborn extends ModelBase
-{
+public class ModelBodyReborn extends ModelBase {
+
     public ModelRenderer body1;
     public ModelRenderer sideBlade1point3;
     public ModelRenderer sideBlade1point2;
@@ -30,8 +30,7 @@ public class ModelBodyReborn extends ModelBase
     public ModelRenderer sideBlade4_2;
     public ModelRenderer sideBlade5_2;
 
-    public ModelBodyReborn()
-    {
+    public ModelBodyReborn() {
         textureWidth = 32;
         textureHeight = 32;
         sideBlade1point1 = new ModelRenderer(this, 0, 11);
@@ -144,16 +143,14 @@ public class ModelBodyReborn extends ModelBase
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-    {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         sideBlade1point1.render(f5);
         sideBlade1point3.render(f5);
         body1.render(f5);
         sideBlade1point2.render(f5);
     }
 
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z)
-    {
+    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;

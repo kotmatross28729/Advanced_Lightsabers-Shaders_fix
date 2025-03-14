@@ -1,13 +1,13 @@
 package com.fiskmods.lightsabers.client.model.lightsaber;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class ModelSwitchSectionMechanical extends ModelBase
-{
+import org.lwjgl.opengl.GL11;
+
+public class ModelSwitchSectionMechanical extends ModelBase {
+
     public ModelRenderer body1;
     public ModelRenderer switch1;
     public ModelRenderer switch2;
@@ -21,8 +21,7 @@ public class ModelSwitchSectionMechanical extends ModelBase
     public ModelRenderer body9;
     public ModelRenderer body8;
 
-    public ModelSwitchSectionMechanical()
-    {
+    public ModelSwitchSectionMechanical() {
         textureWidth = 64;
         textureHeight = 32;
         switch1 = new ModelRenderer(this, 10, 3);
@@ -81,8 +80,7 @@ public class ModelSwitchSectionMechanical extends ModelBase
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-    {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         GL11.glPushMatrix();
         GL11.glTranslatef(switch1.offsetX, switch1.offsetY, switch1.offsetZ);
         GL11.glTranslatef(switch1.rotationPointX * f5, switch1.rotationPointY * f5, switch1.rotationPointZ * f5);
@@ -93,10 +91,16 @@ public class ModelSwitchSectionMechanical extends ModelBase
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(switchPanel.offsetX, switchPanel.offsetY, switchPanel.offsetZ);
-        GL11.glTranslatef(switchPanel.rotationPointX * f5, switchPanel.rotationPointY * f5, switchPanel.rotationPointZ * f5);
+        GL11.glTranslatef(
+            switchPanel.rotationPointX * f5,
+            switchPanel.rotationPointY * f5,
+            switchPanel.rotationPointZ * f5);
         GL11.glScaled(1.2D, 1.1D, 1.4D);
         GL11.glTranslatef(-switchPanel.offsetX, -switchPanel.offsetY, -switchPanel.offsetZ);
-        GL11.glTranslatef(-switchPanel.rotationPointX * f5, -switchPanel.rotationPointY * f5, -switchPanel.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -switchPanel.rotationPointX * f5,
+            -switchPanel.rotationPointY * f5,
+            -switchPanel.rotationPointZ * f5);
         switchPanel.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
@@ -117,8 +121,7 @@ public class ModelSwitchSectionMechanical extends ModelBase
         GL11.glPopMatrix();
     }
 
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z)
-    {
+    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;

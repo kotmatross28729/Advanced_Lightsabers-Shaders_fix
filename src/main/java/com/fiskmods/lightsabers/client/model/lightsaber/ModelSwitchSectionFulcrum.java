@@ -4,8 +4,8 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class ModelSwitchSectionFulcrum extends ModelBase
-{
+public class ModelSwitchSectionFulcrum extends ModelBase {
+
     public ModelRenderer body1;
     public ModelRenderer body2;
     public ModelRenderer body4;
@@ -55,8 +55,7 @@ public class ModelSwitchSectionFulcrum extends ModelBase
     public ModelRenderer body47;
     public ModelRenderer body48;
 
-    public ModelSwitchSectionFulcrum()
-    {
+    public ModelSwitchSectionFulcrum() {
         textureWidth = 64;
         textureHeight = 32;
         body42 = new ModelRenderer(this, 0, 0);
@@ -307,13 +306,11 @@ public class ModelSwitchSectionFulcrum extends ModelBase
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-    {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         body1.render(f5);
     }
 
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z)
-    {
+    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;

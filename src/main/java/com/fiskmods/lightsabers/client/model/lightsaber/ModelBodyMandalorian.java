@@ -4,8 +4,8 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class ModelBodyMandalorian extends ModelBase
-{
+public class ModelBodyMandalorian extends ModelBase {
+
     public ModelRenderer body1;
     public ModelRenderer body2;
     public ModelRenderer body4;
@@ -19,8 +19,7 @@ public class ModelBodyMandalorian extends ModelBase
     public ModelRenderer body10;
     public ModelRenderer body12;
 
-    public ModelBodyMandalorian()
-    {
+    public ModelBodyMandalorian() {
         textureWidth = 64;
         textureHeight = 32;
         body7 = new ModelRenderer(this, 0, 0);
@@ -87,13 +86,11 @@ public class ModelBodyMandalorian extends ModelBase
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-    {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         body1.render(f5);
     }
 
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z)
-    {
+    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;

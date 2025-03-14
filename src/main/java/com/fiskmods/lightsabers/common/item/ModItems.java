@@ -1,11 +1,11 @@
 package com.fiskmods.lightsabers.common.item;
 
-import com.fiskmods.lightsabers.common.lightsaber.PartType;
-
 import net.minecraft.item.Item;
 
-public class ModItems
-{
+import com.fiskmods.lightsabers.common.lightsaber.PartType;
+
+public class ModItems {
+
     public static Item circuitry;
     public static Item focusingCrystal;
     public static Item crystalPouch;
@@ -18,8 +18,7 @@ public class ModItems
     public static Item lightsaber;
     public static Item doubleLightsaber;
 
-    public static void register()
-    {
+    public static void register() {
         circuitry = new ItemCircuitry();
         focusingCrystal = new ItemFocusingCrystal();
         crystalPouch = new ItemCrystalPouch();
@@ -31,7 +30,6 @@ public class ModItems
 
         lightsaber = new ItemLightsaber();
         doubleLightsaber = new ItemDoubleLightsaber();
-        
 
         ItemRegistry.registerItem(circuitry, "lightsaber_circuitry");
         ItemRegistry.registerItem(focusingCrystal, "focusing_crystal");

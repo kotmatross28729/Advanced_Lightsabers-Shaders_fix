@@ -1,5 +1,12 @@
 package com.fiskmods.lightsabers.common.proxy;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityOtherPlayerMP;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraftforge.client.MinecraftForgeClient;
+
 import com.fiskmods.lightsabers.ALReflection;
 import com.fiskmods.lightsabers.Lightsabers;
 import com.fiskmods.lightsabers.client.gui.GuiOverlay;
@@ -45,18 +52,11 @@ import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.relauncher.Side;
 import mods.battlegear2.api.core.BattlegearUtils;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityOtherPlayerMP;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraftforge.client.MinecraftForgeClient;
 
-public class ClientProxy extends CommonProxy
-{
+public class ClientProxy extends CommonProxy {
+
     @Override
-    public void preInit()
-    {
+    public void preInit() {
         super.preInit();
         ALReflection.client();
         ALKeyBinds.register();
@@ -64,31 +64,40 @@ public class ClientProxy extends CommonProxy
         registerEventHandler(new ClientEventHandler());
         registerEventHandler(new GuiOverlay());
 
-        if (Lightsabers.isBattlegearLoaded)
-        {
+        if (Lightsabers.isBattlegearLoaded) {
             BattlegearUtils.RENDER_BUS.register(new ClientEventHandlerBG());
         }
     }
 
     @Override
-    public void init()
-    {
+    public void init() {
         super.init();
         HiltRendererManager.register();
-        
+
         MinecraftForgeClient.registerItemRenderer(ModItems.lightsaber, new RenderItemLightsaber());
         MinecraftForgeClient.registerItemRenderer(ModItems.doubleLightsaber, new RenderItemDoubleLightsaber());
         MinecraftForgeClient.registerItemRenderer(ModItems.emitter, new RenderItemLightsaberPart(PartType.EMITTER));
-        MinecraftForgeClient.registerItemRenderer(ModItems.switchSection, new RenderItemLightsaberPart(PartType.SWITCH_SECTION));
+        MinecraftForgeClient
+            .registerItemRenderer(ModItems.switchSection, new RenderItemLightsaberPart(PartType.SWITCH_SECTION));
         MinecraftForgeClient.registerItemRenderer(ModItems.grip, new RenderItemLightsaberPart(PartType.BODY));
         MinecraftForgeClient.registerItemRenderer(ModItems.pommel, new RenderItemLightsaberPart(PartType.POMMEL));
-        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.lightsaberCrystal), new RenderItemCrystal());
-        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.lightsaberForgeLight), new RenderItemLightsaberForge());
-        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.lightsaberForgeDark), new RenderItemLightsaberForge());
-        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.lightsaberStand), RenderItemLightsaberStand.INSTANCE);
-        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.disassemblyStation), RenderItemDisassemblyStation.INSTANCE);
-        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.sithCoffin), new RenderItemSithCoffin());
-        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.sithStoneCoffin), new RenderItemSithStoneCoffin());
+        MinecraftForgeClient
+            .registerItemRenderer(Item.getItemFromBlock(ModBlocks.lightsaberCrystal), new RenderItemCrystal());
+        MinecraftForgeClient.registerItemRenderer(
+            Item.getItemFromBlock(ModBlocks.lightsaberForgeLight),
+            new RenderItemLightsaberForge());
+        MinecraftForgeClient.registerItemRenderer(
+            Item.getItemFromBlock(ModBlocks.lightsaberForgeDark),
+            new RenderItemLightsaberForge());
+        MinecraftForgeClient
+            .registerItemRenderer(Item.getItemFromBlock(ModBlocks.lightsaberStand), RenderItemLightsaberStand.INSTANCE);
+        MinecraftForgeClient.registerItemRenderer(
+            Item.getItemFromBlock(ModBlocks.disassemblyStation),
+            RenderItemDisassemblyStation.INSTANCE);
+        MinecraftForgeClient
+            .registerItemRenderer(Item.getItemFromBlock(ModBlocks.sithCoffin), new RenderItemSithCoffin());
+        MinecraftForgeClient
+            .registerItemRenderer(Item.getItemFromBlock(ModBlocks.sithStoneCoffin), new RenderItemSithStoneCoffin());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.holocron), new RenderItemHolocron());
 
         RenderingRegistry.registerEntityRenderingHandler(EntityLightsaber.class, new RenderLightsaber());
@@ -98,33 +107,30 @@ public class ClientProxy extends CommonProxy
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCrystal.class, new RenderCrystal());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityLightsaberForge.class, new RenderLightsaberForge());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityLightsaberStand.class, new RenderLightsaberStand());
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDisassemblyStation.class, new RenderDisassemblyStation());
+        ClientRegistry
+            .bindTileEntitySpecialRenderer(TileEntityDisassemblyStation.class, new RenderDisassemblyStation());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySithCoffin.class, new RenderSithCoffin());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySithStoneCoffin.class, new RenderSithStoneCoffin());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityHolocron.class, new RenderHolocron());
     }
-    
+
     @Override
-    public Side getSide()
-    {
+    public Side getSide() {
         return Side.CLIENT;
     }
 
     @Override
-    public float getRenderTick()
-    {
+    public float getRenderTick() {
         return ClientEventHandler.renderTick;
     }
 
     @Override
-    public EntityPlayer getPlayer()
-    {
+    public EntityPlayer getPlayer() {
         return Minecraft.getMinecraft().thePlayer;
     }
 
     @Override
-    public boolean isClientPlayer(EntityLivingBase entity)
-    {
+    public boolean isClientPlayer(EntityLivingBase entity) {
         return entity instanceof EntityPlayer && !(entity instanceof EntityOtherPlayerMP);
     }
 }

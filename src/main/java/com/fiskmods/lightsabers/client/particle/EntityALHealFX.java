@@ -4,12 +4,11 @@ import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.world.World;
 
-public class EntityALHealFX extends EntityALFX
-{
+public class EntityALHealFX extends EntityALFX {
+
     private float flameScale;
 
-    public EntityALHealFX(World world, double x, double y, double z, double motionX, double motionY, double motionZ)
-    {
+    public EntityALHealFX(World world, double x, double y, double z, double motionX, double motionY, double motionZ) {
         super(world, x, y, z, motionX, motionY, motionZ);
         this.motionX = motionX;
         this.motionY = motionY;
@@ -22,42 +21,37 @@ public class EntityALHealFX extends EntityALFX
     }
 
     @Override
-    public void renderParticle(Tessellator tesselator, float partialTicks, float f, float f1, float f2, float f3, float f4)
-    {
+    public void renderParticle(Tessellator tesselator, float partialTicks, float f, float f1, float f2, float f3,
+        float f4) {
         float f5 = (particleAge + partialTicks) / particleMaxAge;
         particleScale = flameScale * (1.0F - f5 * f5 * 0.5F);
         super.renderParticle(tesselator, partialTicks, f, f1, f2, f3, f4);
     }
 
     @Override
-    public EntityFX multipleParticleScaleBy(float scale)
-    {
+    public EntityFX multipleParticleScaleBy(float scale) {
         flameScale *= scale;
         return this;
     }
 
     @Override
-    public int getBrightnessForRender(float partialTicks)
-    {
+    public int getBrightnessForRender(float partialTicks) {
         return 15728880;
     }
 
     @Override
-    public float getBrightness(float partialTicks)
-    {
+    public float getBrightness(float partialTicks) {
         return 1.0F;
     }
 
     @Override
-    public void onUpdate()
-    {
+    public void onUpdate() {
         prevPosX = posX;
         prevPosY = posY;
         prevPosZ = posZ;
         motionY += 0.001F;
 
-        if (particleAge++ >= particleMaxAge)
-        {
+        if (particleAge++ >= particleMaxAge) {
             setDead();
         }
 
@@ -66,8 +60,7 @@ public class EntityALHealFX extends EntityALFX
         motionY *= 0.9599999785423279D;
         motionZ *= 0.9599999785423279D;
 
-        if (onGround)
-        {
+        if (onGround) {
             motionX *= 0.699999988079071D;
             motionZ *= 0.699999988079071D;
         }

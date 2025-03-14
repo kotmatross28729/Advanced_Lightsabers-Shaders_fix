@@ -2,15 +2,14 @@ package com.fiskmods.lightsabers.client.render.hilt;
 
 import net.minecraft.client.model.ModelBase;
 
-public class HiltRendererBase extends HiltRenderer
-{
+public class HiltRendererBase extends HiltRenderer {
+
     public final ModelBase emitter;
     public final ModelBase switchSection;
     public final ModelBase body;
     public final ModelBase pommel;
 
-    public HiltRendererBase(ModelBase emitter, ModelBase switchSection, ModelBase body, ModelBase pommel)
-    {
+    public HiltRendererBase(ModelBase emitter, ModelBase switchSection, ModelBase body, ModelBase pommel) {
         this.emitter = emitter;
         this.switchSection = switchSection;
         this.body = body;
@@ -18,26 +17,22 @@ public class HiltRendererBase extends HiltRenderer
     }
 
     @Override
-    public ModelBase getEmitter()
-    {
+    public ModelBase getEmitter() {
         return emitter;
     }
 
     @Override
-    public ModelBase getSwitchSection()
-    {
+    public ModelBase getSwitchSection() {
         return switchSection;
     }
 
     @Override
-    public ModelBase getBody()
-    {
+    public ModelBase getBody() {
         return body;
     }
 
     @Override
-    public ModelBase getPommel()
-    {
+    public ModelBase getPommel() {
         return pommel;
     }
 }

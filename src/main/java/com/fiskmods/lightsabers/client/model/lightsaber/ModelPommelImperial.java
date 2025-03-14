@@ -3,10 +3,11 @@ package com.fiskmods.lightsabers.client.model.lightsaber;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+
 import org.lwjgl.opengl.GL11;
 
-public class ModelPommelImperial extends ModelBase
-{
+public class ModelPommelImperial extends ModelBase {
+
     public ModelRenderer topRing1;
     public ModelRenderer innerRing1;
     public ModelRenderer topRing1_1;
@@ -63,8 +64,7 @@ public class ModelPommelImperial extends ModelBase
     public ModelRenderer shell21;
     public ModelRenderer shell22;
 
-    public ModelPommelImperial()
-    {
+    public ModelPommelImperial() {
         textureWidth = 32;
         textureHeight = 32;
         topRing7 = new ModelRenderer(this, 0, 17);
@@ -336,14 +336,19 @@ public class ModelPommelImperial extends ModelBase
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-    {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         GL11.glPushMatrix();
         GL11.glTranslatef(innerRing1.offsetX, innerRing1.offsetY, innerRing1.offsetZ);
-        GL11.glTranslatef(innerRing1.rotationPointX * f5, innerRing1.rotationPointY * f5, innerRing1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            innerRing1.rotationPointX * f5,
+            innerRing1.rotationPointY * f5,
+            innerRing1.rotationPointZ * f5);
         GL11.glScaled(0.41D, 1.41D, 0.41D);
         GL11.glTranslatef(-innerRing1.offsetX, -innerRing1.offsetY, -innerRing1.offsetZ);
-        GL11.glTranslatef(-innerRing1.rotationPointX * f5, -innerRing1.rotationPointY * f5, -innerRing1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -innerRing1.rotationPointX * f5,
+            -innerRing1.rotationPointY * f5,
+            -innerRing1.rotationPointZ * f5);
         innerRing1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
@@ -364,10 +369,16 @@ public class ModelPommelImperial extends ModelBase
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(topRing1_1.offsetX, topRing1_1.offsetY, topRing1_1.offsetZ);
-        GL11.glTranslatef(topRing1_1.rotationPointX * f5, topRing1_1.rotationPointY * f5, topRing1_1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            topRing1_1.rotationPointX * f5,
+            topRing1_1.rotationPointY * f5,
+            topRing1_1.rotationPointZ * f5);
         GL11.glScaled(0.3D, 0.3D, 0.3D);
         GL11.glTranslatef(-topRing1_1.offsetX, -topRing1_1.offsetY, -topRing1_1.offsetZ);
-        GL11.glTranslatef(-topRing1_1.rotationPointX * f5, -topRing1_1.rotationPointY * f5, -topRing1_1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -topRing1_1.rotationPointX * f5,
+            -topRing1_1.rotationPointY * f5,
+            -topRing1_1.rotationPointZ * f5);
         topRing1_1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
@@ -380,8 +391,7 @@ public class ModelPommelImperial extends ModelBase
         GL11.glPopMatrix();
     }
 
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z)
-    {
+    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;

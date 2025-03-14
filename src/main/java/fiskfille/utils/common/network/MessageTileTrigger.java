@@ -1,39 +1,35 @@
 package fiskfille.utils.common.network;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
+
 import com.fiskmods.lightsabers.common.network.ALNetworkManager;
 
 import fiskfille.utils.DimensionalCoords;
 import fiskfille.utils.helper.NBTHelper;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.tileentity.TileEntity;
 
-public class MessageTileTrigger extends AbstractMessage<MessageTileTrigger>
-{
+public class MessageTileTrigger extends AbstractMessage<MessageTileTrigger> {
+
     private DimensionalCoords coords;
     private int id;
     private int action;
     private int playerDim;
 
-    public MessageTileTrigger()
-    {
-    }
+    public MessageTileTrigger() {}
 
-    public MessageTileTrigger(DimensionalCoords coords, EntityPlayer player, int action)
-    {
+    public MessageTileTrigger(DimensionalCoords coords, EntityPlayer player, int action) {
         this.coords = coords;
         this.action = action;
 
-        if (player != null)
-        {
+        if (player != null) {
             id = player.getEntityId();
             playerDim = player.worldObj.provider.dimensionId;
         }
     }
 
     @Override
-    public void fromBytes(ByteBuf buf)
-    {
+    public void fromBytes(ByteBuf buf) {
         id = buf.readInt();
         action = buf.readInt();
         playerDim = buf.readInt();
@@ -41,8 +37,7 @@ public class MessageTileTrigger extends AbstractMessage<MessageTileTrigger>
     }
 
     @Override
-    public void toBytes(ByteBuf buf)
-    {
+    public void toBytes(ByteBuf buf) {
         buf.writeInt(id);
         buf.writeInt(action);
         buf.writeInt(playerDim);
@@ -50,24 +45,22 @@ public class MessageTileTrigger extends AbstractMessage<MessageTileTrigger>
     }
 
     @Override
-    public void receive() throws MessageException
-    {
+    public void receive() throws MessageException {
         EntityPlayer player = getSender(getWorld(playerDim), id);
         TileEntity tile = getWorld(coords.dimension).getTileEntity(coords.posX, coords.posY, coords.posZ);
 
-        if (tile instanceof ITileDataCallback)
-        {
+        if (tile instanceof ITileDataCallback) {
             ((ITileDataCallback) tile).receive(player, action);
 
-            if (context.side.isServer())
-            {
-                ALNetworkManager.wrapper.sendToDimension(new MessageTileTrigger(coords, player, action), coords.dimension);
+            if (context.side.isServer()) {
+                ALNetworkManager.wrapper
+                    .sendToDimension(new MessageTileTrigger(coords, player, action), coords.dimension);
             }
         }
     }
 
-    public static interface ITileDataCallback
-    {
+    public static interface ITileDataCallback {
+
         /**
          * Called when a tile gets triggered
          *

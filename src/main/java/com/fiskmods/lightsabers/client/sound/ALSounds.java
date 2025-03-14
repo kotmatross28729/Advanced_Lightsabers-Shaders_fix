@@ -2,8 +2,8 @@ package com.fiskmods.lightsabers.client.sound;
 
 import com.fiskmods.lightsabers.Lightsabers;
 
-public class ALSounds
-{
+public class ALSounds {
+
     public static final String ambient_fortify = create("ambient.fortify");
     public static final String ambient_stealth = create("ambient.stealth");
     public static final String ambient_lightsaber_hum_heavy = create("ambient.lightsaber.hum_heavy");
@@ -32,8 +32,7 @@ public class ALSounds
     public static final String player_lightsaber_sweet_dreams = create("player.lightsaber.sweet_dreams");
     public static final String player_lightsaber_swing = create("player.lightsaber.swing");
 
-    private static String create(String s)
-    {
+    private static String create(String s) {
         return Lightsabers.MODID + ":" + s;
     }
 }

@@ -7,6 +7,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
+
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
@@ -31,27 +39,19 @@ import com.google.common.collect.Iterables;
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
 
-public class LightsaberForgeRecipeHandler extends TemplateRecipeHandler
-{
+public class LightsaberForgeRecipeHandler extends TemplateRecipeHandler {
+
     private final Minecraft mc = Minecraft.getMinecraft();
 
-    public class CachedLightsaberForgeRecipe extends CachedRecipe
-    {
+    public class CachedLightsaberForgeRecipe extends CachedRecipe {
+
         public ArrayList<PositionedStack> ingredients;
         public PositionedStack result;
 
         public final LightsaberData data;
 
-        public CachedLightsaberForgeRecipe(LightsaberData output, Object[] inputs)
-        {
+        public CachedLightsaberForgeRecipe(LightsaberData output, Object[] inputs) {
             result = new PositionedStack(ItemLightsaberBase.setActive(output.create(), true), 131, 76);
             ingredients = new ArrayList<>();
             data = output;
@@ -66,82 +66,65 @@ public class LightsaberForgeRecipeHandler extends TemplateRecipeHandler
             addSlotToContainer(7, 107, 71, inputs);
         }
 
-        private void addSlotToContainer(int id, int x, int y, Object[] inputs)
-        {
-            if (inputs[id] != null)
-            {
+        private void addSlotToContainer(int id, int x, int y, Object[] inputs) {
+            if (inputs[id] != null) {
                 PositionedStack stack = new PositionedStack(inputs[id], x - 5, y - 11, false);
                 ingredients.add(stack);
             }
         }
 
         @Override
-        public List<PositionedStack> getIngredients()
-        {
+        public List<PositionedStack> getIngredients() {
             return getCycledIngredients(cycleticks / 20, ingredients);
         }
 
         @Override
-        public PositionedStack getResult()
-        {
+        public PositionedStack getResult() {
             return result;
         }
 
-        public void computeVisuals()
-        {
-            for (PositionedStack p : ingredients)
-            {
+        public void computeVisuals() {
+            for (PositionedStack p : ingredients) {
                 p.generatePermutations();
             }
         }
     }
 
     @Override
-    public void loadTransferRects()
-    {
+    public void loadTransferRects() {
         transferRects.add(new RecipeTransferRect(new Rectangle(131 - 5, 65 - 11, 26, 17), getOverlayIdentifier()));
     }
 
     @Override
-    public Class<? extends GuiContainer> getGuiClass()
-    {
+    public Class<? extends GuiContainer> getGuiClass() {
         return GuiLightsaberForge.class;
     }
 
     @Override
-    public String getRecipeName()
-    {
+    public String getRecipeName() {
         return StatCollector.translateToLocal("recipe.lightsaber_forge");
     }
 
     @Override
-    public int recipiesPerPage()
-    {
+    public int recipiesPerPage() {
         return 1;
     }
 
     @Override
-    public void loadCraftingRecipes(String outputId, Object... results)
-    {
-        if (outputId.equals(getOverlayIdentifier()))
-        {
+    public void loadCraftingRecipes(String outputId, Object... results) {
+        if (outputId.equals(getOverlayIdentifier())) {
             loadUsageRecipes(new ItemStack(ModItems.circuitry));
-        }
-        else
-        {
+        } else {
             super.loadCraftingRecipes(outputId, results);
         }
     }
 
     @Override
-    public void loadCraftingRecipes(ItemStack result)
-    {
-        try
-        {
-            if (result.getItem() == ModItems.lightsaber)
-            {
-                if (result.getDisplayName().equalsIgnoreCase("sweet dreams"))
-                {
+    public void loadCraftingRecipes(ItemStack result) {
+        try {
+            if (result.getItem() == ModItems.lightsaber) {
+                if (result.getDisplayName()
+                    .equalsIgnoreCase("sweet dreams")) {
                     mc.thePlayer.playSound(ALSounds.player_lightsaber_sweet_dreams, 1, 1);
                 }
 
@@ -153,79 +136,72 @@ public class LightsaberForgeRecipeHandler extends TemplateRecipeHandler
                 FocusingCrystal[] crystals = data.getFocusingCrystals();
                 Hilt[] hilt = data.getHilt();
 
-                for (PartType type : PartType.values())
-                {
+                for (PartType type : PartType.values()) {
                     inputs[type.ordinal()] = ItemLightsaberPart.create(type, hilt[type.ordinal()]);
                 }
 
-                for (int i = 0; i < Math.min(crystals.length, 2); ++i)
-                {
+                for (int i = 0; i < Math.min(crystals.length, 2); ++i) {
                     inputs[i + 6] = ItemFocusingCrystal.create(crystals[i]);
                 }
 
-                CachedLightsaberForgeRecipe recipe = new CachedLightsaberForgeRecipe(LightsaberData.get(result), inputs);
+                CachedLightsaberForgeRecipe recipe = new CachedLightsaberForgeRecipe(
+                    LightsaberData.get(result),
+                    inputs);
                 recipe.computeVisuals();
                 arecipes.add(recipe);
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void loadUsageRecipes(ItemStack ingredient)
-    {
-        try
-        {
+    public void loadUsageRecipes(ItemStack ingredient) {
+        try {
             Item item = ingredient.getItem();
             ingredient = ingredient.copy();
             ingredient.stackSize = 1;
 
-            if (item instanceof ItemLightsaberPart)
-            {
+            if (item instanceof ItemLightsaberPart) {
                 Hilt hilt = ItemLightsaberPart.get(ingredient);
                 Object[] inputs = new Object[8];
 
-                for (PartType type : PartType.values())
-                {
+                for (PartType type : PartType.values()) {
                     inputs[type.ordinal()] = ItemLightsaberPart.create(type, hilt);
                 }
 
                 inputs[4] = new ItemStack(ModItems.circuitry);
 
-                for (CrystalColor color : CrystalColor.values())
-                {
+                for (CrystalColor color : CrystalColor.values()) {
                     inputs[5] = ItemCrystal.create(color);
 
-                    CachedLightsaberForgeRecipe recipe = new CachedLightsaberForgeRecipe(new LightsaberData().set(hilt).set(color), inputs);
+                    CachedLightsaberForgeRecipe recipe = new CachedLightsaberForgeRecipe(
+                        new LightsaberData().set(hilt)
+                            .set(color),
+                        inputs);
                     recipe.computeVisuals();
                     arecipes.add(recipe);
                 }
-            }
-            else if (item == Item.getItemFromBlock(ModBlocks.lightsaberCrystal))
-            {
+            } else if (item == Item.getItemFromBlock(ModBlocks.lightsaberCrystal)) {
                 CrystalColor color = ItemCrystal.get(ingredient);
                 Object[] inputs = new Object[8];
 
                 inputs[4] = new ItemStack(ModItems.circuitry);
                 inputs[5] = ingredient;
 
-                for (Hilt hilt : Hilt.REGISTRY)
-                {
-                    for (PartType type : PartType.values())
-                    {
+                for (Hilt hilt : Hilt.REGISTRY) {
+                    for (PartType type : PartType.values()) {
                         inputs[type.ordinal()] = ItemLightsaberPart.create(type, hilt);
                     }
 
-                    CachedLightsaberForgeRecipe recipe = new CachedLightsaberForgeRecipe(new LightsaberData().set(hilt).set(color), inputs);
+                    CachedLightsaberForgeRecipe recipe = new CachedLightsaberForgeRecipe(
+                        new LightsaberData().set(hilt)
+                            .set(color),
+                        inputs);
                     recipe.computeVisuals();
                     arecipes.add(recipe);
                 }
-            }
-            else if (item == ModItems.focusingCrystal)
-            {
+            } else if (item == ModItems.focusingCrystal) {
                 FocusingCrystal crystal = ItemFocusingCrystal.get(ingredient);
                 Object[] inputs = new Object[8];
 
@@ -233,35 +209,32 @@ public class LightsaberForgeRecipeHandler extends TemplateRecipeHandler
                 inputs[5] = ItemCrystal.create(CrystalColor.get(0));
                 inputs[6] = ingredient;
 
-                for (Hilt hilt : Hilt.REGISTRY)
-                {
-                    for (PartType type : PartType.values())
-                    {
+                for (Hilt hilt : Hilt.REGISTRY) {
+                    for (PartType type : PartType.values()) {
                         inputs[type.ordinal()] = ItemLightsaberPart.create(type, hilt);
                     }
 
-                    CachedLightsaberForgeRecipe recipe = new CachedLightsaberForgeRecipe(new LightsaberData().set(hilt).add(crystal), inputs);
+                    CachedLightsaberForgeRecipe recipe = new CachedLightsaberForgeRecipe(
+                        new LightsaberData().set(hilt)
+                            .add(crystal),
+                        inputs);
                     recipe.computeVisuals();
                     arecipes.add(recipe);
                 }
-            }
-            else if (item == ModItems.circuitry)
-            {
-                for (Hilt hilt : Hilt.REGISTRY)
-                {
+            } else if (item == ModItems.circuitry) {
+                for (Hilt hilt : Hilt.REGISTRY) {
                     Object[] inputs = new Object[8];
                     inputs[4] = ingredient;
 
-                    for (PartType type : PartType.values())
-                    {
+                    for (PartType type : PartType.values()) {
                         inputs[type.ordinal()] = ItemLightsaberPart.create(type, hilt);
                     }
 
-                    LightsaberData data = new LightsaberData().set(hilt).set(hilt.getColor());
+                    LightsaberData data = new LightsaberData().set(hilt)
+                        .set(hilt.getColor());
                     Collection<FocusingCrystal> crystals = hilt.getFocusingCrystals();
 
-                    for (int i = 0; i < Math.min(crystals.size(), 2); ++i)
-                    {
+                    for (int i = 0; i < Math.min(crystals.size(), 2); ++i) {
                         FocusingCrystal crystal = Iterables.get(crystals, i);
                         inputs[i + 6] = ItemFocusingCrystal.create(crystal);
                         data.add(crystal);
@@ -274,35 +247,34 @@ public class LightsaberForgeRecipeHandler extends TemplateRecipeHandler
                     arecipes.add(recipe);
                 }
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public String getGuiTexture()
-    {
+    public String getGuiTexture() {
         return Lightsabers.MODID + ":textures/gui/container/lightsaber_forge.png";
     }
 
     @Override
-    public String getOverlayIdentifier()
-    {
+    public String getOverlayIdentifier() {
         return "lightsaber_forge";
     }
 
     @Override
-    public void drawExtras(int recipe)
-    {
+    public void drawExtras(int recipe) {
         CachedLightsaberForgeRecipe recipe1 = (CachedLightsaberForgeRecipe) arecipes.get(recipe);
-        GuiDraw.drawString(StatCollector.translateToLocalFormatted("%s cm", ItemStack.field_111284_a.format(recipe1.data.getHeightCm())), 40, 54 - GuiDraw.fontRenderer.FONT_HEIGHT, -1);
+        GuiDraw.drawString(
+            StatCollector
+                .translateToLocalFormatted("%s cm", ItemStack.field_111284_a.format(recipe1.data.getHeightCm())),
+            40,
+            54 - GuiDraw.fontRenderer.FONT_HEIGHT,
+            -1);
     }
 
     @Override
-    public void drawBackground(int recipe)
-    {
+    public void drawBackground(int recipe) {
         GL11.glColor4f(1, 1, 1, 1);
         changeTexture(getGuiTexture());
         drawTexturedModalRect(0, 0, 5, 11, 166, 102);

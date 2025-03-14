@@ -1,13 +1,13 @@
 package com.fiskmods.lightsabers.client.model.lightsaber;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class ModelEmitterKnighted extends ModelBase
-{
+import org.lwjgl.opengl.GL11;
+
+public class ModelEmitterKnighted extends ModelBase {
+
     public ModelRenderer body1;
     public ModelRenderer shell1;
     public ModelRenderer shape236;
@@ -85,8 +85,7 @@ public class ModelEmitterKnighted extends ModelBase
     public ModelRenderer topEmitter7;
     public ModelRenderer topEmitter8;
 
-    public ModelEmitterKnighted()
-    {
+    public ModelEmitterKnighted() {
         textureWidth = 64;
         textureHeight = 32;
         sideEmitter1_15 = new ModelRenderer(this, 4, 23);
@@ -472,22 +471,33 @@ public class ModelEmitterKnighted extends ModelBase
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-    {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         GL11.glPushMatrix();
         GL11.glTranslatef(topEmitter1.offsetX, topEmitter1.offsetY, topEmitter1.offsetZ);
-        GL11.glTranslatef(topEmitter1.rotationPointX * f5, topEmitter1.rotationPointY * f5, topEmitter1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            topEmitter1.rotationPointX * f5,
+            topEmitter1.rotationPointY * f5,
+            topEmitter1.rotationPointZ * f5);
         GL11.glScaled(0.7D, 0.6D, 0.7D);
         GL11.glTranslatef(-topEmitter1.offsetX, -topEmitter1.offsetY, -topEmitter1.offsetZ);
-        GL11.glTranslatef(-topEmitter1.rotationPointX * f5, -topEmitter1.rotationPointY * f5, -topEmitter1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -topEmitter1.rotationPointX * f5,
+            -topEmitter1.rotationPointY * f5,
+            -topEmitter1.rotationPointZ * f5);
         topEmitter1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(sideEmitter2_1.offsetX, sideEmitter2_1.offsetY, sideEmitter2_1.offsetZ);
-        GL11.glTranslatef(sideEmitter2_1.rotationPointX * f5, sideEmitter2_1.rotationPointY * f5, sideEmitter2_1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            sideEmitter2_1.rotationPointX * f5,
+            sideEmitter2_1.rotationPointY * f5,
+            sideEmitter2_1.rotationPointZ * f5);
         GL11.glScaled(0.7D, 0.7D, 0.7D);
         GL11.glTranslatef(-sideEmitter2_1.offsetX, -sideEmitter2_1.offsetY, -sideEmitter2_1.offsetZ);
-        GL11.glTranslatef(-sideEmitter2_1.rotationPointX * f5, -sideEmitter2_1.rotationPointY * f5, -sideEmitter2_1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -sideEmitter2_1.rotationPointX * f5,
+            -sideEmitter2_1.rotationPointY * f5,
+            -sideEmitter2_1.rotationPointZ * f5);
         sideEmitter2_1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
@@ -500,10 +510,16 @@ public class ModelEmitterKnighted extends ModelBase
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(sideEmitter1_1.offsetX, sideEmitter1_1.offsetY, sideEmitter1_1.offsetZ);
-        GL11.glTranslatef(sideEmitter1_1.rotationPointX * f5, sideEmitter1_1.rotationPointY * f5, sideEmitter1_1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            sideEmitter1_1.rotationPointX * f5,
+            sideEmitter1_1.rotationPointY * f5,
+            sideEmitter1_1.rotationPointZ * f5);
         GL11.glScaled(0.7D, 0.7D, 0.7D);
         GL11.glTranslatef(-sideEmitter1_1.offsetX, -sideEmitter1_1.offsetY, -sideEmitter1_1.offsetZ);
-        GL11.glTranslatef(-sideEmitter1_1.rotationPointX * f5, -sideEmitter1_1.rotationPointY * f5, -sideEmitter1_1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -sideEmitter1_1.rotationPointX * f5,
+            -sideEmitter1_1.rotationPointY * f5,
+            -sideEmitter1_1.rotationPointZ * f5);
         sideEmitter1_1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
@@ -525,8 +541,7 @@ public class ModelEmitterKnighted extends ModelBase
         body1_1.render(f5);
     }
 
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z)
-    {
+    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;

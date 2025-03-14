@@ -1,17 +1,16 @@
 package com.fiskmods.lightsabers.client.model;
 
-import com.fiskmods.lightsabers.helper.ModelHelper;
-
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class ModelSithGhost extends ModelBiped
-{
+import com.fiskmods.lightsabers.helper.ModelHelper;
+
+public class ModelSithGhost extends ModelBiped {
+
     public ModelRenderer hood;
 
-    public ModelSithGhost()
-    {
+    public ModelSithGhost() {
         textureWidth = 64;
         textureHeight = 64;
         bipedBody = new ModelRenderer(this, 22, 10);
@@ -47,8 +46,7 @@ public class ModelSithGhost extends ModelBiped
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-    {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         setRotationAngles(f, f1, f2, f3, f4, f5, entity);
         ModelHelper.renderBipedPre(this, entity, f, f1, f2, f3, f4, f5);
         bipedBody.render(f5);
@@ -60,16 +58,14 @@ public class ModelSithGhost extends ModelBiped
         ModelHelper.renderBipedPost(this, entity, f, f1, f2, f3, f4, f5);
     }
 
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z)
-    {
+    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;
     }
 
     @Override
-    public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity)
-    {
+    public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity) {
         super.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
         bipedRightArm.setRotationPoint(-4.0F, 2.0F, 0.0F);
         bipedLeftArm.setRotationPoint(4.0F, 2.0F, 0.0F);

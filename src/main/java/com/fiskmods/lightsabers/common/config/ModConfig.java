@@ -79,25 +79,24 @@ public class ModConfig {
             "Multiplier for lightsaber lighting.");
         enableShaders = configFile
             .getBoolean("Enable Shaders", CATEGORY_RENDERING, true, "Enable use of shaders for certain Force powers?");
-        fullDenyAnimations = config.getBoolean(
-            "Completely deny animations",
-            CATEGORY_OTHER,
-            false,
-            "Disable all animations from this mod?");
+        fullDenyAnimations = config
+            .getBoolean("Completely deny animations", CATEGORY_OTHER, false, "Disable all animations from this mod?");
         denyAnimations = config.getBoolean(
             "Deny animations",
             CATEGORY_OTHER,
             true,
             "Disable the animations from this mod for specified things?");
-        disableCaves = config.getBoolean(
-            "Disable Caves",
-            CATEGORY_OTHER,
-            false,
-            "Disable Cave entrances this mod adds");
+        disableCaves = config
+            .getBoolean("Disable Caves", CATEGORY_OTHER, false, "Disable Cave entrances this mod adds");
         denyAnimationslist = config.getStringList(
             "Deny animations list",
             CATEGORY_OTHER,
-            new String[]{"hbm:item.dieselsuit_plate", "hbm:item.t45_plate", "hbm:item.ajr_plate", "hbm:item.ajro_plate", "hbm:item.rpa_plate", "hbm:item.bj_plate", "hbm:item.bj_plate_jetpack", "hbm:item.envsuit_plate", "hbm:item.hev_plate", "hbm:item.fau_plate", "hbm:item.dns_plate", "hbm:item.trenchmaster_plate", "hbm:item.steamsuit_plate", "Thaumcraft:ItemChestplateCultistRobe", "Thaumcraft:ItemChestplateFortress","Thaumcraft:ItemChestplateVoidFortress","Thaumcraft:ItemChestplateCultistPlate","Thaumcraft:ItemChestplateCultistLeaderPlate" },
+            new String[] { "hbm:item.dieselsuit_plate", "hbm:item.t45_plate", "hbm:item.ajr_plate",
+                "hbm:item.ajro_plate", "hbm:item.rpa_plate", "hbm:item.bj_plate", "hbm:item.bj_plate_jetpack",
+                "hbm:item.envsuit_plate", "hbm:item.hev_plate", "hbm:item.fau_plate", "hbm:item.dns_plate",
+                "hbm:item.trenchmaster_plate", "hbm:item.steamsuit_plate", "Thaumcraft:ItemChestplateCultistRobe",
+                "Thaumcraft:ItemChestplateFortress", "Thaumcraft:ItemChestplateVoidFortress",
+                "Thaumcraft:ItemChestplateCultistPlate", "Thaumcraft:ItemChestplateCultistLeaderPlate" },
             "List of items for which animation will be denied (chestplate, modid:itemName)");
     }
 }

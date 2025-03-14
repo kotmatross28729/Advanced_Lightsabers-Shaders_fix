@@ -5,6 +5,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTBase.NBTPrimitive;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagLong;
+import net.minecraftforge.common.util.Constants.NBT;
+
 import com.fiskmods.lightsabers.ALConstants;
 import com.fiskmods.lightsabers.Lightsabers;
 import com.fiskmods.lightsabers.common.hilt.Hilt;
@@ -19,44 +27,32 @@ import fiskfille.utils.helper.FiskComparators;
 import fiskfille.utils.helper.NBTHelper.ISaveAdapter;
 import fiskfille.utils.helper.NBTHelper.ISerializableObject;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTBase.NBTPrimitive;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagLong;
-import net.minecraftforge.common.util.Constants.NBT;
 
-public class LightsaberData extends AbstractLightsaberData implements ISerializableObject<LightsaberData>
-{
+public class LightsaberData extends AbstractLightsaberData implements ISerializableObject<LightsaberData> {
+
     public static final LightsaberData EMPTY = new LightsaberData();
     public static final float MIN_LENGTH_CM = 19;
 
-    public LightsaberData()
-    {
+    public LightsaberData() {
         this(0);
     }
 
-    public LightsaberData(long hashCode)
-    {
+    public LightsaberData(long hashCode) {
         hash = hashCode;
     }
 
     @Override
-    protected int getIDForObject(Hilt hilt)
-    {
+    protected int getIDForObject(Hilt hilt) {
         return Hilt.REGISTRY.getIDForObject(hilt);
     }
 
     @Override
-    protected Hilt getObjectById(int id)
-    {
+    protected Hilt getObjectById(int id) {
         return Hilt.REGISTRY.getObjectById(id);
     }
 
     @Override
-    protected LightsaberData createNew(long hashCode)
-    {
+    protected LightsaberData createNew(long hashCode) {
         return new LightsaberData(hashCode);
     }
 
@@ -66,8 +62,7 @@ public class LightsaberData extends AbstractLightsaberData implements ISerializa
      * @return this
      */
     @Override
-    public LightsaberData copy()
-    {
+    public LightsaberData copy() {
         return (LightsaberData) super.copy();
     }
 
@@ -77,16 +72,14 @@ public class LightsaberData extends AbstractLightsaberData implements ISerializa
      * @return this
      */
     @Override
-    public LightsaberData strip()
-    {
+    public LightsaberData strip() {
         return (LightsaberData) super.strip();
     }
 
     /**
      * @return true if this hilt is shorter than allowed.
      */
-    public boolean isTooShort()
-    {
+    public boolean isTooShort() {
         return getHeightCm() < MIN_LENGTH_CM;
     }
 
@@ -94,10 +87,9 @@ public class LightsaberData extends AbstractLightsaberData implements ISerializa
      * @param itemstack - the {@link ItemStack} representing this lightsaber
      * @return An array containing the RGB components for the blade of this lightsaber.
      */
-    public float[] getRGB(ItemStack itemstack)
-    {
-        if (itemstack.getDisplayName().equals("jeb_"))
-        {
+    public float[] getRGB(ItemStack itemstack) {
+        if (itemstack.getDisplayName()
+            .equals("jeb_")) {
             EntityPlayer player = Lightsabers.proxy.getPlayer();
             int time = 25;
 
@@ -107,7 +99,8 @@ public class LightsaberData extends AbstractLightsaberData implements ISerializa
             int j = i % rgb.length;
             int k = (i + 1) % rgb.length;
 
-            return new float[] {rgb[j][0] * (1 - f) + rgb[k][0] * f, rgb[j][1] * (1 - f) + rgb[k][1] * f, rgb[j][2] * (1 - f) + rgb[k][2] * f};
+            return new float[] { rgb[j][0] * (1 - f) + rgb[k][0] * f, rgb[j][1] * (1 - f) + rgb[k][1] * f,
+                rgb[j][2] * (1 - f) + rgb[k][2] * f };
         }
 
         return getColor().getRGB();
@@ -117,12 +110,11 @@ public class LightsaberData extends AbstractLightsaberData implements ISerializa
      * Sets the {@link Hilt} design of the lightsaber component in the given {@link PartType} slot.
      *
      * @param type - The component slot
-     * @param id - The hilt design
+     * @param id   - The hilt design
      * @return this
      */
     @Override
-    public LightsaberData set(PartType type, Hilt hilt)
-    {
+    public LightsaberData set(PartType type, Hilt hilt) {
         return (LightsaberData) super.set(type, hilt);
     }
 
@@ -139,8 +131,7 @@ public class LightsaberData extends AbstractLightsaberData implements ISerializa
      * @return this
      */
     @Override
-    public LightsaberData set(Hilt... hilt)
-    {
+    public LightsaberData set(Hilt... hilt) {
         return (LightsaberData) super.set(hilt);
     }
 
@@ -152,8 +143,7 @@ public class LightsaberData extends AbstractLightsaberData implements ISerializa
      * @see LightsaberData#isHiltUniform()
      */
     @Override
-    public LightsaberData set(Hilt hilt)
-    {
+    public LightsaberData set(Hilt hilt) {
         return (LightsaberData) super.set(hilt);
     }
 
@@ -164,8 +154,7 @@ public class LightsaberData extends AbstractLightsaberData implements ISerializa
      * @return this
      */
     @Override
-    public LightsaberData set(CrystalColor color)
-    {
+    public LightsaberData set(CrystalColor color) {
         return (LightsaberData) super.set(color);
     }
 
@@ -178,8 +167,7 @@ public class LightsaberData extends AbstractLightsaberData implements ISerializa
      * @return this
      */
     @Override
-    public LightsaberData set(FocusingCrystal... crystals)
-    {
+    public LightsaberData set(FocusingCrystal... crystals) {
         return (LightsaberData) super.set(crystals);
     }
 
@@ -190,8 +178,7 @@ public class LightsaberData extends AbstractLightsaberData implements ISerializa
      * @return this
      */
     @Override
-    public LightsaberData add(FocusingCrystal crystal)
-    {
+    public LightsaberData add(FocusingCrystal crystal) {
         return (LightsaberData) super.add(crystal);
     }
 
@@ -202,8 +189,7 @@ public class LightsaberData extends AbstractLightsaberData implements ISerializa
      * @return this
      */
     @Override
-    public LightsaberData remove(FocusingCrystal crystal)
-    {
+    public LightsaberData remove(FocusingCrystal crystal) {
         return (LightsaberData) super.remove(crystal);
     }
 
@@ -212,34 +198,30 @@ public class LightsaberData extends AbstractLightsaberData implements ISerializa
      *
      * @return The new item stack.
      */
-    public ItemStack create()
-    {
+    public ItemStack create() {
         ItemStack itemstack = new ItemStack(ModItems.lightsaber);
         itemstack.setTagCompound(new NBTTagCompound());
-        itemstack.getTagCompound().setLong(ALConstants.TAG_LIGHTSABER, strip().hash);
+        itemstack.getTagCompound()
+            .setLong(ALConstants.TAG_LIGHTSABER, strip().hash);
 
         return itemstack;
     }
 
     @Override
-    public NBTBase writeToNBT()
-    {
+    public NBTBase writeToNBT() {
         return new NBTTagLong(hash);
     }
 
     @Override
-    public void toBytes(ByteBuf buf)
-    {
+    public void toBytes(ByteBuf buf) {
         buf.writeLong(hash);
     }
 
-    public static class Adapter implements ISaveAdapter<LightsaberData>
-    {
+    public static class Adapter implements ISaveAdapter<LightsaberData> {
+
         @Override
-        public LightsaberData readFromNBT(NBTBase tag)
-        {
-            if (tag instanceof NBTPrimitive)
-            {
+        public LightsaberData readFromNBT(NBTBase tag) {
+            if (tag instanceof NBTPrimitive) {
                 return new LightsaberData(((NBTPrimitive) tag).func_150291_c());
             }
 
@@ -247,8 +229,7 @@ public class LightsaberData extends AbstractLightsaberData implements ISerializa
         }
 
         @Override
-        public LightsaberData fromBytes(ByteBuf buf)
-        {
+        public LightsaberData fromBytes(ByteBuf buf) {
             return new LightsaberData(buf.readLong());
         }
     }
@@ -261,44 +242,37 @@ public class LightsaberData extends AbstractLightsaberData implements ISerializa
      * @return A new object, or {@link LightsaberData#EMPTY} if nbt contains no relevant data.
      * @see ItemStack#getTagCompound()
      */
-    public static LightsaberData readFromNBT(NBTTagCompound nbt)
-    {
-        if (nbt.hasKey("Lightsaber", NBT.TAG_COMPOUND))
-        {
+    public static LightsaberData readFromNBT(NBTTagCompound nbt) {
+        if (nbt.hasKey("Lightsaber", NBT.TAG_COMPOUND)) {
             NBTTagCompound compound = nbt.getCompoundTag("Lightsaber");
             LightsaberData data = new LightsaberData().set(CrystalColor.get(compound.getInteger("color")));
 
-            if (compound.hasKey("FocusingCrystals", NBT.TAG_INT_ARRAY))
-            {
-                for (int id : compound.getIntArray("FocusingCrystals"))
-                {
+            if (compound.hasKey("FocusingCrystals", NBT.TAG_INT_ARRAY)) {
+                for (int id : compound.getIntArray("FocusingCrystals")) {
                     data.add(ItemFocusingCrystal.get(id));
                 }
             }
 
-            for (PartType type : PartType.values())
-            {
-                data.set(type, Hilt.REGISTRY.getObject(Hilt.LEGACY_MAPPINGS.get(compound.getString(type.name().toLowerCase(Locale.ROOT)))));
+            for (PartType type : PartType.values()) {
+                data.set(
+                    type,
+                    Hilt.REGISTRY.getObject(
+                        Hilt.LEGACY_MAPPINGS.get(
+                            compound.getString(
+                                type.name()
+                                    .toLowerCase(Locale.ROOT)))));
             }
-            
+
             nbt.removeTag("Lightsaber");
             nbt.setLong(ALConstants.TAG_LIGHTSABER, data.hash);
 
             return data;
-        }
-        else if (nbt.hasKey(ALConstants.TAG_LIGHTSABER, NBT.TAG_ANY_NUMERIC))
-        {
+        } else if (nbt.hasKey(ALConstants.TAG_LIGHTSABER, NBT.TAG_ANY_NUMERIC)) {
             return new LightsaberData(nbt.getLong(ALConstants.TAG_LIGHTSABER)).strip();
-        }
-        else if (nbt.hasKey(ALConstants.TAG_LIGHTSABER, NBT.TAG_STRING))
-        {
-            try
-            {
+        } else if (nbt.hasKey(ALConstants.TAG_LIGHTSABER, NBT.TAG_STRING)) {
+            try {
                 return new LightsaberData(Long.decode(nbt.getString(ALConstants.TAG_LIGHTSABER))).strip();
-            }
-            catch (NumberFormatException e)
-            {
-            }
+            } catch (NumberFormatException e) {}
         }
 
         return EMPTY;
@@ -311,10 +285,8 @@ public class LightsaberData extends AbstractLightsaberData implements ISerializa
      * @return The LightsaberData representation.
      * @see LightsaberData#readFromNBT(NBTTagCompound)
      */
-    public static LightsaberData get(ItemStack itemstack)
-    {
-        if (itemstack != null && itemstack.hasTagCompound())
-        {
+    public static LightsaberData get(ItemStack itemstack) {
+        if (itemstack != null && itemstack.hasTagCompound()) {
             return readFromNBT(itemstack.getTagCompound());
         }
 
@@ -325,8 +297,7 @@ public class LightsaberData extends AbstractLightsaberData implements ISerializa
      * @see LightsaberData#get(PartType)
      * @see LightsaberData#get(ItemStack)
      */
-    public static Hilt get(ItemStack itemstack, PartType type)
-    {
+    public static Hilt get(ItemStack itemstack, PartType type) {
         return get(itemstack).get(type);
     }
 
@@ -334,8 +305,7 @@ public class LightsaberData extends AbstractLightsaberData implements ISerializa
      * @see LightsaberData#getHilt(ItemStack)
      * @see LightsaberData#get(ItemStack)
      */
-    public static Hilt[] getHilt(ItemStack itemstack)
-    {
+    public static Hilt[] getHilt(ItemStack itemstack) {
         return get(itemstack).getHilt();
     }
 
@@ -343,8 +313,7 @@ public class LightsaberData extends AbstractLightsaberData implements ISerializa
      * @see LightsaberData#getPart(PartType)
      * @see LightsaberData#get(ItemStack)
      */
-    public static Part getPart(ItemStack itemstack, PartType type)
-    {
+    public static Part getPart(ItemStack itemstack, PartType type) {
         return get(itemstack).getPart(type);
     }
 
@@ -352,10 +321,8 @@ public class LightsaberData extends AbstractLightsaberData implements ISerializa
      * @see LightsaberData#getHeight()
      * @see LightsaberData#get(ItemStack)
      */
-    public static float getHeight(ItemStack itemstack)
-    {
-        if (itemstack.getItem() == ModItems.doubleLightsaber)
-        {
+    public static float getHeight(ItemStack itemstack) {
+        if (itemstack.getItem() == ModItems.doubleLightsaber) {
             LightsaberData[] array = ItemDoubleLightsaber.get(itemstack);
             return array[0].getHeight() + array[1].getHeight();
         }
@@ -367,8 +334,7 @@ public class LightsaberData extends AbstractLightsaberData implements ISerializa
      * @see LightsaberData#getHeightCm()
      * @see LightsaberData#get(ItemStack)
      */
-    public static float getHeightCm(ItemStack itemstack)
-    {
+    public static float getHeightCm(ItemStack itemstack) {
         return getHeight(itemstack) * 0.575F;
     }
 
@@ -376,8 +342,7 @@ public class LightsaberData extends AbstractLightsaberData implements ISerializa
      * @see LightsaberData#getColor()
      * @see LightsaberData#get(ItemStack)
      */
-    public static CrystalColor getColor(ItemStack itemstack)
-    {
+    public static CrystalColor getColor(ItemStack itemstack) {
         return get(itemstack).getColor();
     }
 
@@ -385,8 +350,7 @@ public class LightsaberData extends AbstractLightsaberData implements ISerializa
      * @see LightsaberData#getFocusingCrystals()
      * @see LightsaberData#get(ItemStack)
      */
-    public static FocusingCrystal[] getFocusingCrystals(ItemStack itemstack)
-    {
+    public static FocusingCrystal[] getFocusingCrystals(ItemStack itemstack) {
         return get(itemstack).getFocusingCrystals();
     }
 
@@ -394,50 +358,43 @@ public class LightsaberData extends AbstractLightsaberData implements ISerializa
      * @see LightsaberData#hasFocusingCrystal(FocusingCrystal)
      * @see LightsaberData#get(ItemStack)
      */
-    public static boolean hasFocusingCrystal(ItemStack itemstack, FocusingCrystal crystal)
-    {
+    public static boolean hasFocusingCrystal(ItemStack itemstack, FocusingCrystal crystal) {
         return get(itemstack).hasFocusingCrystal(crystal);
     }
 
     /**
      * Creates a new random lightsaber {@link ItemStack} of the given color.
      *
-     * @param rand - The random instance
+     * @param rand  - The random instance
      * @param color - The blade color
      * @return The new item
      */
-    public static ItemStack createRandom(Random rand, CrystalColor color)
-    {
+    public static ItemStack createRandom(Random rand, CrystalColor color) {
         Hilt[] hilt = new Hilt[4];
 
-        for (int i = 0; i < 4; ++i)
-        {
+        for (int i = 0; i < 4; ++i) {
             hilt[i] = Hilt.REGISTRY.getRandom(rand);
         }
 
         LightsaberData data = new LightsaberData().set(hilt);
 
-        if (data.isTooShort())
-        {
+        if (data.isTooShort()) {
             return createRandom(rand, color);
         }
 
-        if (color == null)
-        {
+        if (color == null) {
             color = CrystalColor.getRandom(rand);
         }
 
         data.set(color);
 
-        if (rand.nextInt(10) == 0)
-        {
+        if (rand.nextInt(10) == 0) {
             List<FocusingCrystal> crystals = Lists.newArrayList(FocusingCrystal.values());
             Collections.sort(crystals, FiskComparators.random(rand));
 
             data.add(crystals.get(0));
 
-            if (rand.nextInt(20) == 0)
-            {
+            if (rand.nextInt(20) == 0) {
                 data.add(crystals.get(1));
             }
         }
@@ -452,8 +409,7 @@ public class LightsaberData extends AbstractLightsaberData implements ISerializa
      * @return The new item
      * @see LightsaberData#createRandom(Random)
      */
-    public static ItemStack createRandom(Random rand)
-    {
+    public static ItemStack createRandom(Random rand) {
         return createRandom(rand, null);
     }
 }

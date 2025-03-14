@@ -1,13 +1,13 @@
 package com.fiskmods.lightsabers.client.model.lightsaber;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class ModelSwitchSectionReborn extends ModelBase
-{
+import org.lwjgl.opengl.GL11;
+
+public class ModelSwitchSectionReborn extends ModelBase {
+
     public ModelRenderer ring1;
     public ModelRenderer sideBlade1point1;
     public ModelRenderer sideBlade1point2;
@@ -83,8 +83,7 @@ public class ModelSwitchSectionReborn extends ModelBase
     public ModelRenderer topRing7_4;
     public ModelRenderer topRing8_4;
 
-    public ModelSwitchSectionReborn()
-    {
+    public ModelSwitchSectionReborn() {
         textureWidth = 32;
         textureHeight = 32;
         sideBlade1point1 = new ModelRenderer(this, 0, 11);
@@ -432,22 +431,30 @@ public class ModelSwitchSectionReborn extends ModelBase
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-    {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         GL11.glPushMatrix();
         GL11.glTranslatef(sideRing1.offsetX, sideRing1.offsetY, sideRing1.offsetZ);
         GL11.glTranslatef(sideRing1.rotationPointX * f5, sideRing1.rotationPointY * f5, sideRing1.rotationPointZ * f5);
         GL11.glScaled(1.1D, 1.0D, 1.1D);
         GL11.glTranslatef(-sideRing1.offsetX, -sideRing1.offsetY, -sideRing1.offsetZ);
-        GL11.glTranslatef(-sideRing1.rotationPointX * f5, -sideRing1.rotationPointY * f5, -sideRing1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -sideRing1.rotationPointX * f5,
+            -sideRing1.rotationPointY * f5,
+            -sideRing1.rotationPointZ * f5);
         sideRing1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(sideRing2_2.offsetX, sideRing2_2.offsetY, sideRing2_2.offsetZ);
-        GL11.glTranslatef(sideRing2_2.rotationPointX * f5, sideRing2_2.rotationPointY * f5, sideRing2_2.rotationPointZ * f5);
+        GL11.glTranslatef(
+            sideRing2_2.rotationPointX * f5,
+            sideRing2_2.rotationPointY * f5,
+            sideRing2_2.rotationPointZ * f5);
         GL11.glScaled(1.01D, 0.5D, 1.01D);
         GL11.glTranslatef(-sideRing2_2.offsetX, -sideRing2_2.offsetY, -sideRing2_2.offsetZ);
-        GL11.glTranslatef(-sideRing2_2.rotationPointX * f5, -sideRing2_2.rotationPointY * f5, -sideRing2_2.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -sideRing2_2.rotationPointX * f5,
+            -sideRing2_2.rotationPointY * f5,
+            -sideRing2_2.rotationPointZ * f5);
         sideRing2_2.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
@@ -455,7 +462,10 @@ public class ModelSwitchSectionReborn extends ModelBase
         GL11.glTranslatef(sideRing2.rotationPointX * f5, sideRing2.rotationPointY * f5, sideRing2.rotationPointZ * f5);
         GL11.glScaled(1.01D, 0.5D, 1.01D);
         GL11.glTranslatef(-sideRing2.offsetX, -sideRing2.offsetY, -sideRing2.offsetZ);
-        GL11.glTranslatef(-sideRing2.rotationPointX * f5, -sideRing2.rotationPointY * f5, -sideRing2.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -sideRing2.rotationPointX * f5,
+            -sideRing2.rotationPointY * f5,
+            -sideRing2.rotationPointZ * f5);
         sideRing2.render(f5);
         GL11.glPopMatrix();
         sideBlade1point2.render(f5);
@@ -472,31 +482,52 @@ public class ModelSwitchSectionReborn extends ModelBase
         GL11.glTranslatef(topRing12.rotationPointX * f5, topRing12.rotationPointY * f5, topRing12.rotationPointZ * f5);
         GL11.glScaled(0.5D, 0.5D, 1.0D);
         GL11.glTranslatef(-topRing12.offsetX, -topRing12.offsetY, -topRing12.offsetZ);
-        GL11.glTranslatef(-topRing12.rotationPointX * f5, -topRing12.rotationPointY * f5, -topRing12.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -topRing12.rotationPointX * f5,
+            -topRing12.rotationPointY * f5,
+            -topRing12.rotationPointZ * f5);
         topRing12.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(button1Point2.offsetX, button1Point2.offsetY, button1Point2.offsetZ);
-        GL11.glTranslatef(button1Point2.rotationPointX * f5, button1Point2.rotationPointY * f5, button1Point2.rotationPointZ * f5);
+        GL11.glTranslatef(
+            button1Point2.rotationPointX * f5,
+            button1Point2.rotationPointY * f5,
+            button1Point2.rotationPointZ * f5);
         GL11.glScaled(0.2D, 0.2D, 0.25D);
         GL11.glTranslatef(-button1Point2.offsetX, -button1Point2.offsetY, -button1Point2.offsetZ);
-        GL11.glTranslatef(-button1Point2.rotationPointX * f5, -button1Point2.rotationPointY * f5, -button1Point2.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -button1Point2.rotationPointX * f5,
+            -button1Point2.rotationPointY * f5,
+            -button1Point2.rotationPointZ * f5);
         button1Point2.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(topRing12_2.offsetX, topRing12_2.offsetY, topRing12_2.offsetZ);
-        GL11.glTranslatef(topRing12_2.rotationPointX * f5, topRing12_2.rotationPointY * f5, topRing12_2.rotationPointZ * f5);
+        GL11.glTranslatef(
+            topRing12_2.rotationPointX * f5,
+            topRing12_2.rotationPointY * f5,
+            topRing12_2.rotationPointZ * f5);
         GL11.glScaled(0.5D, 0.5D, 0.5D);
         GL11.glTranslatef(-topRing12_2.offsetX, -topRing12_2.offsetY, -topRing12_2.offsetZ);
-        GL11.glTranslatef(-topRing12_2.rotationPointX * f5, -topRing12_2.rotationPointY * f5, -topRing12_2.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -topRing12_2.rotationPointX * f5,
+            -topRing12_2.rotationPointY * f5,
+            -topRing12_2.rotationPointZ * f5);
         topRing12_2.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(topRing12_1.offsetX, topRing12_1.offsetY, topRing12_1.offsetZ);
-        GL11.glTranslatef(topRing12_1.rotationPointX * f5, topRing12_1.rotationPointY * f5, topRing12_1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            topRing12_1.rotationPointX * f5,
+            topRing12_1.rotationPointY * f5,
+            topRing12_1.rotationPointZ * f5);
         GL11.glScaled(0.5D, 0.5D, 0.5D);
         GL11.glTranslatef(-topRing12_1.offsetX, -topRing12_1.offsetY, -topRing12_1.offsetZ);
-        GL11.glTranslatef(-topRing12_1.rotationPointX * f5, -topRing12_1.rotationPointY * f5, -topRing12_1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -topRing12_1.rotationPointX * f5,
+            -topRing12_1.rotationPointY * f5,
+            -topRing12_1.rotationPointZ * f5);
         topRing12_1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
@@ -504,15 +535,24 @@ public class ModelSwitchSectionReborn extends ModelBase
         GL11.glTranslatef(topRing10.rotationPointX * f5, topRing10.rotationPointY * f5, topRing10.rotationPointZ * f5);
         GL11.glScaled(0.5D, 1.0D, 1.0D);
         GL11.glTranslatef(-topRing10.offsetX, -topRing10.offsetY, -topRing10.offsetZ);
-        GL11.glTranslatef(-topRing10.rotationPointX * f5, -topRing10.rotationPointY * f5, -topRing10.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -topRing10.rotationPointX * f5,
+            -topRing10.rotationPointY * f5,
+            -topRing10.rotationPointZ * f5);
         topRing10.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(button1Point1.offsetX, button1Point1.offsetY, button1Point1.offsetZ);
-        GL11.glTranslatef(button1Point1.rotationPointX * f5, button1Point1.rotationPointY * f5, button1Point1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            button1Point1.rotationPointX * f5,
+            button1Point1.rotationPointY * f5,
+            button1Point1.rotationPointZ * f5);
         GL11.glScaled(0.25D, 0.25D, 0.25D);
         GL11.glTranslatef(-button1Point1.offsetX, -button1Point1.offsetY, -button1Point1.offsetZ);
-        GL11.glTranslatef(-button1Point1.rotationPointX * f5, -button1Point1.rotationPointY * f5, -button1Point1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -button1Point1.rotationPointX * f5,
+            -button1Point1.rotationPointY * f5,
+            -button1Point1.rotationPointZ * f5);
         button1Point1.render(f5);
         GL11.glPopMatrix();
         sideBlade1point1.render(f5);
@@ -521,23 +561,38 @@ public class ModelSwitchSectionReborn extends ModelBase
         GL11.glTranslatef(topRing11.rotationPointX * f5, topRing11.rotationPointY * f5, topRing11.rotationPointZ * f5);
         GL11.glScaled(0.5D, 0.5D, 1.0D);
         GL11.glTranslatef(-topRing11.offsetX, -topRing11.offsetY, -topRing11.offsetZ);
-        GL11.glTranslatef(-topRing11.rotationPointX * f5, -topRing11.rotationPointY * f5, -topRing11.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -topRing11.rotationPointX * f5,
+            -topRing11.rotationPointY * f5,
+            -topRing11.rotationPointZ * f5);
         topRing11.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(sideRing2_1.offsetX, sideRing2_1.offsetY, sideRing2_1.offsetZ);
-        GL11.glTranslatef(sideRing2_1.rotationPointX * f5, sideRing2_1.rotationPointY * f5, sideRing2_1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            sideRing2_1.rotationPointX * f5,
+            sideRing2_1.rotationPointY * f5,
+            sideRing2_1.rotationPointZ * f5);
         GL11.glScaled(1.01D, 0.5D, 1.01D);
         GL11.glTranslatef(-sideRing2_1.offsetX, -sideRing2_1.offsetY, -sideRing2_1.offsetZ);
-        GL11.glTranslatef(-sideRing2_1.rotationPointX * f5, -sideRing2_1.rotationPointY * f5, -sideRing2_1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -sideRing2_1.rotationPointX * f5,
+            -sideRing2_1.rotationPointY * f5,
+            -sideRing2_1.rotationPointZ * f5);
         sideRing2_1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(sideRing2_3.offsetX, sideRing2_3.offsetY, sideRing2_3.offsetZ);
-        GL11.glTranslatef(sideRing2_3.rotationPointX * f5, sideRing2_3.rotationPointY * f5, sideRing2_3.rotationPointZ * f5);
+        GL11.glTranslatef(
+            sideRing2_3.rotationPointX * f5,
+            sideRing2_3.rotationPointY * f5,
+            sideRing2_3.rotationPointZ * f5);
         GL11.glScaled(1.01D, 0.5D, 1.01D);
         GL11.glTranslatef(-sideRing2_3.offsetX, -sideRing2_3.offsetY, -sideRing2_3.offsetZ);
-        GL11.glTranslatef(-sideRing2_3.rotationPointX * f5, -sideRing2_3.rotationPointY * f5, -sideRing2_3.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -sideRing2_3.rotationPointX * f5,
+            -sideRing2_3.rotationPointY * f5,
+            -sideRing2_3.rotationPointZ * f5);
         sideRing2_3.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
@@ -551,8 +606,7 @@ public class ModelSwitchSectionReborn extends ModelBase
         sideBlade1point3.render(f5);
     }
 
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z)
-    {
+    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;

@@ -5,33 +5,28 @@ import java.util.Vector;
 
 import javax.swing.JList;
 
-public class DynamicJList<E> extends JList<E>
-{
+public class DynamicJList<E> extends JList<E> {
+
     private final Vector<E> v = new Vector<>();
     private boolean hasChanged;
 
-    public void add(E e)
-    {
+    public void add(E e) {
         v.add(e);
         hasChanged = true;
     }
 
-    public void addAll(Collection<? extends E> e)
-    {
+    public void addAll(Collection<? extends E> e) {
         v.addAll(e);
         hasChanged = true;
     }
 
-    public void clear()
-    {
+    public void clear() {
         v.clear();
         hasChanged = true;
     }
 
-    public void sync()
-    {
-        if (hasChanged)
-        {
+    public void sync() {
+        if (hasChanged) {
             hasChanged = false;
             setListData(v);
             setSelectedIndex(Math.max(v.size() - 1, 0));

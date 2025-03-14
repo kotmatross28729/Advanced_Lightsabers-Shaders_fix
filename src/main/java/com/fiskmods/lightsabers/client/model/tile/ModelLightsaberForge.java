@@ -1,12 +1,12 @@
 package com.fiskmods.lightsabers.client.model.tile;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 
-public class ModelLightsaberForge extends ModelBase
-{
+import org.lwjgl.opengl.GL11;
+
+public class ModelLightsaberForge extends ModelBase {
+
     public ModelRenderer monitorMain;
     public ModelRenderer hammer;
     public ModelRenderer screwdriver;
@@ -51,8 +51,7 @@ public class ModelLightsaberForge extends ModelBase
     public ModelRenderer trimLeft;
     public ModelRenderer trimRight;
 
-    public ModelLightsaberForge()
-    {
+    public ModelLightsaberForge() {
         textureWidth = 128;
         textureHeight = 96;
         rightSiding = new ModelRenderer(this, 0, 33);
@@ -237,55 +236,83 @@ public class ModelLightsaberForge extends ModelBase
         lightsaberStand.addChild(lightsaberStandLeft);
     }
 
-    public void render()
-    {
+    public void render() {
         toolbox.render(0.0625F);
         workbench.render(0.0625F);
         GL11.glPushMatrix();
         GL11.glTranslatef(hammer.offsetX, hammer.offsetY, hammer.offsetZ);
-        GL11.glTranslatef(hammer.rotationPointX * 0.0625F, hammer.rotationPointY * 0.0625F, hammer.rotationPointZ * 0.0625F);
+        GL11.glTranslatef(
+            hammer.rotationPointX * 0.0625F,
+            hammer.rotationPointY * 0.0625F,
+            hammer.rotationPointZ * 0.0625F);
         GL11.glScaled(0.7D, 0.7D, 0.7D);
         GL11.glTranslatef(-hammer.offsetX, -hammer.offsetY, -hammer.offsetZ);
-        GL11.glTranslatef(-hammer.rotationPointX * 0.0625F, -hammer.rotationPointY * 0.0625F, -hammer.rotationPointZ * 0.0625F);
+        GL11.glTranslatef(
+            -hammer.rotationPointX * 0.0625F,
+            -hammer.rotationPointY * 0.0625F,
+            -hammer.rotationPointZ * 0.0625F);
         hammer.render(0.0625F);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(wrench.offsetX, wrench.offsetY, wrench.offsetZ);
-        GL11.glTranslatef(wrench.rotationPointX * 0.0625F, wrench.rotationPointY * 0.0625F, wrench.rotationPointZ * 0.0625F);
+        GL11.glTranslatef(
+            wrench.rotationPointX * 0.0625F,
+            wrench.rotationPointY * 0.0625F,
+            wrench.rotationPointZ * 0.0625F);
         GL11.glScaled(0.5D, 0.5D, 0.5D);
         GL11.glTranslatef(-wrench.offsetX, -wrench.offsetY, -wrench.offsetZ);
-        GL11.glTranslatef(-wrench.rotationPointX * 0.0625F, -wrench.rotationPointY * 0.0625F, -wrench.rotationPointZ * 0.0625F);
+        GL11.glTranslatef(
+            -wrench.rotationPointX * 0.0625F,
+            -wrench.rotationPointY * 0.0625F,
+            -wrench.rotationPointZ * 0.0625F);
         wrench.render(0.0625F);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(screwdriver.offsetX, screwdriver.offsetY, screwdriver.offsetZ);
-        GL11.glTranslatef(screwdriver.rotationPointX * 0.0625F, screwdriver.rotationPointY * 0.0625F, screwdriver.rotationPointZ * 0.0625F);
+        GL11.glTranslatef(
+            screwdriver.rotationPointX * 0.0625F,
+            screwdriver.rotationPointY * 0.0625F,
+            screwdriver.rotationPointZ * 0.0625F);
         GL11.glScaled(0.5D, 0.5D, 0.5D);
         GL11.glTranslatef(-screwdriver.offsetX, -screwdriver.offsetY, -screwdriver.offsetZ);
-        GL11.glTranslatef(-screwdriver.rotationPointX * 0.0625F, -screwdriver.rotationPointY * 0.0625F, -screwdriver.rotationPointZ * 0.0625F);
+        GL11.glTranslatef(
+            -screwdriver.rotationPointX * 0.0625F,
+            -screwdriver.rotationPointY * 0.0625F,
+            -screwdriver.rotationPointZ * 0.0625F);
         screwdriver.render(0.0625F);
         GL11.glPopMatrix();
         lightsaberStand.render(0.0625F);
         GL11.glPushMatrix();
         GL11.glTranslatef(welderMain.offsetX, welderMain.offsetY, welderMain.offsetZ);
-        GL11.glTranslatef(welderMain.rotationPointX * 0.0625F, welderMain.rotationPointY * 0.0625F, welderMain.rotationPointZ * 0.0625F);
+        GL11.glTranslatef(
+            welderMain.rotationPointX * 0.0625F,
+            welderMain.rotationPointY * 0.0625F,
+            welderMain.rotationPointZ * 0.0625F);
         GL11.glScaled(0.7D, 0.7D, 0.7D);
         GL11.glTranslatef(-welderMain.offsetX, -welderMain.offsetY, -welderMain.offsetZ);
-        GL11.glTranslatef(-welderMain.rotationPointX * 0.0625F, -welderMain.rotationPointY * 0.0625F, -welderMain.rotationPointZ * 0.0625F);
+        GL11.glTranslatef(
+            -welderMain.rotationPointX * 0.0625F,
+            -welderMain.rotationPointY * 0.0625F,
+            -welderMain.rotationPointZ * 0.0625F);
         welderMain.render(0.0625F);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(monitorMain.offsetX, monitorMain.offsetY, monitorMain.offsetZ);
-        GL11.glTranslatef(monitorMain.rotationPointX * 0.0625F, monitorMain.rotationPointY * 0.0625F, monitorMain.rotationPointZ * 0.0625F);
+        GL11.glTranslatef(
+            monitorMain.rotationPointX * 0.0625F,
+            monitorMain.rotationPointY * 0.0625F,
+            monitorMain.rotationPointZ * 0.0625F);
         GL11.glScaled(0.5D, 0.5D, 0.5D);
         GL11.glTranslatef(-monitorMain.offsetX, -monitorMain.offsetY, -monitorMain.offsetZ);
-        GL11.glTranslatef(-monitorMain.rotationPointX * 0.0625F, -monitorMain.rotationPointY * 0.0625F, -monitorMain.rotationPointZ * 0.0625F);
+        GL11.glTranslatef(
+            -monitorMain.rotationPointX * 0.0625F,
+            -monitorMain.rotationPointY * 0.0625F,
+            -monitorMain.rotationPointZ * 0.0625F);
         monitorMain.render(0.0625F);
         GL11.glPopMatrix();
     }
 
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z)
-    {
+    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;

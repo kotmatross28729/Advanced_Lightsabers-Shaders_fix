@@ -1,13 +1,13 @@
 package com.fiskmods.lightsabers.client.model.lightsaber;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class ModelPommelFury extends ModelBase
-{
+import org.lwjgl.opengl.GL11;
+
+public class ModelPommelFury extends ModelBase {
+
     public ModelRenderer topRing1;
     public ModelRenderer secondaryTopRing1;
     public ModelRenderer angledRing1;
@@ -98,8 +98,7 @@ public class ModelPommelFury extends ModelBase
     public ModelRenderer side4_7;
     public ModelRenderer side4_8;
 
-    public ModelPommelFury()
-    {
+    public ModelPommelFury() {
         textureWidth = 64;
         textureHeight = 32;
         topRing6 = new ModelRenderer(this, 0, 0);
@@ -532,8 +531,7 @@ public class ModelPommelFury extends ModelBase
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-    {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         GL11.glPushMatrix();
         GL11.glTranslatef(cap1.offsetX, cap1.offsetY, cap1.offsetZ);
         GL11.glTranslatef(cap1.rotationPointX * f5, cap1.rotationPointY * f5, cap1.rotationPointZ * f5);
@@ -585,18 +583,30 @@ public class ModelPommelFury extends ModelBase
         secondaryTopRing1.render(f5);
         GL11.glPushMatrix();
         GL11.glTranslatef(angledRing1.offsetX, angledRing1.offsetY, angledRing1.offsetZ);
-        GL11.glTranslatef(angledRing1.rotationPointX * f5, angledRing1.rotationPointY * f5, angledRing1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            angledRing1.rotationPointX * f5,
+            angledRing1.rotationPointY * f5,
+            angledRing1.rotationPointZ * f5);
         GL11.glScaled(0.85D, 1.4D, 0.85D);
         GL11.glTranslatef(-angledRing1.offsetX, -angledRing1.offsetY, -angledRing1.offsetZ);
-        GL11.glTranslatef(-angledRing1.rotationPointX * f5, -angledRing1.rotationPointY * f5, -angledRing1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -angledRing1.rotationPointX * f5,
+            -angledRing1.rotationPointY * f5,
+            -angledRing1.rotationPointZ * f5);
         angledRing1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(lowerRing1.offsetX, lowerRing1.offsetY, lowerRing1.offsetZ);
-        GL11.glTranslatef(lowerRing1.rotationPointX * f5, lowerRing1.rotationPointY * f5, lowerRing1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            lowerRing1.rotationPointX * f5,
+            lowerRing1.rotationPointY * f5,
+            lowerRing1.rotationPointZ * f5);
         GL11.glScaled(0.9D, 0.7D, 0.9D);
         GL11.glTranslatef(-lowerRing1.offsetX, -lowerRing1.offsetY, -lowerRing1.offsetZ);
-        GL11.glTranslatef(-lowerRing1.rotationPointX * f5, -lowerRing1.rotationPointY * f5, -lowerRing1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -lowerRing1.rotationPointX * f5,
+            -lowerRing1.rotationPointY * f5,
+            -lowerRing1.rotationPointZ * f5);
         lowerRing1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
@@ -609,16 +619,21 @@ public class ModelPommelFury extends ModelBase
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(middleRing1.offsetX, middleRing1.offsetY, middleRing1.offsetZ);
-        GL11.glTranslatef(middleRing1.rotationPointX * f5, middleRing1.rotationPointY * f5, middleRing1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            middleRing1.rotationPointX * f5,
+            middleRing1.rotationPointY * f5,
+            middleRing1.rotationPointZ * f5);
         GL11.glScaled(0.85D, 0.85D, 0.85D);
         GL11.glTranslatef(-middleRing1.offsetX, -middleRing1.offsetY, -middleRing1.offsetZ);
-        GL11.glTranslatef(-middleRing1.rotationPointX * f5, -middleRing1.rotationPointY * f5, -middleRing1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -middleRing1.rotationPointX * f5,
+            -middleRing1.rotationPointY * f5,
+            -middleRing1.rotationPointZ * f5);
         middleRing1.render(f5);
         GL11.glPopMatrix();
     }
 
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z)
-    {
+    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;

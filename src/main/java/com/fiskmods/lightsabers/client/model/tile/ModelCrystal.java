@@ -3,8 +3,8 @@ package com.fiskmods.lightsabers.client.model.tile;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 
-public class ModelCrystal extends ModelBase
-{
+public class ModelCrystal extends ModelBase {
+
     public ModelRenderer shape1;
     public ModelRenderer shape2;
     public ModelRenderer shape3;
@@ -12,8 +12,7 @@ public class ModelCrystal extends ModelBase
     public ModelRenderer shape5;
     public ModelRenderer shape6;
 
-    public ModelCrystal()
-    {
+    public ModelCrystal() {
         textureWidth = 64;
         textureHeight = 32;
 
@@ -43,8 +42,7 @@ public class ModelCrystal extends ModelBase
         setRotateAngle(shape3, 0.08726646259971647F, 0, 0.10471975511965977F);
     }
 
-    public void render()
-    {
+    public void render() {
         shape2.render(0.0625F);
         shape6.render(0.0625F);
         shape4.render(0.0625F);
@@ -53,8 +51,7 @@ public class ModelCrystal extends ModelBase
         shape3.render(0.0625F);
     }
 
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z)
-    {
+    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;

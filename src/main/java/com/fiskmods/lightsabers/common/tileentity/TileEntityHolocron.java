@@ -8,8 +8,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 
-public class TileEntityHolocron extends TileEntity
-{
+public class TileEntityHolocron extends TileEntity {
+
     public int playersUsing;
     public float openTimer;
     public float prevOpenTimer;
@@ -17,32 +17,24 @@ public class TileEntityHolocron extends TileEntity
     public int prevOpenTicks;
 
     @Override
-    public void updateEntity()
-    {
+    public void updateEntity() {
         prevOpenTimer = openTimer;
         prevOpenTicks = openTicks;
 
-        if (playersUsing <= 0)
-        {
+        if (playersUsing <= 0) {
             openTimer *= 0.85F;
-        }
-        else if (openTimer < 1)
-        {
+        } else if (openTimer < 1) {
             openTimer += 0.05F;
             openTimer *= 1.05F;
         }
 
-        if (openTimer < 1E-6)
-        {
+        if (openTimer < 1E-6) {
             openTimer = 0;
         }
 
-        if (openTimer == 0)
-        {
+        if (openTimer == 0) {
             openTicks = 0;
-        }
-        else if (openTimer >= 1)
-        {
+        } else if (openTimer >= 1) {
             ++openTicks;
         }
 
@@ -51,28 +43,24 @@ public class TileEntityHolocron extends TileEntity
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound nbttagcompound)
-    {
+    public void readFromNBT(NBTTagCompound nbttagcompound) {
         super.readFromNBT(nbttagcompound);
 
     }
 
     @Override
-    public void writeToNBT(NBTTagCompound nbttagcompound)
-    {
+    public void writeToNBT(NBTTagCompound nbttagcompound) {
         super.writeToNBT(nbttagcompound);
 
     }
 
     @Override
-    public AxisAlignedBB getRenderBoundingBox()
-    {
+    public AxisAlignedBB getRenderBoundingBox() {
         return AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1);
     }
 
     @Override
-    public Packet getDescriptionPacket()
-    {
+    public Packet getDescriptionPacket() {
         NBTTagCompound syncData = new NBTTagCompound();
         writeToNBT(syncData);
 
@@ -80,8 +68,7 @@ public class TileEntityHolocron extends TileEntity
     }
 
     @Override
-    public void onDataPacket(NetworkManager netManager, S35PacketUpdateTileEntity packet)
-    {
+    public void onDataPacket(NetworkManager netManager, S35PacketUpdateTileEntity packet) {
         readFromNBT(packet.func_148857_g());
     }
 }

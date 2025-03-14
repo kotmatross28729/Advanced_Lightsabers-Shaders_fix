@@ -3,10 +3,11 @@ package com.fiskmods.lightsabers.client.model.lightsaber;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+
 import org.lwjgl.opengl.GL11;
 
-public class ModelPommelRebel extends ModelBase
-{
+public class ModelPommelRebel extends ModelBase {
+
     public ModelRenderer bottom1;
     public ModelRenderer body1;
     public ModelRenderer extrusion1;
@@ -61,8 +62,7 @@ public class ModelPommelRebel extends ModelBase
     public ModelRenderer body7_1;
     public ModelRenderer body8_1;
 
-    public ModelPommelRebel()
-    {
+    public ModelPommelRebel() {
         textureWidth = 64;
         textureHeight = 32;
         bottom4 = new ModelRenderer(this, 0, 8);
@@ -331,8 +331,7 @@ public class ModelPommelRebel extends ModelBase
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-    {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         GL11.glPushMatrix();
         GL11.glTranslatef(bottom1.offsetX, bottom1.offsetY, bottom1.offsetZ);
         GL11.glTranslatef(bottom1.rotationPointX * f5, bottom1.rotationPointY * f5, bottom1.rotationPointZ * f5);
@@ -351,18 +350,30 @@ public class ModelPommelRebel extends ModelBase
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(innerRing1.offsetX, innerRing1.offsetY, innerRing1.offsetZ);
-        GL11.glTranslatef(innerRing1.rotationPointX * f5, innerRing1.rotationPointY * f5, innerRing1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            innerRing1.rotationPointX * f5,
+            innerRing1.rotationPointY * f5,
+            innerRing1.rotationPointZ * f5);
         GL11.glScaled(0.91D, 1.0D, 0.91D);
         GL11.glTranslatef(-innerRing1.offsetX, -innerRing1.offsetY, -innerRing1.offsetZ);
-        GL11.glTranslatef(-innerRing1.rotationPointX * f5, -innerRing1.rotationPointY * f5, -innerRing1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -innerRing1.rotationPointX * f5,
+            -innerRing1.rotationPointY * f5,
+            -innerRing1.rotationPointZ * f5);
         innerRing1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(extrusion1.offsetX, extrusion1.offsetY, extrusion1.offsetZ);
-        GL11.glTranslatef(extrusion1.rotationPointX * f5, extrusion1.rotationPointY * f5, extrusion1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            extrusion1.rotationPointX * f5,
+            extrusion1.rotationPointY * f5,
+            extrusion1.rotationPointZ * f5);
         GL11.glScaled(1.0D, 0.5D, 1.0D);
         GL11.glTranslatef(-extrusion1.offsetX, -extrusion1.offsetY, -extrusion1.offsetZ);
-        GL11.glTranslatef(-extrusion1.rotationPointX * f5, -extrusion1.rotationPointY * f5, -extrusion1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -extrusion1.rotationPointX * f5,
+            -extrusion1.rotationPointY * f5,
+            -extrusion1.rotationPointZ * f5);
         extrusion1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
@@ -375,8 +386,7 @@ public class ModelPommelRebel extends ModelBase
         GL11.glPopMatrix();
     }
 
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z)
-    {
+    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;

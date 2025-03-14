@@ -7,14 +7,12 @@ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
 import fiskfille.utils.common.network.FiskNetworkHelper;
-import fiskfille.utils.common.network.MessageTileTrigger;
 
-public class ALNetworkManager extends FiskNetworkHelper
-{
+public class ALNetworkManager extends FiskNetworkHelper {
+
     public static SimpleNetworkWrapper wrapper;
 
-    public static void register()
-    {
+    public static void register() {
         wrapper = getWrapper(Lightsabers.MODID);
 
         registerMessage(MessageBroadcastState.class);
@@ -29,8 +27,8 @@ public class ALNetworkManager extends FiskNetworkHelper
         registerPacket(PacketRightClick.Handler.class, PacketRightClick.class);
     }
 
-    private static <REQ extends IMessage, REPLY extends IMessage> void registerPacket(Class<? extends IMessageHandler<REQ, REPLY>> messageHandler, Class<REQ> requestMessageType)
-    {
+    private static <REQ extends IMessage, REPLY extends IMessage> void registerPacket(
+        Class<? extends IMessageHandler<REQ, REPLY>> messageHandler, Class<REQ> requestMessageType) {
         wrapper.registerMessage(messageHandler, requestMessageType, getNextId(Lightsabers.MODID), Side.CLIENT);
         wrapper.registerMessage(messageHandler, requestMessageType, getNextId(Lightsabers.MODID), Side.SERVER);
     }

@@ -1,5 +1,13 @@
 package com.fiskmods.lightsabers.client.gui;
 
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
@@ -17,70 +25,69 @@ import com.google.common.collect.Iterables;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 
 @SideOnly(Side.CLIENT)
-public class GuiLightsaberForge extends GuiContainer
-{
-    private static final ResourceLocation GUI_TEXTURES = new ResourceLocation(Lightsabers.MODID, "textures/gui/container/lightsaber_forge.png");
+public class GuiLightsaberForge extends GuiContainer {
 
-    public GuiLightsaberForge(InventoryPlayer inventoryPlayer, TileEntityLightsaberForge tile)
-    {
+    private static final ResourceLocation GUI_TEXTURES = new ResourceLocation(
+        Lightsabers.MODID,
+        "textures/gui/container/lightsaber_forge.png");
+
+    public GuiLightsaberForge(InventoryPlayer inventoryPlayer, TileEntityLightsaberForge tile) {
         super(new ContainerLightsaberForge(inventoryPlayer, tile));
         ySize = 196;
     }
 
     @Override
-    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
-    {
+    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         String s = I18n.format("gui.lightsaber_forge");
         fontRendererObj.drawString(s, xSize / 2 - fontRendererObj.getStringWidth(s) / 2, 6, 4210752);
         fontRendererObj.drawString(I18n.format("container.inventory"), 8, ySize - 94, 4210752);
-        
+
         ContainerLightsaberForge container = (ContainerLightsaberForge) inventorySlots;
         InventoryLightsaberForge inventory = container.craftMatrix;
         LightsaberData data = inventory.result;
 
-        if (data != null)
-        {
-            if (data.isTooShort())
-            {
+        if (data != null) {
+            if (data.isTooShort()) {
                 GL11.glColor4f(1, 1, 1, 1);
-                mc.getTextureManager().bindTexture(GUI_TEXTURES);
+                mc.getTextureManager()
+                    .bindTexture(GUI_TEXTURES);
                 drawTexturedModalRect(131, 65, 176, 0, 26, 17);
-                
+
                 GL11.glTranslatef(0, 0, 300);
-                drawString(fontRendererObj, I18n.format("gui.lightsaber_forge.too_short"), 45, 64 - fontRendererObj.FONT_HEIGHT, 0xD74848);
-            }
-            else
-            {
+                drawString(
+                    fontRendererObj,
+                    I18n.format("gui.lightsaber_forge.too_short"),
+                    45,
+                    64 - fontRendererObj.FONT_HEIGHT,
+                    0xD74848);
+            } else {
                 GL11.glTranslatef(0, 0, 300);
-                drawString(fontRendererObj, I18n.format("%s cm", ItemStack.field_111284_a.format(data.getHeightCm())), 45, 64 - fontRendererObj.FONT_HEIGHT, -1);
+                drawString(
+                    fontRendererObj,
+                    I18n.format("%s cm", ItemStack.field_111284_a.format(data.getHeightCm())),
+                    45,
+                    64 - fontRendererObj.FONT_HEIGHT,
+                    -1);
             }
-            
+
             GL11.glTranslatef(0, 0, -300);
         }
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)
-    {
+    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         GL11.glColor4f(1, 1, 1, 1);
-        mc.getTextureManager().bindTexture(GUI_TEXTURES);
+        mc.getTextureManager()
+            .bindTexture(GUI_TEXTURES);
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 
         ContainerLightsaberForge container = (ContainerLightsaberForge) inventorySlots;
         InventoryLightsaberForge inventory = container.craftMatrix;
         LightsaberData data = inventory.result;
 
-        if (data != null)
-        {
+        if (data != null) {
             float spin = mc.thePlayer.ticksExisted + partialTicks;
 
             GL11.glEnable(GL12.GL_RESCALE_NORMAL);
@@ -101,59 +108,60 @@ public class GuiLightsaberForge extends GuiContainer
             RenderHelper.disableStandardItemLighting();
             GL11.glPopMatrix();
             RenderHelper.disableStandardItemLighting();
-        }
-        else
-        {
+        } else {
             Hilt hilt = null;
-            
-            for (int slot = 0; slot < 4; ++slot)
-            {
+
+            for (int slot = 0; slot < 4; ++slot) {
                 ItemStack stack = inventory.getStackInSlot(slot);
 
-                if (stack != null)
-                {
-                    if (hilt == null || hilt == ItemLightsaberPart.get(stack))
-                    {
+                if (stack != null) {
+                    if (hilt == null || hilt == ItemLightsaberPart.get(stack)) {
                         hilt = ItemLightsaberPart.get(stack);
-                    }
-                    else
-                    {
+                    } else {
                         hilt = null;
                         break;
                     }
                 }
             }
-            
-            if (hilt == null)
-            {
-                hilt = Iterables.get(Hilt.REGISTRY, (mc.thePlayer.ticksExisted / 20) % Hilt.REGISTRY.getKeys().size());
+
+            if (hilt == null) {
+                hilt = Iterables.get(
+                    Hilt.REGISTRY,
+                    (mc.thePlayer.ticksExisted / 20) % Hilt.REGISTRY.getKeys()
+                        .size());
             }
-            
+
             ALRenderHelper.setupRenderItemIntoGUI();
             GL11.glColor4f(0.6F, 0.6F, 0.6F, 0.125F);
             boolean prevColor = itemRender.renderWithColor;
             itemRender.renderWithColor = false;
-            
-            if (hilt != null)
-            {
-                for (int slot = 0; slot < 4; ++slot)
-                {
-                    if (inventory.getStackInSlot(slot) == null)
-                    {
+
+            if (hilt != null) {
+                for (int slot = 0; slot < 4; ++slot) {
+                    if (inventory.getStackInSlot(slot) == null) {
                         int[] pos = ContainerLightsaberForge.SLOTS[slot];
-                        itemRender.renderItemAndEffectIntoGUI(mc.fontRenderer, mc.getTextureManager(), ItemLightsaberPart.create(PartType.values()[slot], hilt), guiLeft + pos[0], guiTop + pos[1]);
+                        itemRender.renderItemAndEffectIntoGUI(
+                            mc.fontRenderer,
+                            mc.getTextureManager(),
+                            ItemLightsaberPart.create(PartType.values()[slot], hilt),
+                            guiLeft + pos[0],
+                            guiTop + pos[1]);
                     }
                 }
-                
-                if (inventory.getStackInSlot(5) == null)
-                {
+
+                if (inventory.getStackInSlot(5) == null) {
                     int[] pos = ContainerLightsaberForge.SLOTS[5];
-                    
+
                     GL11.glColor4f(1, 1, 1, 0.25F);
-                    itemRender.renderItemAndEffectIntoGUI(mc.fontRenderer, mc.getTextureManager(), ItemCrystal.create(hilt.getColor()), guiLeft + pos[0], guiTop + pos[1]);
+                    itemRender.renderItemAndEffectIntoGUI(
+                        mc.fontRenderer,
+                        mc.getTextureManager(),
+                        ItemCrystal.create(hilt.getColor()),
+                        guiLeft + pos[0],
+                        guiTop + pos[1]);
                 }
             }
-            
+
             itemRender.renderWithColor = prevColor;
             GL11.glColor4f(1, 1, 1, 1);
             ALRenderHelper.finishRenderItemIntoGUI();

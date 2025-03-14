@@ -1,13 +1,13 @@
 package com.fiskmods.lightsabers.client.model.lightsaber;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class ModelEmitterMauler extends ModelBase
-{
+import org.lwjgl.opengl.GL11;
+
+public class ModelEmitterMauler extends ModelBase {
+
     public ModelRenderer body1;
     public ModelRenderer bodyCurve1;
     public ModelRenderer innerRing1_1;
@@ -138,8 +138,7 @@ public class ModelEmitterMauler extends ModelBase
     public ModelRenderer emitterTop7;
     public ModelRenderer emitterTop8;
 
-    public ModelEmitterMauler()
-    {
+    public ModelEmitterMauler() {
         textureWidth = 64;
         textureHeight = 32;
         innerRing2_7 = new ModelRenderer(this, 8, 0);
@@ -762,64 +761,105 @@ public class ModelEmitterMauler extends ModelBase
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-    {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         GL11.glPushMatrix();
         GL11.glTranslatef(topRing1_1.offsetX, topRing1_1.offsetY, topRing1_1.offsetZ);
-        GL11.glTranslatef(topRing1_1.rotationPointX * f5, topRing1_1.rotationPointY * f5, topRing1_1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            topRing1_1.rotationPointX * f5,
+            topRing1_1.rotationPointY * f5,
+            topRing1_1.rotationPointZ * f5);
         GL11.glScaled(1.1D, 0.3D, 1.1D);
         GL11.glTranslatef(-topRing1_1.offsetX, -topRing1_1.offsetY, -topRing1_1.offsetZ);
-        GL11.glTranslatef(-topRing1_1.rotationPointX * f5, -topRing1_1.rotationPointY * f5, -topRing1_1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -topRing1_1.rotationPointX * f5,
+            -topRing1_1.rotationPointY * f5,
+            -topRing1_1.rotationPointZ * f5);
         topRing1_1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(topRing_31.offsetX, topRing_31.offsetY, topRing_31.offsetZ);
-        GL11.glTranslatef(topRing_31.rotationPointX * f5, topRing_31.rotationPointY * f5, topRing_31.rotationPointZ * f5);
+        GL11.glTranslatef(
+            topRing_31.rotationPointX * f5,
+            topRing_31.rotationPointY * f5,
+            topRing_31.rotationPointZ * f5);
         GL11.glScaled(1.3D, 0.3D, 1.3D);
         GL11.glTranslatef(-topRing_31.offsetX, -topRing_31.offsetY, -topRing_31.offsetZ);
-        GL11.glTranslatef(-topRing_31.rotationPointX * f5, -topRing_31.rotationPointY * f5, -topRing_31.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -topRing_31.rotationPointX * f5,
+            -topRing_31.rotationPointY * f5,
+            -topRing_31.rotationPointZ * f5);
         topRing_31.render(f5);
         GL11.glPopMatrix();
         bodyCurve1.render(f5);
         GL11.glPushMatrix();
         GL11.glTranslatef(innerRing2_1.offsetX, innerRing2_1.offsetY, innerRing2_1.offsetZ);
-        GL11.glTranslatef(innerRing2_1.rotationPointX * f5, innerRing2_1.rotationPointY * f5, innerRing2_1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            innerRing2_1.rotationPointX * f5,
+            innerRing2_1.rotationPointY * f5,
+            innerRing2_1.rotationPointZ * f5);
         GL11.glScaled(0.81D, 0.8D, 0.81D);
         GL11.glTranslatef(-innerRing2_1.offsetX, -innerRing2_1.offsetY, -innerRing2_1.offsetZ);
-        GL11.glTranslatef(-innerRing2_1.rotationPointX * f5, -innerRing2_1.rotationPointY * f5, -innerRing2_1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -innerRing2_1.rotationPointX * f5,
+            -innerRing2_1.rotationPointY * f5,
+            -innerRing2_1.rotationPointZ * f5);
         innerRing2_1.render(f5);
         GL11.glPopMatrix();
         body1.render(f5);
         GL11.glPushMatrix();
         GL11.glTranslatef(topRing2_1.offsetX, topRing2_1.offsetY, topRing2_1.offsetZ);
-        GL11.glTranslatef(topRing2_1.rotationPointX * f5, topRing2_1.rotationPointY * f5, topRing2_1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            topRing2_1.rotationPointX * f5,
+            topRing2_1.rotationPointY * f5,
+            topRing2_1.rotationPointZ * f5);
         GL11.glScaled(1.1D, 0.3D, 1.1D);
         GL11.glTranslatef(-topRing2_1.offsetX, -topRing2_1.offsetY, -topRing2_1.offsetZ);
-        GL11.glTranslatef(-topRing2_1.rotationPointX * f5, -topRing2_1.rotationPointY * f5, -topRing2_1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -topRing2_1.rotationPointX * f5,
+            -topRing2_1.rotationPointY * f5,
+            -topRing2_1.rotationPointZ * f5);
         topRing2_1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(innerCylinder1_1.offsetX, innerCylinder1_1.offsetY, innerCylinder1_1.offsetZ);
-        GL11.glTranslatef(innerCylinder1_1.rotationPointX * f5, innerCylinder1_1.rotationPointY * f5, innerCylinder1_1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            innerCylinder1_1.rotationPointX * f5,
+            innerCylinder1_1.rotationPointY * f5,
+            innerCylinder1_1.rotationPointZ * f5);
         GL11.glScaled(0.95D, 1.7D, 0.95D);
         GL11.glTranslatef(-innerCylinder1_1.offsetX, -innerCylinder1_1.offsetY, -innerCylinder1_1.offsetZ);
-        GL11.glTranslatef(-innerCylinder1_1.rotationPointX * f5, -innerCylinder1_1.rotationPointY * f5, -innerCylinder1_1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -innerCylinder1_1.rotationPointX * f5,
+            -innerCylinder1_1.rotationPointY * f5,
+            -innerCylinder1_1.rotationPointZ * f5);
         innerCylinder1_1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(topRing4_1.offsetX, topRing4_1.offsetY, topRing4_1.offsetZ);
-        GL11.glTranslatef(topRing4_1.rotationPointX * f5, topRing4_1.rotationPointY * f5, topRing4_1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            topRing4_1.rotationPointX * f5,
+            topRing4_1.rotationPointY * f5,
+            topRing4_1.rotationPointZ * f5);
         GL11.glScaled(1.3D, 0.3D, 1.3D);
         GL11.glTranslatef(-topRing4_1.offsetX, -topRing4_1.offsetY, -topRing4_1.offsetZ);
-        GL11.glTranslatef(-topRing4_1.rotationPointX * f5, -topRing4_1.rotationPointY * f5, -topRing4_1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -topRing4_1.rotationPointX * f5,
+            -topRing4_1.rotationPointY * f5,
+            -topRing4_1.rotationPointZ * f5);
         topRing4_1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(innerCone1.offsetX, innerCone1.offsetY, innerCone1.offsetZ);
-        GL11.glTranslatef(innerCone1.rotationPointX * f5, innerCone1.rotationPointY * f5, innerCone1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            innerCone1.rotationPointX * f5,
+            innerCone1.rotationPointY * f5,
+            innerCone1.rotationPointZ * f5);
         GL11.glScaled(0.75D, 0.8D, 0.75D);
         GL11.glTranslatef(-innerCone1.offsetX, -innerCone1.offsetY, -innerCone1.offsetZ);
-        GL11.glTranslatef(-innerCone1.rotationPointX * f5, -innerCone1.rotationPointY * f5, -innerCone1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -innerCone1.rotationPointX * f5,
+            -innerCone1.rotationPointY * f5,
+            -innerCone1.rotationPointZ * f5);
         innerCone1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
@@ -827,45 +867,71 @@ public class ModelEmitterMauler extends ModelBase
         GL11.glTranslatef(sidePart1.rotationPointX * f5, sidePart1.rotationPointY * f5, sidePart1.rotationPointZ * f5);
         GL11.glScaled(0.6D, 0.6D, 0.6D);
         GL11.glTranslatef(-sidePart1.offsetX, -sidePart1.offsetY, -sidePart1.offsetZ);
-        GL11.glTranslatef(-sidePart1.rotationPointX * f5, -sidePart1.rotationPointY * f5, -sidePart1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -sidePart1.rotationPointX * f5,
+            -sidePart1.rotationPointY * f5,
+            -sidePart1.rotationPointZ * f5);
         sidePart1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(innerRing1_1.offsetX, innerRing1_1.offsetY, innerRing1_1.offsetZ);
-        GL11.glTranslatef(innerRing1_1.rotationPointX * f5, innerRing1_1.rotationPointY * f5, innerRing1_1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            innerRing1_1.rotationPointX * f5,
+            innerRing1_1.rotationPointY * f5,
+            innerRing1_1.rotationPointZ * f5);
         GL11.glScaled(0.98D, 1.0D, 0.98D);
         GL11.glTranslatef(-innerRing1_1.offsetX, -innerRing1_1.offsetY, -innerRing1_1.offsetZ);
-        GL11.glTranslatef(-innerRing1_1.rotationPointX * f5, -innerRing1_1.rotationPointY * f5, -innerRing1_1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -innerRing1_1.rotationPointX * f5,
+            -innerRing1_1.rotationPointY * f5,
+            -innerRing1_1.rotationPointZ * f5);
         innerRing1_1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(innerCylinder2_1.offsetX, innerCylinder2_1.offsetY, innerCylinder2_1.offsetZ);
-        GL11.glTranslatef(innerCylinder2_1.rotationPointX * f5, innerCylinder2_1.rotationPointY * f5, innerCylinder2_1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            innerCylinder2_1.rotationPointX * f5,
+            innerCylinder2_1.rotationPointY * f5,
+            innerCylinder2_1.rotationPointZ * f5);
         GL11.glScaled(1.1D, 1.0D, 1.1D);
         GL11.glTranslatef(-innerCylinder2_1.offsetX, -innerCylinder2_1.offsetY, -innerCylinder2_1.offsetZ);
-        GL11.glTranslatef(-innerCylinder2_1.rotationPointX * f5, -innerCylinder2_1.rotationPointY * f5, -innerCylinder2_1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -innerCylinder2_1.rotationPointX * f5,
+            -innerCylinder2_1.rotationPointY * f5,
+            -innerCylinder2_1.rotationPointZ * f5);
         innerCylinder2_1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(emitterTop1.offsetX, emitterTop1.offsetY, emitterTop1.offsetZ);
-        GL11.glTranslatef(emitterTop1.rotationPointX * f5, emitterTop1.rotationPointY * f5, emitterTop1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            emitterTop1.rotationPointX * f5,
+            emitterTop1.rotationPointY * f5,
+            emitterTop1.rotationPointZ * f5);
         GL11.glScaled(1.2D, 0.7D, 1.2D);
         GL11.glTranslatef(-emitterTop1.offsetX, -emitterTop1.offsetY, -emitterTop1.offsetZ);
-        GL11.glTranslatef(-emitterTop1.rotationPointX * f5, -emitterTop1.rotationPointY * f5, -emitterTop1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -emitterTop1.rotationPointX * f5,
+            -emitterTop1.rotationPointY * f5,
+            -emitterTop1.rotationPointZ * f5);
         emitterTop1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(topRing5_1.offsetX, topRing5_1.offsetY, topRing5_1.offsetZ);
-        GL11.glTranslatef(topRing5_1.rotationPointX * f5, topRing5_1.rotationPointY * f5, topRing5_1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            topRing5_1.rotationPointX * f5,
+            topRing5_1.rotationPointY * f5,
+            topRing5_1.rotationPointZ * f5);
         GL11.glScaled(1.3D, 0.3D, 1.3D);
         GL11.glTranslatef(-topRing5_1.offsetX, -topRing5_1.offsetY, -topRing5_1.offsetZ);
-        GL11.glTranslatef(-topRing5_1.rotationPointX * f5, -topRing5_1.rotationPointY * f5, -topRing5_1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -topRing5_1.rotationPointX * f5,
+            -topRing5_1.rotationPointY * f5,
+            -topRing5_1.rotationPointZ * f5);
         topRing5_1.render(f5);
         GL11.glPopMatrix();
     }
 
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z)
-    {
+    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;

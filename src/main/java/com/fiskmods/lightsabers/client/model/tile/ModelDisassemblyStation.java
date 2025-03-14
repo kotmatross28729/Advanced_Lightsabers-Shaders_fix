@@ -1,12 +1,12 @@
 package com.fiskmods.lightsabers.client.model.tile;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 
-public class ModelDisassemblyStation extends ModelBase
-{
+import org.lwjgl.opengl.GL11;
+
+public class ModelDisassemblyStation extends ModelBase {
+
     public ModelRenderer tabletopThing;
     public ModelRenderer back;
     public ModelRenderer base;
@@ -30,8 +30,7 @@ public class ModelDisassemblyStation extends ModelBase
     public ModelRenderer clawArm4Left;
     public ModelRenderer clawArm4Right;
 
-    public ModelDisassemblyStation()
-    {
+    public ModelDisassemblyStation() {
         textureWidth = 128;
         textureHeight = 128;
         base = new ModelRenderer(this, 0, 0);
@@ -139,8 +138,7 @@ public class ModelDisassemblyStation extends ModelBase
         clawArm3.addChild(clawArm3Right);
     }
 
-    public void render(float scale)
-    {
+    public void render(float scale) {
         base.render(scale);
         tabletopThing.render(scale);
         theClawwwww.render(scale);
@@ -155,8 +153,7 @@ public class ModelDisassemblyStation extends ModelBase
         back.render(scale);
     }
 
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z)
-    {
+    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;

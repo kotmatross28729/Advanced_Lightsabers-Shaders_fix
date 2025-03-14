@@ -1,13 +1,13 @@
 package com.fiskmods.lightsabers.client.model.lightsaber;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class ModelSwitchSectionJuggernaut extends ModelBase
-{
+import org.lwjgl.opengl.GL11;
+
+public class ModelSwitchSectionJuggernaut extends ModelBase {
+
     public ModelRenderer body1;
     public ModelRenderer top1;
     public ModelRenderer ring1;
@@ -54,8 +54,7 @@ public class ModelSwitchSectionJuggernaut extends ModelBase
     public ModelRenderer switchButton3;
     public ModelRenderer switchButton4;
 
-    public ModelSwitchSectionJuggernaut()
-    {
+    public ModelSwitchSectionJuggernaut() {
         textureWidth = 64;
         textureHeight = 32;
         top5 = new ModelRenderer(this, 0, 19);
@@ -273,25 +272,36 @@ public class ModelSwitchSectionJuggernaut extends ModelBase
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-    {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         GL11.glPushMatrix();
         GL11.glRotatef(90, 0, 1, 0);
         ring1.render(f5);
         GL11.glPushMatrix();
         GL11.glTranslatef(switchButton1.offsetX, switchButton1.offsetY, switchButton1.offsetZ);
-        GL11.glTranslatef(switchButton1.rotationPointX * f5, switchButton1.rotationPointY * f5, switchButton1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            switchButton1.rotationPointX * f5,
+            switchButton1.rotationPointY * f5,
+            switchButton1.rotationPointZ * f5);
         GL11.glScaled(1.1D, 0.9D, 0.8D);
         GL11.glTranslatef(-switchButton1.offsetX, -switchButton1.offsetY, -switchButton1.offsetZ);
-        GL11.glTranslatef(-switchButton1.rotationPointX * f5, -switchButton1.rotationPointY * f5, -switchButton1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -switchButton1.rotationPointX * f5,
+            -switchButton1.rotationPointY * f5,
+            -switchButton1.rotationPointZ * f5);
         switchButton1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(upperBody1.offsetX, upperBody1.offsetY, upperBody1.offsetZ);
-        GL11.glTranslatef(upperBody1.rotationPointX * f5, upperBody1.rotationPointY * f5, upperBody1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            upperBody1.rotationPointX * f5,
+            upperBody1.rotationPointY * f5,
+            upperBody1.rotationPointZ * f5);
         GL11.glScaled(0.6D, 0.6D, 0.6D);
         GL11.glTranslatef(-upperBody1.offsetX, -upperBody1.offsetY, -upperBody1.offsetZ);
-        GL11.glTranslatef(-upperBody1.rotationPointX * f5, -upperBody1.rotationPointY * f5, -upperBody1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -upperBody1.rotationPointX * f5,
+            -upperBody1.rotationPointY * f5,
+            -upperBody1.rotationPointZ * f5);
         upperBody1.render(f5);
         GL11.glPopMatrix();
         switchPlate.render(f5);
@@ -314,8 +324,7 @@ public class ModelSwitchSectionJuggernaut extends ModelBase
         GL11.glPopMatrix();
     }
 
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z)
-    {
+    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;

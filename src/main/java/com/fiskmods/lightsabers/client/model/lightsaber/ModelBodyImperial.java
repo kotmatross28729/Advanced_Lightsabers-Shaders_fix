@@ -3,10 +3,11 @@ package com.fiskmods.lightsabers.client.model.lightsaber;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+
 import org.lwjgl.opengl.GL11;
 
-public class ModelBodyImperial extends ModelBase
-{
+public class ModelBodyImperial extends ModelBase {
+
     public ModelRenderer body1;
     public ModelRenderer lineLeft1;
     public ModelRenderer shell1;
@@ -66,8 +67,7 @@ public class ModelBodyImperial extends ModelBase
     public ModelRenderer frontButton7_1;
     public ModelRenderer frontButton8_1;
 
-    public ModelBodyImperial()
-    {
+    public ModelBodyImperial() {
         textureWidth = 32;
         textureHeight = 32;
         shell19 = new ModelRenderer(this, 16, 10);
@@ -360,8 +360,7 @@ public class ModelBodyImperial extends ModelBase
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-    {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         GL11.glPushMatrix();
         GL11.glTranslatef(shell1.offsetX, shell1.offsetY, shell1.offsetZ);
         GL11.glTranslatef(shell1.rotationPointX * f5, shell1.rotationPointY * f5, shell1.rotationPointZ * f5);
@@ -372,10 +371,16 @@ public class ModelBodyImperial extends ModelBase
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(frontButton1_1.offsetX, frontButton1_1.offsetY, frontButton1_1.offsetZ);
-        GL11.glTranslatef(frontButton1_1.rotationPointX * f5, frontButton1_1.rotationPointY * f5, frontButton1_1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            frontButton1_1.rotationPointX * f5,
+            frontButton1_1.rotationPointY * f5,
+            frontButton1_1.rotationPointZ * f5);
         GL11.glScaled(0.15D, 0.15D, 0.15D);
         GL11.glTranslatef(-frontButton1_1.offsetX, -frontButton1_1.offsetY, -frontButton1_1.offsetZ);
-        GL11.glTranslatef(-frontButton1_1.rotationPointX * f5, -frontButton1_1.rotationPointY * f5, -frontButton1_1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -frontButton1_1.rotationPointX * f5,
+            -frontButton1_1.rotationPointY * f5,
+            -frontButton1_1.rotationPointZ * f5);
         frontButton1_1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
@@ -383,7 +388,10 @@ public class ModelBodyImperial extends ModelBase
         GL11.glTranslatef(lineLeft1.rotationPointX * f5, lineLeft1.rotationPointY * f5, lineLeft1.rotationPointZ * f5);
         GL11.glScaled(1.0D, 1.0D, 0.8D);
         GL11.glTranslatef(-lineLeft1.offsetX, -lineLeft1.offsetY, -lineLeft1.offsetZ);
-        GL11.glTranslatef(-lineLeft1.rotationPointX * f5, -lineLeft1.rotationPointY * f5, -lineLeft1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -lineLeft1.rotationPointX * f5,
+            -lineLeft1.rotationPointY * f5,
+            -lineLeft1.rotationPointZ * f5);
         lineLeft1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
@@ -396,18 +404,30 @@ public class ModelBodyImperial extends ModelBase
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(lineLeft1_1.offsetX, lineLeft1_1.offsetY, lineLeft1_1.offsetZ);
-        GL11.glTranslatef(lineLeft1_1.rotationPointX * f5, lineLeft1_1.rotationPointY * f5, lineLeft1_1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            lineLeft1_1.rotationPointX * f5,
+            lineLeft1_1.rotationPointY * f5,
+            lineLeft1_1.rotationPointZ * f5);
         GL11.glScaled(1.0D, 1.0D, 0.8D);
         GL11.glTranslatef(-lineLeft1_1.offsetX, -lineLeft1_1.offsetY, -lineLeft1_1.offsetZ);
-        GL11.glTranslatef(-lineLeft1_1.rotationPointX * f5, -lineLeft1_1.rotationPointY * f5, -lineLeft1_1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -lineLeft1_1.rotationPointX * f5,
+            -lineLeft1_1.rotationPointY * f5,
+            -lineLeft1_1.rotationPointZ * f5);
         lineLeft1_1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(frontButton1.offsetX, frontButton1.offsetY, frontButton1.offsetZ);
-        GL11.glTranslatef(frontButton1.rotationPointX * f5, frontButton1.rotationPointY * f5, frontButton1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            frontButton1.rotationPointX * f5,
+            frontButton1.rotationPointY * f5,
+            frontButton1.rotationPointZ * f5);
         GL11.glScaled(0.15D, 0.15D, 0.15D);
         GL11.glTranslatef(-frontButton1.offsetX, -frontButton1.offsetY, -frontButton1.offsetZ);
-        GL11.glTranslatef(-frontButton1.rotationPointX * f5, -frontButton1.rotationPointY * f5, -frontButton1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -frontButton1.rotationPointX * f5,
+            -frontButton1.rotationPointY * f5,
+            -frontButton1.rotationPointZ * f5);
         frontButton1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
@@ -420,8 +440,7 @@ public class ModelBodyImperial extends ModelBase
         GL11.glPopMatrix();
     }
 
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z)
-    {
+    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;

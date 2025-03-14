@@ -1,13 +1,13 @@
 package com.fiskmods.lightsabers.client.model.lightsaber;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class ModelEmitterDroideka extends ModelBase
-{
+import org.lwjgl.opengl.GL11;
+
+public class ModelEmitterDroideka extends ModelBase {
+
     public ModelRenderer body1;
     public ModelRenderer ring1;
     public ModelRenderer body2;
@@ -25,8 +25,7 @@ public class ModelEmitterDroideka extends ModelBase
     public ModelRenderer ring7;
     public ModelRenderer ring8;
 
-    public ModelEmitterDroideka()
-    {
+    public ModelEmitterDroideka() {
         textureWidth = 64;
         textureHeight = 32;
         body6 = new ModelRenderer(this, 0, 0);
@@ -108,8 +107,7 @@ public class ModelEmitterDroideka extends ModelBase
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-    {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         body1.render(f5);
         GL11.glPushMatrix();
         GL11.glTranslatef(ring1.offsetX, ring1.offsetY, ring1.offsetZ);
@@ -121,8 +119,7 @@ public class ModelEmitterDroideka extends ModelBase
         GL11.glPopMatrix();
     }
 
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z)
-    {
+    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;
