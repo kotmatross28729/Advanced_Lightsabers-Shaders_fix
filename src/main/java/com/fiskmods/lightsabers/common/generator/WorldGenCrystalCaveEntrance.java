@@ -2,6 +2,7 @@ package com.fiskmods.lightsabers.common.generator;
 
 import java.util.Random;
 
+import com.fiskmods.lightsabers.common.config.ModConfig;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
@@ -18,10 +19,9 @@ public class WorldGenCrystalCaveEntrance extends WorldGenerator {
 
     @Override
     public boolean generate(World world, Random random, int x, int y, int z) {
-        if (com.fiskmods.lightsabers.common.config.ModConfig.disableCaves) {
+        if (ModConfig.disableCaves) {
             return false;
         }
-        {
             float f = random.nextFloat() * (float) Math.PI;
             double d0 = x + random.nextInt(3) - 2;
             double d1 = x + random.nextInt(3) - 2;
@@ -76,7 +76,6 @@ public class WorldGenCrystalCaveEntrance extends WorldGenerator {
                 }
             }
             return true;
-        }
     }
 
     public void createWalls(World world, int x, int y, int z, Block block)
