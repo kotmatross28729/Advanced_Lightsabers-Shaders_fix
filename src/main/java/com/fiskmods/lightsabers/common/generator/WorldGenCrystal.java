@@ -23,6 +23,8 @@ public class WorldGenCrystal extends WorldGenerator
     @Override
     public boolean generate(World world, Random rand, int x, int y, int z)
     {
+        if (com.fiskmods.lightsabers.common.config.ModConfig.disableCaves == false);
+
         boolean flag = false;
         int range = 3;
 
@@ -33,7 +35,7 @@ public class WorldGenCrystal extends WorldGenerator
                 int xPosition = x >> 4 + i;
                 int zPosition = z >> 4 + j;
                 Random random = new Random(world.getSeed() + (long) (xPosition * xPosition * 0x4c1906) + (long) (xPosition * 0x5ac0db) + (long) (zPosition * zPosition) * 0x4307a7L + (long) (zPosition * 0x5f24f) ^ 0x3ad8025f);
-                
+
                 if (random.nextInt(300) == 0)
                 {
                     flag = true;

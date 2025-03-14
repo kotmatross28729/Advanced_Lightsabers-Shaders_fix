@@ -20,6 +20,7 @@ public class ModConfig {
     public static boolean enableShaders;
 
     public static boolean denyAnimations;
+    public static boolean disableCaves;
     public static boolean fullDenyAnimations;
     public static String[] denyAnimationslist;
 
@@ -88,6 +89,11 @@ public class ModConfig {
             CATEGORY_OTHER,
             true,
             "Disable the animations from this mod for specified things?");
+        disableCaves = config.getBoolean(
+            "Disable Caves",
+            CATEGORY_OTHER,
+            false,
+            "Disable Cave entrances this mod adds");
         denyAnimationslist = config.getStringList(
             "Deny animations list",
             CATEGORY_OTHER,
