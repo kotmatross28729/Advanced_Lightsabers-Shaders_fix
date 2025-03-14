@@ -40,7 +40,7 @@ public class Lightsabers {
 
     public static final String NAME = "Advanced Lightsabers";
     public static final String MODID = "lightsabers";
-    public static final String VERSION = "1.2.5" + " kotmatross edition";
+    public static final String VERSION = "1.2.6" + " kotmatross edition";
 
     public static final Logger logger = LogManager.getLogger(NAME);
 
