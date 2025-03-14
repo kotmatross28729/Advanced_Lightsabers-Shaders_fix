@@ -3,10 +3,11 @@ package com.fiskmods.lightsabers.client.model.lightsaber;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+
 import org.lwjgl.opengl.GL11;
 
-public class ModelPommelReborn extends ModelBase
-{
+public class ModelPommelReborn extends ModelBase {
+
     public ModelRenderer secondaryTopRing1;
     public ModelRenderer sideRing1;
     public ModelRenderer side1_1;
@@ -56,8 +57,7 @@ public class ModelPommelReborn extends ModelBase
     public ModelRenderer side4_7;
     public ModelRenderer side4_8;
 
-    public ModelPommelReborn()
-    {
+    public ModelPommelReborn() {
         textureWidth = 32;
         textureHeight = 32;
         topRing5 = new ModelRenderer(this, 16, 14);
@@ -295,8 +295,7 @@ public class ModelPommelReborn extends ModelBase
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-    {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         GL11.glPushMatrix();
         GL11.glTranslatef(side4_1.offsetX, side4_1.offsetY, side4_1.offsetZ);
         GL11.glTranslatef(side4_1.rotationPointX * f5, side4_1.rotationPointY * f5, side4_1.rotationPointZ * f5);
@@ -327,7 +326,10 @@ public class ModelPommelReborn extends ModelBase
         GL11.glTranslatef(sideRing1.rotationPointX * f5, sideRing1.rotationPointY * f5, sideRing1.rotationPointZ * f5);
         GL11.glScaled(1.1D, 1.5D, 1.1D);
         GL11.glTranslatef(-sideRing1.offsetX, -sideRing1.offsetY, -sideRing1.offsetZ);
-        GL11.glTranslatef(-sideRing1.rotationPointX * f5, -sideRing1.rotationPointY * f5, -sideRing1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -sideRing1.rotationPointX * f5,
+            -sideRing1.rotationPointY * f5,
+            -sideRing1.rotationPointZ * f5);
         sideRing1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
@@ -340,8 +342,7 @@ public class ModelPommelReborn extends ModelBase
         GL11.glPopMatrix();
     }
 
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z)
-    {
+    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;

@@ -16,38 +16,33 @@ import fiskfille.utils.asm.AbstractLoadingPlugin;
 
 @MCVersion("1.7.10")
 @TransformerExclusions("com.fiskmods.lightsabers.asm")
-public class ALLoadingPlugin extends AbstractLoadingPlugin
-{
+public class ALLoadingPlugin extends AbstractLoadingPlugin {
+
     @Override
-    public void setupTransformers(Side side, List<Class> list)
-    {
-        if (side.isClient())
-        {
+    public void setupTransformers(Side side, List<Class> list) {
+        if (side.isClient()) {
             list.add(ClassTransformerModelBiped.class);
             list.add(ClassTransformerModelBipedMultiLayer.class);
             list.add(ClassTransformerEffectRenderer.class);
             list.add(ClassTransformerColor.class);
         }
-        
+
         list.add(ClassTransformerEntityMob.class);
         list.add(ClassTransformerEntityPlayer.class);
     }
 
     @Override
-    public String getAccessTransformerClass()
-    {
+    public String getAccessTransformerClass() {
         return null;
     }
 
     @Override
-    public String getModContainerClass()
-    {
+    public String getModContainerClass() {
         return null;
     }
 
     @Override
-    public String getSetupClass()
-    {
+    public String getSetupClass() {
         return null;
     }
 }

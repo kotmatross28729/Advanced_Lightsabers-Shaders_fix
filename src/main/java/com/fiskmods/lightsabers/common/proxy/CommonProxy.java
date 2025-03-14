@@ -1,5 +1,9 @@
 package com.fiskmods.lightsabers.common.proxy;
 
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.common.MinecraftForge;
+
 import com.fiskmods.lightsabers.ALReflection;
 import com.fiskmods.lightsabers.Lightsabers;
 import com.fiskmods.lightsabers.client.gui.GuiHandlerAL;
@@ -26,14 +30,10 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import fiskfille.utils.helper.NBTHelper;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.common.MinecraftForge;
 
-public class CommonProxy
-{
-    public void preInit()
-    {
+public class CommonProxy {
+
+    public void preInit() {
         ALReflection.common();
         ALData.init();
 
@@ -46,11 +46,10 @@ public class CommonProxy
         ModEntities.register();
         ModChestGen.register();
         Effect.register();
-        
+
         registerSaveAdapters();
 
-        if (Lightsabers.isDynamicLightsLoaded)
-        {
+        if (Lightsabers.isDynamicLightsLoaded) {
             registerEventHandler(new CommonEventHandlerDL());
         }
 
@@ -60,42 +59,36 @@ public class CommonProxy
         NetworkRegistry.INSTANCE.registerGuiHandler(Lightsabers.MODID, new GuiHandlerAL());
     }
 
-    public void init()
-    {
-    }
-    
-    public void registerSaveAdapters()
-    {
+    public void init() {}
+
+    public void registerSaveAdapters() {
         NBTHelper.registerAdapter(Power.class, Power.Adapter.class);
         NBTHelper.registerAdapter(PowerData.class, PowerData.Adapter.class);
         NBTHelper.registerAdapter(PowerData.Container.class, PowerData.Container.Adapter.class);
         NBTHelper.registerAdapter(LightsaberData.class, LightsaberData.Adapter.class);
     }
 
-    public void registerEventHandler(Object obj)
-    {
+    public void registerEventHandler(Object obj) {
         MinecraftForge.EVENT_BUS.register(obj);
         MinecraftForge.TERRAIN_GEN_BUS.register(obj);
-        FMLCommonHandler.instance().bus().register(obj);
+        FMLCommonHandler.instance()
+            .bus()
+            .register(obj);
     }
-    
-    public Side getSide()
-    {
+
+    public Side getSide() {
         return Side.SERVER;
     }
 
-    public float getRenderTick()
-    {
+    public float getRenderTick() {
         return 1;
     }
 
-    public EntityPlayer getPlayer()
-    {
+    public EntityPlayer getPlayer() {
         return null;
     }
 
-    public boolean isClientPlayer(EntityLivingBase entity)
-    {
+    public boolean isClientPlayer(EntityLivingBase entity) {
         return false;
     }
 }

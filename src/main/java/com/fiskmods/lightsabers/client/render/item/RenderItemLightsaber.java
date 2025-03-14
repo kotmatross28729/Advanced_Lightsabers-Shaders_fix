@@ -1,44 +1,39 @@
 package com.fiskmods.lightsabers.client.render.item;
 
+import static com.fiskmods.lightsabers.client.render.entity.RenderLightsaber.shaders_fix;
+
 import net.minecraft.client.Minecraft;
-import org.lwjgl.opengl.GL11;
-
-import com.fiskmods.lightsabers.common.hilt.HiltManager;
-import com.fiskmods.lightsabers.common.lightsaber.FocusingCrystal;
-import com.fiskmods.lightsabers.common.lightsaber.LightsaberData;
-import com.fiskmods.lightsabers.helper.ALRenderHelper;
-import com.fiskmods.lightsabers.helper.ModelHelper;
-
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
 
-import static com.fiskmods.lightsabers.client.render.entity.RenderLightsaber.shaders_fix;
+import org.lwjgl.opengl.GL11;
 
-public class RenderItemLightsaber implements IItemRenderer
-{
+import com.fiskmods.lightsabers.common.lightsaber.FocusingCrystal;
+import com.fiskmods.lightsabers.common.lightsaber.LightsaberData;
+import com.fiskmods.lightsabers.helper.ALRenderHelper;
+import com.fiskmods.lightsabers.helper.ModelHelper;
+
+public class RenderItemLightsaber implements IItemRenderer {
+
     @Override
-    public boolean handleRenderType(ItemStack item, ItemRenderType type)
-    {
+    public boolean handleRenderType(ItemStack item, ItemRenderType type) {
         return true;
     }
 
     @Override
-    public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item, ItemRendererHelper helper)
-    {
+    public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item, ItemRendererHelper helper) {
         return type == ItemRenderType.ENTITY;
     }
 
     @Override
-    public void renderItem(ItemRenderType type, ItemStack stack, Object... args)
-    {
+    public void renderItem(ItemRenderType type, ItemStack stack, Object... args) {
         LightsaberData data = LightsaberData.get(stack);
         GL11.glPushMatrix();
 
-        if (type == ItemRenderType.EQUIPPED_FIRST_PERSON)
-        {
+        if (type == ItemRenderType.EQUIPPED_FIRST_PERSON) {
             GL11.glRotatef(-100, 0, 1, 0);
             GL11.glRotatef(-150, 1, 0, 0);
             GL11.glRotatef(5, 0, 0, 1);
@@ -47,44 +42,38 @@ public class RenderItemLightsaber implements IItemRenderer
             float scale = 0.2F;
             GL11.glScalef(scale, scale, scale);
             ALRenderHelper.renderLightsaber(stack, false);
-        }
-        else if (type == ItemRenderType.EQUIPPED)
-        {
+        } else if (type == ItemRenderType.EQUIPPED) {
             GL11.glTranslatef(0.7F, 0.3F, 0);
             GL11.glRotatef(-150, 0, 0, 1);
             GL11.glRotatef(-85, 0, 1, 0);
 
-            if (args[1] instanceof EntityLivingBase)
-            {
+            if (args[1] instanceof EntityLivingBase) {
                 ModelHelper.applyLightsaberItemRotation((EntityLivingBase) args[1], stack);
             }
 
             float scale = 0.175F;
             GL11.glScalef(scale, scale, scale);
             ALRenderHelper.renderLightsaber(data, stack, true);
-        }
-        else if (type == ItemRenderType.ENTITY)
-        {
+        } else if (type == ItemRenderType.ENTITY) {
             GL11.glRotatef(180, 1, 0, 0);
             GL11.glRotatef(180, 0, 1, 0);
 
             float scale = 0.3F;
             GL11.glScalef(scale, scale, scale);
 
-            if (((EntityItem) args[1]).hoverStart != 0)
-            {
+            if (((EntityItem) args[1]).hoverStart != 0) {
                 GL11.glTranslatef(0, -data.getHeight() / 48, 0);
             }
 
-            if (stack.hasDisplayName() && (stack.getDisplayName().equals("Dinnerbone") || stack.getDisplayName().equals("Grumm")))
-            {
+            if (stack.hasDisplayName() && (stack.getDisplayName()
+                .equals("Dinnerbone")
+                || stack.getDisplayName()
+                    .equals("Grumm"))) {
                 GL11.glRotatef(180, 1, 0, 0);
             }
 
             ALRenderHelper.renderLightsaberHilt(data);
-        }
-        else if (type == ItemRenderType.INVENTORY)
-        {
+        } else if (type == ItemRenderType.INVENTORY) {
             Tessellator tessellator = Tessellator.instance;
             float[] rgb = data.getRGB(stack);
             float triangle = 4;
@@ -100,8 +89,7 @@ public class RenderItemLightsaber implements IItemRenderer
             tessellator.addVertex(0, triangle, 0);
             tessellator.draw();
 
-            if (data.hasFocusingCrystal(FocusingCrystal.INVERTING))
-            {
+            if (data.hasFocusingCrystal(FocusingCrystal.INVERTING)) {
                 triangle /= 1.5F;
                 GL11.glPushMatrix();
                 GL11.glColor4f(0, 0, 0, 1);
@@ -134,8 +122,10 @@ public class RenderItemLightsaber implements IItemRenderer
             GL11.glRotatef(180, 1, 0, 0);
             GL11.glRotatef(-110, 0, 1, 0);
 
-            if (stack.hasDisplayName() && (stack.getDisplayName().equals("Dinnerbone") || stack.getDisplayName().equals("Grumm")))
-            {
+            if (stack.hasDisplayName() && (stack.getDisplayName()
+                .equals("Dinnerbone")
+                || stack.getDisplayName()
+                    .equals("Grumm"))) {
                 GL11.glRotatef(180, 1, 0, 0);
             }
 

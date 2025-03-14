@@ -18,49 +18,41 @@ import com.fiskmods.lightsabers.Lightsabers;
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 
-public class FileHelper
-{
-    public static URLConnection createConnection(String url) throws MalformedURLException, IOException
-    {
+public class FileHelper {
+
+    public static URLConnection createConnection(String url) throws MalformedURLException, IOException {
         URLConnection connection = new URL(url).openConnection();
         connection.setRequestProperty("User-Agent", "Mozilla/5.0");
 
         return connection;
     }
 
-    public static boolean isURL(String path)
-    {
+    public static boolean isURL(String path) {
         return path.startsWith("http://") || path.startsWith("https://") || path.startsWith("www.");
     }
 
-    public static List<String> read(String path) throws IOException
-    {
+    public static List<String> read(String path) throws IOException {
         return IOUtils.readLines(Objects.requireNonNull(Lightsabers.class.getResourceAsStream(path)));
     }
 
-    public static List<String> read(File file) throws IOException
-    {
+    public static List<String> read(File file) throws IOException {
         return read(new FileReader(file));
     }
 
-    public static List<String> read(URL url) throws IOException
-    {
+    public static List<String> read(URL url) throws IOException {
         return read(new InputStreamReader(url.openStream()));
     }
 
-    public static List<String> read(URLConnection connection) throws IOException
-    {
+    public static List<String> read(URLConnection connection) throws IOException {
         return read(new InputStreamReader(connection.getInputStream()));
     }
 
-    public static List<String> read(Reader reader) throws IOException
-    {
+    public static List<String> read(Reader reader) throws IOException {
         BufferedReader in = new BufferedReader(reader);
         List<String> list = Lists.newArrayList();
         String currentLine;
 
-        while ((currentLine = in.readLine()) != null)
-        {
+        while ((currentLine = in.readLine()) != null) {
             list.add(currentLine);
         }
 
@@ -69,43 +61,37 @@ public class FileHelper
         return list;
     }
 
-    public static <T> T readJson(Gson gson, Class<T> type, String path) throws IOException
-    {
+    public static <T> T readJson(Gson gson, Class<T> type, String path) throws IOException {
         return gson.fromJson(flatten(read(path)), type);
     }
 
-    public static <T> T readJson(Gson gson, Class<T> type, File file) throws IOException
-    {
-        if (!file.isFile() || !file.getName().endsWith(".json"))
-        {
+    public static <T> T readJson(Gson gson, Class<T> type, File file) throws IOException {
+        if (!file.isFile() || !file.getName()
+            .endsWith(".json")) {
             return null;
         }
 
         return readJson(gson, type, new FileReader(file));
     }
 
-    public static <T> T readJson(Gson gson, Class<T> type, URL url) throws IOException
-    {
+    public static <T> T readJson(Gson gson, Class<T> type, URL url) throws IOException {
         return readJson(gson, type, new InputStreamReader(url.openStream()));
     }
 
-    public static <T> T readJson(Gson gson, Class<T> type, URLConnection connection) throws IOException
-    {
+    public static <T> T readJson(Gson gson, Class<T> type, URLConnection connection) throws IOException {
         return readJson(gson, type, new InputStreamReader(connection.getInputStream()));
     }
 
-    public static <T> T readJson(Gson gson, Class<T> type, Reader reader) throws IOException
-    {
+    public static <T> T readJson(Gson gson, Class<T> type, Reader reader) throws IOException {
         return gson.fromJson(flatten(read(reader)), type);
     }
 
-    public static String flatten(List<String> list)
-    {
+    public static String flatten(List<String> list) {
         StringBuilder s = new StringBuilder();
 
-        for (String s1 : list)
-        {
-            s.append(s1).append("\n");
+        for (String s1 : list) {
+            s.append(s1)
+                .append("\n");
         }
 
         return s.toString();

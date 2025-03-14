@@ -1,6 +1,16 @@
 package com.fiskmods.lightsabers.client.render.item;
 
+import static com.fiskmods.lightsabers.client.render.entity.RenderLightsaber.shaders_fix;
+
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.MathHelper;
+import net.minecraftforge.client.IItemRenderer;
+
 import org.lwjgl.opengl.GL11;
 
 import com.fiskmods.lightsabers.common.event.ClientEventHandler;
@@ -10,50 +20,38 @@ import com.fiskmods.lightsabers.common.lightsaber.LightsaberData;
 import com.fiskmods.lightsabers.helper.ALRenderHelper;
 import com.fiskmods.lightsabers.helper.ModelHelper;
 
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.MathHelper;
-import net.minecraftforge.client.IItemRenderer;
+public class RenderItemDoubleLightsaber implements IItemRenderer {
 
-import static com.fiskmods.lightsabers.client.render.entity.RenderLightsaber.shaders_fix;
-
-public class RenderItemDoubleLightsaber implements IItemRenderer
-{
     @Override
-    public boolean handleRenderType(ItemStack item, ItemRenderType type)
-    {
+    public boolean handleRenderType(ItemStack item, ItemRenderType type) {
         return true;
     }
 
     @Override
-    public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item, ItemRendererHelper helper)
-    {
+    public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item, ItemRendererHelper helper) {
         return type == ItemRenderType.ENTITY;
     }
 
     @Override
-    public void renderItem(ItemRenderType type, ItemStack itemstack, Object... args)
-    {
+    public void renderItem(ItemRenderType type, ItemStack itemstack, Object... args) {
         LightsaberData[] array = ItemDoubleLightsaber.get(itemstack);
 
         GL11.glPushMatrix();
 
-        if (type == ItemRenderType.EQUIPPED_FIRST_PERSON)
-        {
+        if (type == ItemRenderType.EQUIPPED_FIRST_PERSON) {
             GL11.glRotatef(-100, 0, 1, 0);
             GL11.glRotatef(-150, 1, 0, 0);
             GL11.glRotatef(95, 0, 0, 1);
             GL11.glRotatef(180, 0, 0, 1);
             GL11.glTranslatef(-0.1F, -0.2F, 1.1F);
 
-            if (args.length > 1 && args[1] instanceof EntityPlayer)
-            {
+            if (args.length > 1 && args[1] instanceof EntityPlayer) {
                 EntityPlayer player = (EntityPlayer) args[1];
-                float f = player.prevLimbSwingAmount - (player.prevLimbSwingAmount - player.limbSwingAmount) * ClientEventHandler.renderTick;
-                float f1 = MathHelper.cos((player.limbSwing - player.limbSwingAmount * (1 - ClientEventHandler.renderTick)) * 0.6662F) * 1.4F * f;
+                float f = player.prevLimbSwingAmount
+                    - (player.prevLimbSwingAmount - player.limbSwingAmount) * ClientEventHandler.renderTick;
+                float f1 = MathHelper.cos(
+                    (player.limbSwing - player.limbSwingAmount * (1 - ClientEventHandler.renderTick)) * 0.6662F) * 1.4F
+                    * f;
                 float f2 = player.getSwingProgress(ClientEventHandler.renderTick);
                 float f3 = (f2 > 0.5F ? 1 - f2 : f2) * 2;
                 GL11.glRotatef(90 * f, 0, 0, 1);
@@ -65,38 +63,30 @@ public class RenderItemDoubleLightsaber implements IItemRenderer
             float scale = 0.2F;
             GL11.glScalef(scale, scale, scale);
             ALRenderHelper.renderLightsaber(array, itemstack, true);
-        }
-        else if (type == ItemRenderType.EQUIPPED)
-        {
+        } else if (type == ItemRenderType.EQUIPPED) {
             GL11.glRotatef(-90, 0, 1, 0);
             GL11.glRotatef(-150, 1, 0, 0);
             GL11.glTranslatef(-0.15F + LightsaberData.getHeight(itemstack) * 0.0015F, 0.14F, 0.75F);
 
-            if (args[1] instanceof EntityLivingBase)
-            {
+            if (args[1] instanceof EntityLivingBase) {
                 ModelHelper.applyLightsaberItemRotation((EntityLivingBase) args[1], itemstack);
             }
 
             float scale = 0.175F;
             GL11.glScalef(scale, scale, scale);
             ALRenderHelper.renderLightsaber(array, itemstack, true);
-        }
-        else if (type == ItemRenderType.ENTITY)
-        {
+        } else if (type == ItemRenderType.ENTITY) {
             GL11.glRotatef(180, 1, 0, 0);
             GL11.glRotatef(180, 0, 1, 0);
 
-            if (((EntityItem) args[1]).hoverStart != 0)
-            {
+            if (((EntityItem) args[1]).hoverStart != 0) {
                 GL11.glRotatef(90, 0, 0, 1);
             }
 
             float scale = 0.3F;
             GL11.glScalef(scale, scale, scale);
             ALRenderHelper.renderLightsaberHilt(array);
-        }
-        else if (type == ItemRenderType.INVENTORY)
-        {
+        } else if (type == ItemRenderType.INVENTORY) {
             Tessellator tessellator = Tessellator.instance;
             float[] rgb = array[0].getRGB(itemstack);
             float triangle = 4;
@@ -123,8 +113,7 @@ public class RenderItemDoubleLightsaber implements IItemRenderer
             GL11.glTranslatef(triangle / 8, triangle / 8, 0);
             GL11.glColor4f(0, 0, 0, 1);
 
-            if (array[0].hasFocusingCrystal(FocusingCrystal.INVERTING))
-            {
+            if (array[0].hasFocusingCrystal(FocusingCrystal.INVERTING)) {
                 tessellator.startDrawing(GL11.GL_TRIANGLES);
                 Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
                 tessellator.addVertex(triangle / 2, triangle / 2, 0);
@@ -133,8 +122,7 @@ public class RenderItemDoubleLightsaber implements IItemRenderer
                 tessellator.draw();
             }
 
-            if (array[1].hasFocusingCrystal(FocusingCrystal.INVERTING))
-            {
+            if (array[1].hasFocusingCrystal(FocusingCrystal.INVERTING)) {
                 tessellator.startDrawing(GL11.GL_TRIANGLES);
                 Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
                 tessellator.addVertex(0, triangle, 0);

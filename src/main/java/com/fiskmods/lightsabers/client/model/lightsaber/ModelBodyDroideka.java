@@ -1,13 +1,13 @@
 package com.fiskmods.lightsabers.client.model.lightsaber;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class ModelBodyDroideka extends ModelBase
-{
+import org.lwjgl.opengl.GL11;
+
+public class ModelBodyDroideka extends ModelBase {
+
     public ModelRenderer upper1_1;
     public ModelRenderer upper2_1;
     public ModelRenderer upper3_1;
@@ -113,8 +113,7 @@ public class ModelBodyDroideka extends ModelBase
     public ModelRenderer frontGrip21;
     public ModelRenderer frontGrip22;
 
-    public ModelBodyDroideka()
-    {
+    public ModelBodyDroideka() {
         textureWidth = 64;
         textureHeight = 32;
         frontGrip4 = new ModelRenderer(this, 14, 17);
@@ -627,8 +626,7 @@ public class ModelBodyDroideka extends ModelBase
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-    {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         GL11.glPushMatrix();
         GL11.glTranslatef(upper2_1.offsetX, upper2_1.offsetY, upper2_1.offsetZ);
         GL11.glTranslatef(upper2_1.rotationPointX * f5, upper2_1.rotationPointY * f5, upper2_1.rotationPointZ * f5);
@@ -676,10 +674,16 @@ public class ModelBodyDroideka extends ModelBase
         lowerBody1.render(f5);
         GL11.glPushMatrix();
         GL11.glTranslatef(connector1.offsetX, connector1.offsetY, connector1.offsetZ);
-        GL11.glTranslatef(connector1.rotationPointX * f5, connector1.rotationPointY * f5, connector1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            connector1.rotationPointX * f5,
+            connector1.rotationPointY * f5,
+            connector1.rotationPointZ * f5);
         GL11.glScaled(0.6D, 0.6D, 0.6D);
         GL11.glTranslatef(-connector1.offsetX, -connector1.offsetY, -connector1.offsetZ);
-        GL11.glTranslatef(-connector1.rotationPointX * f5, -connector1.rotationPointY * f5, -connector1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -connector1.rotationPointX * f5,
+            -connector1.rotationPointY * f5,
+            -connector1.rotationPointZ * f5);
         connector1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
@@ -692,8 +696,7 @@ public class ModelBodyDroideka extends ModelBase
         GL11.glPopMatrix();
     }
 
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z)
-    {
+    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;

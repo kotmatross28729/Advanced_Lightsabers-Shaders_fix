@@ -1,47 +1,39 @@
 package fiskfille.utils;
 
-import com.fiskmods.lightsabers.common.data.ALData.DataFactory;
-
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 
-public class DimensionalCoords extends ChunkCoordinates
-{
+import com.fiskmods.lightsabers.common.data.ALData.DataFactory;
+
+public class DimensionalCoords extends ChunkCoordinates {
+
     public int dimension;
 
-    public DimensionalCoords()
-    {
-    }
+    public DimensionalCoords() {}
 
-    public DimensionalCoords(int x, int y, int z, int dim)
-    {
+    public DimensionalCoords(int x, int y, int z, int dim) {
         super(x, y, z);
         dimension = dim;
     }
 
-    public DimensionalCoords(ChunkCoordinates coords, int dim)
-    {
+    public DimensionalCoords(ChunkCoordinates coords, int dim) {
         super(coords);
         dimension = dim;
     }
 
-    public DimensionalCoords(TileEntity tile)
-    {
+    public DimensionalCoords(TileEntity tile) {
         set(tile);
     }
 
-    public static DimensionalCoords copy(DimensionalCoords coords)
-    {
-        if (coords != null)
-        {
+    public static DimensionalCoords copy(DimensionalCoords coords) {
+        if (coords != null) {
             return new DimensionalCoords().set(coords);
         }
 
         return null;
     }
 
-    public DimensionalCoords set(int x, int y, int z, int dim)
-    {
+    public DimensionalCoords set(int x, int y, int z, int dim) {
         posX = x;
         posY = y;
         posZ = z;
@@ -50,23 +42,19 @@ public class DimensionalCoords extends ChunkCoordinates
         return this;
     }
 
-    public DimensionalCoords set(TileEntity tile)
-    {
-        if (tile.getWorldObj() != null)
-        {
+    public DimensionalCoords set(TileEntity tile) {
+        if (tile.getWorldObj() != null) {
             return set(tile.xCoord, tile.yCoord, tile.zCoord, tile.getWorldObj().provider.dimensionId);
         }
 
         return this;
     }
 
-    public DimensionalCoords set(DimensionalCoords coords)
-    {
+    public DimensionalCoords set(DimensionalCoords coords) {
         return set(coords.toArray());
     }
 
-    public DimensionalCoords set(int... args)
-    {
+    public DimensionalCoords set(int... args) {
         int[] aint = toArray();
 
         System.arraycopy(args, 0, aint, 0, Math.min(args.length, aint.length));
@@ -74,13 +62,11 @@ public class DimensionalCoords extends ChunkCoordinates
         return set(aint[0], aint[1], aint[2], aint[3]);
     }
 
-    public int[] toArray()
-    {
-        return new int[] {posX, posY, posZ, dimension};
+    public int[] toArray() {
+        return new int[] { posX, posY, posZ, dimension };
     }
 
-    public static DimensionalCoords fromArray(int[] aint)
-    {
+    public static DimensionalCoords fromArray(int[] aint) {
         int[] aint1 = new int[4];
 
         System.arraycopy(aint, 0, aint1, 0, Math.min(aint.length, aint1.length));
@@ -88,9 +74,9 @@ public class DimensionalCoords extends ChunkCoordinates
         return new DimensionalCoords(aint1[0], aint1[1], aint1[2], aint1[3]);
     }
 
-    public static DataFactory<DimensionalCoords> factory()
-    {
+    public static DataFactory<DimensionalCoords> factory() {
         return new DataFactory<>() {
+
             @Override
             public DimensionalCoords construct() {
                 return new DimensionalCoords();
@@ -99,38 +85,32 @@ public class DimensionalCoords extends ChunkCoordinates
     }
 
     @Override
-    public boolean equals(Object obj)
-    {
-        if (!(obj instanceof DimensionalCoords coords))
-        {
+    public boolean equals(Object obj) {
+        if (!(obj instanceof DimensionalCoords coords)) {
             return false;
-        }
-        else
-        {
+        } else {
             return posX == coords.posX && posY == coords.posY && posZ == coords.posZ && dimension == coords.dimension;
         }
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         return posX + posZ << 8 + posY << 16 + dimension << 32;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "Pos{x=" + posX + ", y=" + posY + ", z=" + posZ + ", dim=" + dimension + '}';
     }
 
     @Override
-    public int compareTo(Object obj)
-    {
+    public int compareTo(Object obj) {
         return compareTo((DimensionalCoords) obj);
     }
 
-    public int compareTo(DimensionalCoords coords)
-    {
-        return dimension == coords.dimension ? posY == coords.posY ? posZ == coords.posZ ? posX - coords.posX : posZ - coords.posZ : posY - coords.posY : dimension - coords.dimension;
+    public int compareTo(DimensionalCoords coords) {
+        return dimension == coords.dimension
+            ? posY == coords.posY ? posZ == coords.posZ ? posX - coords.posX : posZ - coords.posZ : posY - coords.posY
+            : dimension - coords.dimension;
     }
 }

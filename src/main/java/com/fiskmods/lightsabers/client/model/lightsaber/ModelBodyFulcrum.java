@@ -1,13 +1,13 @@
 package com.fiskmods.lightsabers.client.model.lightsaber;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class ModelBodyFulcrum extends ModelBase
-{
+import org.lwjgl.opengl.GL11;
+
+public class ModelBodyFulcrum extends ModelBase {
+
     public ModelRenderer body1;
     public ModelRenderer front1;
     public ModelRenderer indent1;
@@ -110,8 +110,7 @@ public class ModelBodyFulcrum extends ModelBase
     public ModelRenderer indent31;
     public ModelRenderer indent33;
 
-    public ModelBodyFulcrum()
-    {
+    public ModelBodyFulcrum() {
         textureWidth = 64;
         textureHeight = 32;
         body12 = new ModelRenderer(this, 0, 18);
@@ -633,8 +632,7 @@ public class ModelBodyFulcrum extends ModelBase
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-    {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         GL11.glPushMatrix();
         GL11.glTranslatef(indent1.offsetX, indent1.offsetY, indent1.offsetZ);
         GL11.glTranslatef(indent1.rotationPointX * f5, indent1.rotationPointY * f5, indent1.rotationPointZ * f5);
@@ -654,8 +652,7 @@ public class ModelBodyFulcrum extends ModelBase
         GL11.glPopMatrix();
     }
 
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z)
-    {
+    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;

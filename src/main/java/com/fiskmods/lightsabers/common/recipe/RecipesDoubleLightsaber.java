@@ -1,35 +1,30 @@
 package com.fiskmods.lightsabers.common.recipe;
 
-import com.fiskmods.lightsabers.common.item.ItemDoubleLightsaber;
-import com.fiskmods.lightsabers.common.item.ModItems;
-
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 
-public class RecipesDoubleLightsaber implements IRecipe
-{
+import com.fiskmods.lightsabers.common.item.ItemDoubleLightsaber;
+import com.fiskmods.lightsabers.common.item.ModItems;
+
+public class RecipesDoubleLightsaber implements IRecipe {
+
     @Override
-    public boolean matches(InventoryCrafting crafting, World world)
-    {
+    public boolean matches(InventoryCrafting crafting, World world) {
         ItemStack upper = null;
 
         int width = (int) Math.sqrt(crafting.getSizeInventory());
         int filledSlots = 0;
 
-        for (int i = 0; i < crafting.getSizeInventory(); ++i)
-        {
+        for (int i = 0; i < crafting.getSizeInventory(); ++i) {
             ItemStack itemstack = crafting.getStackInSlot(i);
 
-            if (itemstack != null)
-            {
-                if (itemstack.getItem() == ModItems.lightsaber && i + width <= crafting.getSizeInventory())
-                {
+            if (itemstack != null) {
+                if (itemstack.getItem() == ModItems.lightsaber && i + width <= crafting.getSizeInventory()) {
                     ItemStack itemstack1 = crafting.getStackInSlot(i + width);
 
-                    if (itemstack1 != null && itemstack1.getItem() == ModItems.lightsaber)
-                    {
+                    if (itemstack1 != null && itemstack1.getItem() == ModItems.lightsaber) {
                         upper = itemstack;
                     }
                 }
@@ -42,16 +37,13 @@ public class RecipesDoubleLightsaber implements IRecipe
     }
 
     @Override
-    public ItemStack getCraftingResult(InventoryCrafting crafting)
-    {
+    public ItemStack getCraftingResult(InventoryCrafting crafting) {
         int width = (int) Math.sqrt(crafting.getSizeInventory());
 
-        for (int i = 0; i < crafting.getSizeInventory(); ++i)
-        {
+        for (int i = 0; i < crafting.getSizeInventory(); ++i) {
             ItemStack upper = crafting.getStackInSlot(i);
 
-            if (upper != null)
-            {
+            if (upper != null) {
                 return ItemDoubleLightsaber.create(upper, crafting.getStackInSlot(i + width));
             }
         }
@@ -60,14 +52,12 @@ public class RecipesDoubleLightsaber implements IRecipe
     }
 
     @Override
-    public int getRecipeSize()
-    {
+    public int getRecipeSize() {
         return 10;
     }
 
     @Override
-    public ItemStack getRecipeOutput()
-    {
+    public ItemStack getRecipeOutput() {
         return new ItemStack(ModItems.doubleLightsaber);
     }
 }

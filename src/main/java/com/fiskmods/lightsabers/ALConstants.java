@@ -1,7 +1,7 @@
 package com.fiskmods.lightsabers;
 
-public interface ALConstants
-{
+public interface ALConstants {
+
     String BATTLEGEAR = "battlegear2";
     String DYNAMIC_LIGHTS = "DynamicLights";
 

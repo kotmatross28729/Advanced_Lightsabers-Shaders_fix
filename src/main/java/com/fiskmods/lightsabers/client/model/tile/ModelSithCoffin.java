@@ -1,13 +1,13 @@
 package com.fiskmods.lightsabers.client.model.tile;
 
-import com.fiskmods.lightsabers.common.event.ClientEventHandler;
-import com.fiskmods.lightsabers.common.tileentity.TileEntitySithCoffin;
-
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 
-public class ModelSithCoffin extends ModelBase
-{
+import com.fiskmods.lightsabers.common.event.ClientEventHandler;
+import com.fiskmods.lightsabers.common.tileentity.TileEntitySithCoffin;
+
+public class ModelSithCoffin extends ModelBase {
+
     public ModelRenderer base1;
     public ModelRenderer lid1;
     public ModelRenderer base2;
@@ -29,8 +29,7 @@ public class ModelSithCoffin extends ModelBase
     public ModelRenderer lid4;
     public ModelRenderer lid5;
 
-    public ModelSithCoffin()
-    {
+    public ModelSithCoffin() {
         textureWidth = 256;
         textureHeight = 128;
         base10 = new ModelRenderer(this, 107, 0);
@@ -129,8 +128,7 @@ public class ModelSithCoffin extends ModelBase
         base11.addChild(base14);
     }
 
-    public void render(TileEntitySithCoffin tile)
-    {
+    public void render(TileEntitySithCoffin tile) {
         float f = tile.getLidOpenTimer(ClientEventHandler.renderTick);
         float f1 = f > 0.5F ? (1 - f) * 2 : 1;
         float f2 = 1 - f1;
@@ -141,8 +139,7 @@ public class ModelSithCoffin extends ModelBase
         base1.render(0.0625F);
     }
 
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z)
-    {
+    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;

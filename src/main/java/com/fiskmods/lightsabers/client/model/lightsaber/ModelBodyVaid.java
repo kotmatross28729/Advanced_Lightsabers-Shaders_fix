@@ -1,13 +1,13 @@
 package com.fiskmods.lightsabers.client.model.lightsaber;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class ModelBodyVaid extends ModelBase
-{
+import org.lwjgl.opengl.GL11;
+
+public class ModelBodyVaid extends ModelBase {
+
     public ModelRenderer topRing1;
     public ModelRenderer body1;
     public ModelRenderer ring1_1;
@@ -77,8 +77,7 @@ public class ModelBodyVaid extends ModelBase
     public ModelRenderer ring5_7;
     public ModelRenderer ring5_8;
 
-    public ModelBodyVaid()
-    {
+    public ModelBodyVaid() {
         textureWidth = 64;
         textureHeight = 32;
         ring2_8 = new ModelRenderer(this, 0, 2);
@@ -409,8 +408,7 @@ public class ModelBodyVaid extends ModelBase
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-    {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         GL11.glPushMatrix();
         GL11.glTranslatef(ring4_1.offsetX, ring4_1.offsetY, ring4_1.offsetZ);
         GL11.glTranslatef(ring4_1.rotationPointX * f5, ring4_1.rotationPointY * f5, ring4_1.rotationPointZ * f5);
@@ -462,8 +460,7 @@ public class ModelBodyVaid extends ModelBase
         GL11.glPopMatrix();
     }
 
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z)
-    {
+    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;

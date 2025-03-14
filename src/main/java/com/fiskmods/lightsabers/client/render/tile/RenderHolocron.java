@@ -1,11 +1,5 @@
 package com.fiskmods.lightsabers.client.render.tile;
 
-import org.lwjgl.opengl.GL11;
-
-import com.fiskmods.lightsabers.common.block.ModBlocks;
-import com.fiskmods.lightsabers.common.tileentity.TileEntityHolocron;
-import com.fiskmods.lightsabers.helper.ALRenderHelper;
-
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -14,14 +8,18 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 
-public class RenderHolocron extends TileEntitySpecialRenderer
-{
-    public void render(TileEntityHolocron tile, double x, double y, double z, float partialTicks)
-    {
+import org.lwjgl.opengl.GL11;
+
+import com.fiskmods.lightsabers.common.block.ModBlocks;
+import com.fiskmods.lightsabers.common.tileentity.TileEntityHolocron;
+import com.fiskmods.lightsabers.helper.ALRenderHelper;
+
+public class RenderHolocron extends TileEntitySpecialRenderer {
+
+    public void render(TileEntityHolocron tile, double x, double y, double z, float partialTicks) {
         int metadata = 0;
 
-        if (tile.getWorldObj() != null || tile.blockMetadata != -1)
-        {
+        if (tile.getWorldObj() != null || tile.blockMetadata != -1) {
             metadata = tile.getBlockMetadata();
         }
 
@@ -29,9 +27,9 @@ public class RenderHolocron extends TileEntitySpecialRenderer
 
         GL11.glPushMatrix();
         GL11.glTranslatef((float) x + 0.5F, (float) y, (float) z + 0.5F);
-//		GL11.glScalef(1, -1, -1);
-//		GL11.glDisable(GL11.GL_TEXTURE_2D);
-//		GL11.glDisable(GL11.GL_CULL_FACE);
+        // GL11.glScalef(1, -1, -1);
+        // GL11.glDisable(GL11.GL_TEXTURE_2D);
+        // GL11.glDisable(GL11.GL_CULL_FACE);
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glAlphaFunc(GL11.GL_GREATER, 0.1F);
@@ -41,12 +39,9 @@ public class RenderHolocron extends TileEntitySpecialRenderer
         bindTexture(TextureMap.locationBlocksTexture);
         GL11.glColor4f(1, 1, 1, 1);
 
-        if (metadata == 0)
-        {
+        if (metadata == 0) {
             renderJediHolocron(tile, metadata, tessellator, partialTicks);
-        }
-        else if (metadata == 1)
-        {
+        } else if (metadata == 1) {
             renderSithHolocron(tile, metadata, tessellator, partialTicks);
         }
 
@@ -56,8 +51,7 @@ public class RenderHolocron extends TileEntitySpecialRenderer
         GL11.glPopMatrix();
     }
 
-    public void renderJediHolocron(TileEntityHolocron tile, int metadata, Tessellator tessellator, float partialTicks)
-    {
+    public void renderJediHolocron(TileEntityHolocron tile, int metadata, Tessellator tessellator, float partialTicks) {
         IIcon iconSide = ModBlocks.holocron.getIcon(0, metadata);
         IIcon iconCorner = ModBlocks.holocron.getIcon(1, metadata);
         IIcon iconCornerBottom = ModBlocks.holocron.getIcon(2, metadata);
@@ -79,8 +73,7 @@ public class RenderHolocron extends TileEntitySpecialRenderer
 
         GL11.glTranslatef(0, size / 2 + (size / 2 + f1) * f, 0);
 
-        for (int i = 0; i < 6; ++i)
-        {
+        for (int i = 0; i < 6; ++i) {
             tessellator.startDrawingQuads();
             tessellator.addVertexWithUV(-size / 2, 0, size / 2, maxU, maxV);
             tessellator.addVertexWithUV(0, -size / 2, size / 2, maxU, minV);
@@ -89,12 +82,9 @@ public class RenderHolocron extends TileEntitySpecialRenderer
 
             GL11.glPushMatrix();
 
-            if (i < 4)
-            {
+            if (i < 4) {
                 GL11.glRotatef(i * 90, 0, 1, 0);
-            }
-            else
-            {
+            } else {
                 GL11.glRotatef((i - 4) * 180 + 90, 1, 0, 0);
             }
 
@@ -102,10 +92,8 @@ public class RenderHolocron extends TileEntitySpecialRenderer
             GL11.glPopMatrix();
         }
 
-        for (int i = 0; i < 2; ++i)
-        {
-            for (int j = 0; j < 4; ++j)
-            {
+        for (int i = 0; i < 2; ++i) {
+            for (int j = 0; j < 4; ++j) {
                 tessellator.startDrawing(GL11.GL_TRIANGLES);
                 minU = iconCorner.getInterpolatedU(0);
                 maxU = iconCorner.getInterpolatedU(8);
@@ -123,8 +111,7 @@ public class RenderHolocron extends TileEntitySpecialRenderer
                 GL11.glPushMatrix();
                 GL11.glRotatef(j * 90, 0, 1, 0);
 
-                if (i == 1)
-                {
+                if (i == 1) {
                     GL11.glRotatef(180, 1, 0, 0);
                 }
 
@@ -150,16 +137,14 @@ public class RenderHolocron extends TileEntitySpecialRenderer
                 GL11.glRotatef(35, 1, 0, 0);
                 GL11.glRotatef(rot, 0, 0, 1);
 
-                if (i == 1)
-                {
+                if (i == 1) {
                     GL11.glRotatef(180, 1, 0, 0);
                 }
 
                 GL11.glTranslatef(0, 0, offset);
                 tessellator.draw();
 
-                for (int k = 0; k < 3; ++k)
-                {
+                for (int k = 0; k < 3; ++k) {
                     tessellator.startDrawing(GL11.GL_TRIANGLES);
                     minU = iconCornerSide.getInterpolatedU(8);
                     maxU = iconCornerSide.getInterpolatedU(16);
@@ -182,8 +167,7 @@ public class RenderHolocron extends TileEntitySpecialRenderer
         }
     }
 
-    public void renderSithHolocron(TileEntityHolocron tile, int metadata, Tessellator tessellator, float partialTicks)
-    {
+    public void renderSithHolocron(TileEntityHolocron tile, int metadata, Tessellator tessellator, float partialTicks) {
         IIcon iconBottom = ModBlocks.holocron.getIcon(0, metadata);
         IIcon iconSide = ModBlocks.holocron.getIcon(1, metadata);
 
@@ -208,8 +192,7 @@ public class RenderHolocron extends TileEntitySpecialRenderer
         tessellator.addVertexWithUV(-size / 2, -size / 2, -size / 2, minU, minV);
         tessellator.draw();
 
-        for (int i = 0; i < 4; ++i)
-        {
+        for (int i = 0; i < 4; ++i) {
             tessellator.startDrawing(GL11.GL_TRIANGLES);
             minU = iconSide.getInterpolatedU(0);
             maxU = iconSide.getInterpolatedU(8);
@@ -231,8 +214,7 @@ public class RenderHolocron extends TileEntitySpecialRenderer
     }
 
     @Override
-    public void renderTileEntityAt(TileEntity tileentity, double x, double y, double z, float partialTicks)
-    {
+    public void renderTileEntityAt(TileEntity tileentity, double x, double y, double z, float partialTicks) {
         render((TileEntityHolocron) tileentity, x, y, z, partialTicks);
     }
 }

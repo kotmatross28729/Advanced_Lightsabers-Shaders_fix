@@ -1,17 +1,16 @@
 package com.fiskmods.lightsabers.client.model.tile;
 
-import com.fiskmods.lightsabers.common.tileentity.TileEntitySithStoneCoffin;
-
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 
-public class ModelSithStoneCoffin extends ModelBase
-{
+import com.fiskmods.lightsabers.common.tileentity.TileEntitySithStoneCoffin;
+
+public class ModelSithStoneCoffin extends ModelBase {
+
     public ModelRenderer base;
     public ModelRenderer coffin;
 
-    public ModelSithStoneCoffin()
-    {
+    public ModelSithStoneCoffin() {
         textureWidth = 128;
         textureHeight = 128;
         base = new ModelRenderer(this, 0, 0);
@@ -24,14 +23,12 @@ public class ModelSithStoneCoffin extends ModelBase
         base.addChild(coffin);
     }
 
-    public void render(TileEntitySithStoneCoffin tile)
-    {
+    public void render(TileEntitySithStoneCoffin tile) {
         coffin.isHidden = tile.baseplateOnly;
         base.render(0.0625F);
     }
 
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z)
-    {
+    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;

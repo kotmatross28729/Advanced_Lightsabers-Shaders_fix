@@ -1,5 +1,12 @@
 package com.fiskmods.lightsabers.common.force.effect;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Vec3;
+
 import org.lwjgl.opengl.GL11;
 
 import com.fiskmods.lightsabers.Lightsabers;
@@ -12,46 +19,38 @@ import com.fiskmods.lightsabers.helper.ALRenderHelper;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Vec3;
 
-public class PowerEffectFortify extends PowerEffectStatus
-{
-    public PowerEffectFortify(int amplifier)
-    {
+public class PowerEffectFortify extends PowerEffectStatus {
+
+    public PowerEffectFortify(int amplifier) {
         super(Effect.FORTIFY, amplifier);
     }
 
     @Override
-    public String[] getDesc()
-    {
-        return new String[] {PowerDesc.create("divide", Unit.FORCE_DAMAGE, getModifierAmount(amplifier))};
+    public String[] getDesc() {
+        return new String[] { PowerDesc.create("divide", Unit.FORCE_DAMAGE, getModifierAmount(amplifier)) };
     }
 
     @Override
-    public void start(EntityPlayer player, Side side)
-    {
-        if (side.isClient() && Lightsabers.proxy.isClientPlayer(player))
-        {
+    public void start(EntityPlayer player, Side side) {
+        if (side.isClient() && Lightsabers.proxy.isClientPlayer(player)) {
             playSound(player);
         }
     }
 
     @SideOnly(Side.CLIENT)
-    public void playSound(EntityPlayer player)
-    {
-        Minecraft.getMinecraft().getSoundHandler().playSound(new MovingSoundStatusEffect(player, Effect.FORTIFY, ALSounds.ambient_fortify));
+    public void playSound(EntityPlayer player) {
+        Minecraft.getMinecraft()
+            .getSoundHandler()
+            .playSound(new MovingSoundStatusEffect(player, Effect.FORTIFY, ALSounds.ambient_fortify));
     }
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void render(EntityPlayer player, float partialTicks)
-    {
-        Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(Lightsabers.MODID, "textures/misc/force_shield.png"));
+    public void render(EntityPlayer player, float partialTicks) {
+        Minecraft.getMinecraft()
+            .getTextureManager()
+            .bindTexture(new ResourceLocation(Lightsabers.MODID, "textures/misc/force_shield.png"));
 
         GL11.glPushMatrix();
         Tessellator tessellator = Tessellator.instance;
@@ -81,14 +80,12 @@ public class PowerEffectFortify extends PowerEffectStatus
         GL11.glRotatef(MathHelper.sin(f1 / 10 + 20) * 5, 0, 0, 1);
         GL11.glTranslatef(0, 0, range);
 
-        for (int i = 0; i < amount; ++i)
-        {
+        for (int i = 0; i < amount; ++i) {
             GL11.glPushMatrix();
             tessellator.startDrawing(3);
             tessellator.setColorRGBA(54 + (int) (146 * f), 84 + (int) (-84 * f), 181 + (int) (19 * f), 50);
 
-            for (int j = 0; j < coverage / angleIncr; ++j)
-            {
+            for (int j = 0; j < coverage / angleIncr; ++j) {
                 Vec3 vec3 = Vec3.createVectorHelper(0, range, 0);
                 float pitch = 90 + j * angleIncr;
                 float yaw = 180;
@@ -110,8 +107,7 @@ public class PowerEffectFortify extends PowerEffectStatus
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         GL11.glDepthMask(true);
 
-        if (prevLighting)
-        {
+        if (prevLighting) {
             GL11.glEnable(GL11.GL_LIGHTING);
         }
 
@@ -119,12 +115,10 @@ public class PowerEffectFortify extends PowerEffectStatus
         GL11.glPopMatrix();
     }
 
-    public static float getModifierAmount(int amplifier)
-    {
+    public static float getModifierAmount(int amplifier) {
         float f = 0.25F;
 
-        for (int i = 0; i < amplifier; ++i)
-        {
+        for (int i = 0; i < amplifier; ++i) {
             f *= 2;
         }
 

@@ -3,10 +3,11 @@ package com.fiskmods.lightsabers.client.model.lightsaber;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+
 import org.lwjgl.opengl.GL11;
 
-public class ModelBodyRebel extends ModelBase
-{
+public class ModelBodyRebel extends ModelBase {
+
     public ModelRenderer body1;
     public ModelRenderer body9;
     public ModelRenderer switchPart;
@@ -22,8 +23,7 @@ public class ModelBodyRebel extends ModelBase
     public ModelRenderer body10_2;
     public ModelRenderer body10_3;
 
-    public ModelBodyRebel()
-    {
+    public ModelBodyRebel() {
         textureWidth = 64;
         textureHeight = 32;
         body10_2 = new ModelRenderer(this, 8, 0);
@@ -94,8 +94,7 @@ public class ModelBodyRebel extends ModelBase
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-    {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         body1.render(f5);
         switchPart.render(f5);
         GL11.glPushMatrix();
@@ -108,8 +107,7 @@ public class ModelBodyRebel extends ModelBase
         GL11.glPopMatrix();
     }
 
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z)
-    {
+    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;

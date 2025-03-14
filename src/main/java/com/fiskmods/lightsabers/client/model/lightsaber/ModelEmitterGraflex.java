@@ -1,13 +1,13 @@
 package com.fiskmods.lightsabers.client.model.lightsaber;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class ModelEmitterGraflex extends ModelBase
-{
+import org.lwjgl.opengl.GL11;
+
+public class ModelEmitterGraflex extends ModelBase {
+
     public ModelRenderer body1;
     public ModelRenderer upperRing1;
     public ModelRenderer frontRing1;
@@ -70,8 +70,7 @@ public class ModelEmitterGraflex extends ModelBase
     public ModelRenderer frontButton7;
     public ModelRenderer frontButton8;
 
-    public ModelEmitterGraflex()
-    {
+    public ModelEmitterGraflex() {
         textureWidth = 64;
         textureHeight = 32;
         body10 = new ModelRenderer(this, 8, 0);
@@ -375,45 +374,67 @@ public class ModelEmitterGraflex extends ModelBase
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-    {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         body1.render(f5);
         GL11.glPushMatrix();
         GL11.glTranslatef(upperRing1.offsetX, upperRing1.offsetY, upperRing1.offsetZ);
-        GL11.glTranslatef(upperRing1.rotationPointX * f5, upperRing1.rotationPointY * f5, upperRing1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            upperRing1.rotationPointX * f5,
+            upperRing1.rotationPointY * f5,
+            upperRing1.rotationPointZ * f5);
         GL11.glScaled(0.7D, 0.7D, 0.7D);
         GL11.glTranslatef(-upperRing1.offsetX, -upperRing1.offsetY, -upperRing1.offsetZ);
-        GL11.glTranslatef(-upperRing1.rotationPointX * f5, -upperRing1.rotationPointY * f5, -upperRing1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -upperRing1.rotationPointX * f5,
+            -upperRing1.rotationPointY * f5,
+            -upperRing1.rotationPointZ * f5);
         upperRing1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(frontButton1.offsetX, frontButton1.offsetY, frontButton1.offsetZ);
-        GL11.glTranslatef(frontButton1.rotationPointX * f5, frontButton1.rotationPointY * f5, frontButton1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            frontButton1.rotationPointX * f5,
+            frontButton1.rotationPointY * f5,
+            frontButton1.rotationPointZ * f5);
         GL11.glScaled(0.3D, 0.3D, 0.3D);
         GL11.glTranslatef(-frontButton1.offsetX, -frontButton1.offsetY, -frontButton1.offsetZ);
-        GL11.glTranslatef(-frontButton1.rotationPointX * f5, -frontButton1.rotationPointY * f5, -frontButton1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -frontButton1.rotationPointX * f5,
+            -frontButton1.rotationPointY * f5,
+            -frontButton1.rotationPointZ * f5);
         frontButton1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(frontRing1.offsetX, frontRing1.offsetY, frontRing1.offsetZ);
-        GL11.glTranslatef(frontRing1.rotationPointX * f5, frontRing1.rotationPointY * f5, frontRing1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            frontRing1.rotationPointX * f5,
+            frontRing1.rotationPointY * f5,
+            frontRing1.rotationPointZ * f5);
         GL11.glScaled(0.4D, 0.4D, 0.4D);
         GL11.glTranslatef(-frontRing1.offsetX, -frontRing1.offsetY, -frontRing1.offsetZ);
-        GL11.glTranslatef(-frontRing1.rotationPointX * f5, -frontRing1.rotationPointY * f5, -frontRing1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -frontRing1.rotationPointX * f5,
+            -frontRing1.rotationPointY * f5,
+            -frontRing1.rotationPointZ * f5);
         frontRing1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(backButton1.offsetX, backButton1.offsetY, backButton1.offsetZ);
-        GL11.glTranslatef(backButton1.rotationPointX * f5, backButton1.rotationPointY * f5, backButton1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            backButton1.rotationPointX * f5,
+            backButton1.rotationPointY * f5,
+            backButton1.rotationPointZ * f5);
         GL11.glScaled(0.3D, 0.3D, 0.3D);
         GL11.glTranslatef(-backButton1.offsetX, -backButton1.offsetY, -backButton1.offsetZ);
-        GL11.glTranslatef(-backButton1.rotationPointX * f5, -backButton1.rotationPointY * f5, -backButton1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -backButton1.rotationPointX * f5,
+            -backButton1.rotationPointY * f5,
+            -backButton1.rotationPointZ * f5);
         backButton1.render(f5);
         GL11.glPopMatrix();
     }
 
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z)
-    {
+    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;

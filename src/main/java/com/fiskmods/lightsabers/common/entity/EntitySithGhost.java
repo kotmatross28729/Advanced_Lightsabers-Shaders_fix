@@ -2,18 +2,6 @@ package com.fiskmods.lightsabers.common.entity;
 
 import java.util.List;
 
-import com.fiskmods.lightsabers.Lightsabers;
-import com.fiskmods.lightsabers.common.entity.ai.EntityAIBreakBlock;
-import com.fiskmods.lightsabers.common.entity.ai.EntityAIRest;
-import com.fiskmods.lightsabers.common.item.ItemLightsaberBase;
-import com.fiskmods.lightsabers.common.lightsaber.CrystalColor;
-import com.fiskmods.lightsabers.common.lightsaber.LightsaberData;
-import com.fiskmods.lightsabers.common.network.ALNetworkManager;
-import com.fiskmods.lightsabers.common.network.PacketThrowLightsaber;
-import com.fiskmods.lightsabers.common.network.PacketTileAction;
-import com.fiskmods.lightsabers.common.tileentity.TileEntitySithStoneCoffin;
-import com.google.common.collect.Lists;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -37,8 +25,20 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public class EntitySithGhost extends EntityMob
-{
+import com.fiskmods.lightsabers.Lightsabers;
+import com.fiskmods.lightsabers.common.entity.ai.EntityAIBreakBlock;
+import com.fiskmods.lightsabers.common.entity.ai.EntityAIRest;
+import com.fiskmods.lightsabers.common.item.ItemLightsaberBase;
+import com.fiskmods.lightsabers.common.lightsaber.CrystalColor;
+import com.fiskmods.lightsabers.common.lightsaber.LightsaberData;
+import com.fiskmods.lightsabers.common.network.ALNetworkManager;
+import com.fiskmods.lightsabers.common.network.PacketThrowLightsaber;
+import com.fiskmods.lightsabers.common.network.PacketTileAction;
+import com.fiskmods.lightsabers.common.tileentity.TileEntitySithStoneCoffin;
+import com.google.common.collect.Lists;
+
+public class EntitySithGhost extends EntityMob {
+
     public boolean hasRestingPlace;
     public int restingPlaceX;
     public int restingPlaceY;
@@ -50,8 +50,7 @@ public class EntitySithGhost extends EntityMob
     public int strafe = 1;
     public int taskFinished;
 
-    public EntitySithGhost(World world)
-    {
+    public EntitySithGhost(World world) {
         super(world);
         getNavigator().setAvoidsWater(true);
         getNavigator().setBreakDoors(true);
@@ -69,17 +68,14 @@ public class EntitySithGhost extends EntityMob
     }
 
     @Override
-    public boolean attackEntityAsMob(Entity entity)
-    {
-        if (entity instanceof EntitySithGhost)
-        {
+    public boolean attackEntityAsMob(Entity entity) {
+        if (entity instanceof EntitySithGhost) {
             return false;
         }
 
         boolean flag = super.attackEntityAsMob(entity);
 
-        if (flag)
-        {
+        if (flag) {
             swingItem();
         }
 
@@ -87,10 +83,8 @@ public class EntitySithGhost extends EntityMob
     }
 
     @Override
-    public boolean attackEntityFrom(DamageSource damageSource, float damage)
-    {
-        if (damageSource == DamageSource.inWall)
-        {
+    public boolean attackEntityFrom(DamageSource damageSource, float damage) {
+        if (damageSource == DamageSource.inWall) {
             return false;
         }
 
@@ -98,18 +92,15 @@ public class EntitySithGhost extends EntityMob
     }
 
     @Override
-    public void swingItem()
-    {
-        if (swingItemCooldown == 0)
-        {
+    public void swingItem() {
+        if (swingItemCooldown == 0) {
             swingItemCooldown = 5;
             super.swingItem();
         }
     }
 
     @Override
-    protected void applyEntityAttributes()
-    {
+    protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(60);
         getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(4);
@@ -119,128 +110,109 @@ public class EntitySithGhost extends EntityMob
     }
 
     @Override
-    public boolean isAIEnabled()
-    {
+    public boolean isAIEnabled() {
         return true;
     }
 
     @Override
-    protected float getSoundPitch()
-    {
+    protected float getSoundPitch() {
         return super.getSoundPitch();
     }
 
     @Override
-    protected String getLivingSound()
-    {
+    protected String getLivingSound() {
         return Lightsabers.MODID + ":mob.sith_ghost.idle";
     }
 
     @Override
-    protected String getHurtSound()
-    {
+    protected String getHurtSound() {
         return null;
     }
 
     @Override
-    protected String getDeathSound()
-    {
+    protected String getDeathSound() {
         return Lightsabers.MODID + ":mob.sith_ghost.death";
     }
 
     @Override
-    public void onUpdate()
-    {
+    public void onUpdate() {
         super.onUpdate();
         EntityLivingBase target = getAttackTarget();
         ItemStack heldItem = getHeldItem();
 
-        if (throwLightsaberCooldown > 0)
-        {
+        if (throwLightsaberCooldown > 0) {
             --throwLightsaberCooldown;
         }
 
-        if (swingItemCooldown > 0)
-        {
+        if (swingItemCooldown > 0) {
             --swingItemCooldown;
         }
 
-        if (--strafeTimer <= 0)
-        {
+        if (--strafeTimer <= 0) {
             strafe *= -1;
             strafeTimer = 100 + rand.nextInt(1000);
         }
 
-        if (heldItem != null)
-        {
-            if (ticksExisted > 5 && !worldObj.isRemote && !ItemLightsaberBase.isActive(heldItem))
-            {
+        if (heldItem != null) {
+            if (ticksExisted > 5 && !worldObj.isRemote && !ItemLightsaberBase.isActive(heldItem)) {
                 ItemLightsaberBase.ignite(this, true);
             }
 
-            if (target != null && target.isEntityAlive())
-            {
+            if (target != null && target.isEntityAlive()) {
                 faceEntity(target, 100, 100);
 
-                if (ItemLightsaberBase.isActive(heldItem) && getDistanceToEntity(target) > 5 && canEntityBeSeen(target) && throwLightsaberCooldown == 0)
-                {
+                if (ItemLightsaberBase.isActive(heldItem) && getDistanceToEntity(target) > 5
+                    && canEntityBeSeen(target)
+                    && throwLightsaberCooldown == 0) {
                     throwLightsaberCooldown = 40 + rand.nextInt(60);
                     swingItem();
                     ALNetworkManager.wrapper.sendToServer(new PacketThrowLightsaber(this, heldItem));
                 }
 
-                if (getDistanceToEntity(target) < 5 && canEntityBeSeen(target))
-                {
+                if (getDistanceToEntity(target) < 5 && canEntityBeSeen(target)) {
                     moveEntityWithHeading(0.3F * strafe, 0);
                 }
             }
         }
 
-        if (target instanceof EntitySithGhost)
-        {
+        if (target instanceof EntitySithGhost) {
             setAttackTarget(worldObj.getClosestVulnerablePlayerToEntity(this, 32));
         }
 
-        if (target != null)
-        {
+        if (target != null) {
             taskFinished = 1;
-        }
-        else if (taskFinished == 1)
-        {
+        } else if (taskFinished == 1) {
             taskFinished = 2;
         }
 
-        if (taskFinished == 2)
-        {
+        if (taskFinished == 2) {
             int x = MathHelper.floor_double(posX);
             int y = MathHelper.floor_double(posY);
             int z = MathHelper.floor_double(posZ);
 
-            if (getDistance(restingPlaceX, restingPlaceY, restingPlaceZ) <= 2D)
-            {
+            if (getDistance(restingPlaceX, restingPlaceY, restingPlaceZ) <= 2D) {
                 taskFinished = 3;
 
-                if (worldObj.getTileEntity(restingPlaceX, restingPlaceY, restingPlaceZ) instanceof TileEntitySithStoneCoffin)
-                {
-                    TileEntitySithStoneCoffin tile = (TileEntitySithStoneCoffin) worldObj.getTileEntity(restingPlaceX, restingPlaceY, restingPlaceZ);
+                if (worldObj
+                    .getTileEntity(restingPlaceX, restingPlaceY, restingPlaceZ) instanceof TileEntitySithStoneCoffin) {
+                    TileEntitySithStoneCoffin tile = (TileEntitySithStoneCoffin) worldObj
+                        .getTileEntity(restingPlaceX, restingPlaceY, restingPlaceZ);
                     tile.equipment = getEquipmentInSlot(0);
                     worldObj.playAuxSFXAtEntity(null, 1017, x, y, z, 0);
                     setDead();
-                    ALNetworkManager.wrapper.sendToServer(new PacketTileAction(this, restingPlaceX, restingPlaceY, restingPlaceZ, 0));
+                    ALNetworkManager.wrapper
+                        .sendToServer(new PacketTileAction(this, restingPlaceX, restingPlaceY, restingPlaceZ, 0));
                 }
             }
         }
     }
 
     @Override
-    public void setDead()
-    {
+    public void setDead() {
         super.setDead();
 
-        if (worldObj.isRemote)
-        {
-            for (int i = 0; i < 128; ++i)
-            {
+        if (worldObj.isRemote) {
+            for (int i = 0; i < 128; ++i) {
                 double d0 = (rand.nextFloat() * 2 - 1) * 1.2;
                 double d1 = rand.nextFloat() * 2.4 - 1;
                 double d2 = (rand.nextFloat() * 2 - 1) * 1.2;
@@ -253,8 +225,7 @@ public class EntitySithGhost extends EntityMob
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound nbt)
-    {
+    public void readEntityFromNBT(NBTTagCompound nbt) {
         super.readEntityFromNBT(nbt);
         hasRestingPlace = nbt.getBoolean("HasRestingPlace");
         restingPlaceX = nbt.getInteger("RestX");
@@ -268,8 +239,7 @@ public class EntitySithGhost extends EntityMob
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound nbt)
-    {
+    public void writeEntityToNBT(NBTTagCompound nbt) {
         super.writeEntityToNBT(nbt);
         nbt.setBoolean("HasRestingPlace", hasRestingPlace);
         nbt.setInteger("RestX", restingPlaceX);
@@ -283,21 +253,17 @@ public class EntitySithGhost extends EntityMob
     }
 
     @Override
-    protected boolean canTriggerWalking()
-    {
+    protected boolean canTriggerWalking() {
         return false;
     }
 
     @Override
-    public IEntityLivingData onSpawnWithEgg(IEntityLivingData entityData)
-    {
-        if (getEquipmentInSlot(0) == null)
-        {
+    public IEntityLivingData onSpawnWithEgg(IEntityLivingData entityData) {
+        if (getEquipmentInSlot(0) == null) {
             setCurrentItemOrArmor(0, LightsaberData.createRandom(rand, CrystalColor.RED));
         }
 
-        for (int i = 0; i < equipmentDropChances.length; ++i)
-        {
+        for (int i = 0; i < equipmentDropChances.length; ++i) {
             equipmentDropChances[i] = 0;
         }
 
@@ -305,18 +271,16 @@ public class EntitySithGhost extends EntityMob
     }
 
     @Override
-    public void moveEntity(double offsetX, double offsetY, double offsetZ)
-    {
-        if (noClip)
-        {
-            //		    if (!flag)
-            //		    {
-            //		        boundingBox.offset(offsetX, offsetY, offsetZ);
-            //		        posX = (boundingBox.minX + boundingBox.maxX) / 2;
-            //		        posY = boundingBox.minY + yOffset - ySize;
-            //		        posZ = (boundingBox.minZ + boundingBox.maxZ) / 2;
-            //		        return;
-            //		    }
+    public void moveEntity(double offsetX, double offsetY, double offsetZ) {
+        if (noClip) {
+            // if (!flag)
+            // {
+            // boundingBox.offset(offsetX, offsetY, offsetZ);
+            // posX = (boundingBox.minX + boundingBox.maxX) / 2;
+            // posY = boundingBox.minY + yOffset - ySize;
+            // posZ = (boundingBox.minZ + boundingBox.maxZ) / 2;
+            // return;
+            // }
 
             worldObj.theProfiler.startSection("move");
             ySize *= 0.4F;
@@ -331,15 +295,13 @@ public class EntitySithGhost extends EntityMob
 
             List list = getCollidingBoundingBoxes(boundingBox.addCoord(offsetX, offsetY, offsetZ));
 
-            for (Object aList : list)
-            {
+            for (Object aList : list) {
                 offsetY = ((AxisAlignedBB) aList).calculateYOffset(boundingBox, offsetY);
             }
 
             boundingBox.offset(0, offsetY, 0);
 
-            if (!field_70135_K && d7 != offsetY)
-            {
+            if (!field_70135_K && d7 != offsetY) {
                 offsetZ = 0;
                 offsetY = 0;
                 offsetX = 0;
@@ -348,29 +310,25 @@ public class EntitySithGhost extends EntityMob
             boolean flag2 = onGround || d7 != offsetY && d7 < 0;
             int j;
 
-            for (j = 0; j < list.size(); ++j)
-            {
+            for (j = 0; j < list.size(); ++j) {
                 offsetX = ((AxisAlignedBB) list.get(j)).calculateXOffset(boundingBox, offsetX);
             }
 
             boundingBox.offset(offsetX, 0, 0);
 
-            if (!field_70135_K && d6 != offsetX)
-            {
+            if (!field_70135_K && d6 != offsetX) {
                 offsetZ = 0;
                 offsetY = 0;
                 offsetX = 0;
             }
 
-            for (j = 0; j < list.size(); ++j)
-            {
+            for (j = 0; j < list.size(); ++j) {
                 offsetZ = ((AxisAlignedBB) list.get(j)).calculateZOffset(boundingBox, offsetZ);
             }
 
             boundingBox.offset(0, 0, offsetZ);
 
-            if (!field_70135_K && d8 != offsetZ)
-            {
+            if (!field_70135_K && d8 != offsetZ) {
                 offsetZ = 0;
                 offsetY = 0;
                 offsetX = 0;
@@ -381,8 +339,7 @@ public class EntitySithGhost extends EntityMob
             int k;
             double d12;
 
-            if (stepHeight > 0 && flag2 && (flag1 || ySize < 0.05F) && (d6 != offsetX || d8 != offsetZ))
-            {
+            if (stepHeight > 0 && flag2 && (flag1 || ySize < 0.05F) && (d6 != offsetX || d8 != offsetZ)) {
                 d12 = offsetX;
                 d10 = offsetY;
                 d11 = offsetZ;
@@ -393,68 +350,57 @@ public class EntitySithGhost extends EntityMob
                 boundingBox.setBB(axisalignedbb);
                 list = getCollidingBoundingBoxes(boundingBox.addCoord(d6, offsetY, d8));
 
-                for (k = 0; k < list.size(); ++k)
-                {
+                for (k = 0; k < list.size(); ++k) {
                     offsetY = ((AxisAlignedBB) list.get(k)).calculateYOffset(boundingBox, offsetY);
                 }
 
                 boundingBox.offset(0, offsetY, 0);
 
-                if (!field_70135_K && d7 != offsetY)
-                {
+                if (!field_70135_K && d7 != offsetY) {
                     offsetZ = 0;
                     offsetY = 0;
                     offsetX = 0;
                 }
 
-                for (k = 0; k < list.size(); ++k)
-                {
+                for (k = 0; k < list.size(); ++k) {
                     offsetX = ((AxisAlignedBB) list.get(k)).calculateXOffset(boundingBox, offsetX);
                 }
 
                 boundingBox.offset(offsetX, 0, 0);
 
-                if (!field_70135_K && d6 != offsetX)
-                {
+                if (!field_70135_K && d6 != offsetX) {
                     offsetZ = 0;
                     offsetY = 0;
                     offsetX = 0;
                 }
 
-                for (k = 0; k < list.size(); ++k)
-                {
+                for (k = 0; k < list.size(); ++k) {
                     offsetZ = ((AxisAlignedBB) list.get(k)).calculateZOffset(boundingBox, offsetZ);
                 }
 
                 boundingBox.offset(0, 0, offsetZ);
 
-                if (!field_70135_K && d8 != offsetZ)
-                {
+                if (!field_70135_K && d8 != offsetZ) {
                     offsetZ = 0;
                     offsetY = 0;
                     offsetX = 0;
                 }
 
-                if (!field_70135_K && d7 != offsetY)
-                {
+                if (!field_70135_K && d7 != offsetY) {
                     offsetZ = 0;
                     offsetY = 0;
                     offsetX = 0;
-                }
-                else
-                {
+                } else {
                     offsetY = -stepHeight;
 
-                    for (k = 0; k < list.size(); ++k)
-                    {
+                    for (k = 0; k < list.size(); ++k) {
                         offsetY = ((AxisAlignedBB) list.get(k)).calculateYOffset(boundingBox, offsetY);
                     }
 
                     boundingBox.offset(0, offsetY, 0);
                 }
 
-                if (d12 * d12 + d11 * d11 >= offsetX * offsetX + offsetZ * offsetZ)
-                {
+                if (d12 * d12 + d11 * d11 >= offsetX * offsetX + offsetZ * offsetZ) {
                     offsetX = d12;
                     offsetY = d10;
                     offsetZ = d11;
@@ -472,18 +418,15 @@ public class EntitySithGhost extends EntityMob
             onGround = d7 != offsetY && d7 < 0;
             isCollided = isCollidedHorizontally || isCollidedVertically;
 
-            if (d6 != offsetX)
-            {
+            if (d6 != offsetX) {
                 motionX = 0;
             }
 
-            if (d7 != offsetY)
-            {
+            if (d7 != offsetY) {
                 motionY = 0;
             }
 
-            if (d8 != offsetZ)
-            {
+            if (d8 != offsetZ) {
                 motionZ = 0;
             }
 
@@ -492,15 +435,12 @@ public class EntitySithGhost extends EntityMob
             d11 = posZ - d5;
 
             worldObj.theProfiler.endSection();
-        }
-        else
-        {
+        } else {
             super.moveEntity(offsetX, offsetY, offsetZ);
         }
     }
 
-    public List getCollidingBoundingBoxes(AxisAlignedBB aabb)
-    {
+    public List getCollidingBoundingBoxes(AxisAlignedBB aabb) {
         World world = worldObj;
         List<AxisAlignedBB> collidingBoundingBoxes = Lists.newArrayList();
 
@@ -511,27 +451,19 @@ public class EntitySithGhost extends EntityMob
         int minZ = MathHelper.floor_double(aabb.minZ);
         int maxZ = MathHelper.floor_double(aabb.maxZ + 1);
 
-        for (int x = minX; x < maxX; ++x)
-        {
-            for (int z = minZ; z < maxZ; ++z)
-            {
-                if (world.blockExists(x, 64, z))
-                {
-                    for (int y = minY - 1; y < maxY; ++y)
-                    {
+        for (int x = minX; x < maxX; ++x) {
+            for (int z = minZ; z < maxZ; ++z) {
+                if (world.blockExists(x, 64, z)) {
+                    for (int y = minY - 1; y < maxY; ++y) {
                         Block block;
 
-                        if (x >= -30000000 && x < 30000000 && z >= -30000000 && z < 30000000)
-                        {
+                        if (x >= -30000000 && x < 30000000 && z >= -30000000 && z < 30000000) {
                             block = world.getBlock(x, y, z);
-                        }
-                        else
-                        {
+                        } else {
                             block = Blocks.stone;
                         }
 
-                        if (y <= minY)
-                        {
+                        if (y <= minY) {
                             block.addCollisionBoxesToList(world, x, y, z, aabb, collidingBoundingBoxes, this);
                         }
                     }
@@ -542,19 +474,16 @@ public class EntitySithGhost extends EntityMob
         double d0 = 0.25D;
         List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, aabb.expand(d0, d0, d0));
 
-        for (Entity entity : list)
-        {
+        for (Entity entity : list) {
             AxisAlignedBB aabb1 = entity.getBoundingBox();
 
-            if (aabb1 != null && aabb1.intersectsWith(aabb))
-            {
+            if (aabb1 != null && aabb1.intersectsWith(aabb)) {
                 collidingBoundingBoxes.add(aabb1);
             }
 
             aabb1 = getCollisionBox(entity);
 
-            if (aabb1 != null && aabb1.intersectsWith(aabb))
-            {
+            if (aabb1 != null && aabb1.intersectsWith(aabb)) {
                 collidingBoundingBoxes.add(aabb1);
             }
         }

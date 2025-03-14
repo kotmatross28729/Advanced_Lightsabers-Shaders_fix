@@ -1,13 +1,13 @@
 package com.fiskmods.lightsabers.client.model.lightsaber;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class ModelEmitterReborn extends ModelBase
-{
+import org.lwjgl.opengl.GL11;
+
+public class ModelEmitterReborn extends ModelBase {
+
     public ModelRenderer body1;
     public ModelRenderer innerRing1;
     public ModelRenderer emitterTip1;
@@ -83,8 +83,7 @@ public class ModelEmitterReborn extends ModelBase
     public ModelRenderer sideBlade2_2;
     public ModelRenderer sideBlade3_2;
 
-    public ModelEmitterReborn()
-    {
+    public ModelEmitterReborn() {
         textureWidth = 32;
         textureHeight = 32;
         sideBlade1point1 = new ModelRenderer(this, 0, 11);
@@ -441,15 +440,20 @@ public class ModelEmitterReborn extends ModelBase
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-    {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         sideBlade1point1.render(f5);
         GL11.glPushMatrix();
         GL11.glTranslatef(innerRing1.offsetX, innerRing1.offsetY, innerRing1.offsetZ);
-        GL11.glTranslatef(innerRing1.rotationPointX * f5, innerRing1.rotationPointY * f5, innerRing1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            innerRing1.rotationPointX * f5,
+            innerRing1.rotationPointY * f5,
+            innerRing1.rotationPointZ * f5);
         GL11.glScaled(0.81D, 1.0D, 0.81D);
         GL11.glTranslatef(-innerRing1.offsetX, -innerRing1.offsetY, -innerRing1.offsetZ);
-        GL11.glTranslatef(-innerRing1.rotationPointX * f5, -innerRing1.rotationPointY * f5, -innerRing1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -innerRing1.rotationPointX * f5,
+            -innerRing1.rotationPointY * f5,
+            -innerRing1.rotationPointZ * f5);
         innerRing1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
@@ -457,26 +461,41 @@ public class ModelEmitterReborn extends ModelBase
         GL11.glTranslatef(sideRing3.rotationPointX * f5, sideRing3.rotationPointY * f5, sideRing3.rotationPointZ * f5);
         GL11.glScaled(1.1D, 2.0D, 1.1D);
         GL11.glTranslatef(-sideRing3.offsetX, -sideRing3.offsetY, -sideRing3.offsetZ);
-        GL11.glTranslatef(-sideRing3.rotationPointX * f5, -sideRing3.rotationPointY * f5, -sideRing3.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -sideRing3.rotationPointX * f5,
+            -sideRing3.rotationPointY * f5,
+            -sideRing3.rotationPointZ * f5);
         sideRing3.render(f5);
         GL11.glPopMatrix();
         body1.render(f5);
         sideBlade1point3.render(f5);
         GL11.glPushMatrix();
         GL11.glTranslatef(emitterTip1.offsetX, emitterTip1.offsetY, emitterTip1.offsetZ);
-        GL11.glTranslatef(emitterTip1.rotationPointX * f5, emitterTip1.rotationPointY * f5, emitterTip1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            emitterTip1.rotationPointX * f5,
+            emitterTip1.rotationPointY * f5,
+            emitterTip1.rotationPointZ * f5);
         GL11.glScaled(-0.37D, 0.93D, -0.37D);
         GL11.glTranslatef(-emitterTip1.offsetX, -emitterTip1.offsetY, -emitterTip1.offsetZ);
-        GL11.glTranslatef(-emitterTip1.rotationPointX * f5, -emitterTip1.rotationPointY * f5, -emitterTip1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -emitterTip1.rotationPointX * f5,
+            -emitterTip1.rotationPointY * f5,
+            -emitterTip1.rotationPointZ * f5);
         emitterTip1.render(f5);
         GL11.glPopMatrix();
         sideBlade1point2.render(f5);
         GL11.glPushMatrix();
         GL11.glTranslatef(darkInnerRing1.offsetX, darkInnerRing1.offsetY, darkInnerRing1.offsetZ);
-        GL11.glTranslatef(darkInnerRing1.rotationPointX * f5, darkInnerRing1.rotationPointY * f5, darkInnerRing1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            darkInnerRing1.rotationPointX * f5,
+            darkInnerRing1.rotationPointY * f5,
+            darkInnerRing1.rotationPointZ * f5);
         GL11.glScaled(0.63D, 0.53D, 0.63D);
         GL11.glTranslatef(-darkInnerRing1.offsetX, -darkInnerRing1.offsetY, -darkInnerRing1.offsetZ);
-        GL11.glTranslatef(-darkInnerRing1.rotationPointX * f5, -darkInnerRing1.rotationPointY * f5, -darkInnerRing1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -darkInnerRing1.rotationPointX * f5,
+            -darkInnerRing1.rotationPointY * f5,
+            -darkInnerRing1.rotationPointZ * f5);
         darkInnerRing1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
@@ -484,7 +503,10 @@ public class ModelEmitterReborn extends ModelBase
         GL11.glTranslatef(sideRing1.rotationPointX * f5, sideRing1.rotationPointY * f5, sideRing1.rotationPointZ * f5);
         GL11.glScaled(1.1D, 1.0D, 1.1D);
         GL11.glTranslatef(-sideRing1.offsetX, -sideRing1.offsetY, -sideRing1.offsetZ);
-        GL11.glTranslatef(-sideRing1.rotationPointX * f5, -sideRing1.rotationPointY * f5, -sideRing1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -sideRing1.rotationPointX * f5,
+            -sideRing1.rotationPointY * f5,
+            -sideRing1.rotationPointZ * f5);
         sideRing1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
@@ -492,7 +514,10 @@ public class ModelEmitterReborn extends ModelBase
         GL11.glTranslatef(sideRing2.rotationPointX * f5, sideRing2.rotationPointY * f5, sideRing2.rotationPointZ * f5);
         GL11.glScaled(1.1D, 2.0D, 1.1D);
         GL11.glTranslatef(-sideRing2.offsetX, -sideRing2.offsetY, -sideRing2.offsetZ);
-        GL11.glTranslatef(-sideRing2.rotationPointX * f5, -sideRing2.rotationPointY * f5, -sideRing2.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -sideRing2.rotationPointX * f5,
+            -sideRing2.rotationPointY * f5,
+            -sideRing2.rotationPointZ * f5);
         sideRing2.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
@@ -500,13 +525,15 @@ public class ModelEmitterReborn extends ModelBase
         GL11.glTranslatef(sideRing4.rotationPointX * f5, sideRing4.rotationPointY * f5, sideRing4.rotationPointZ * f5);
         GL11.glScaled(1.1D, 2.0D, 1.1D);
         GL11.glTranslatef(-sideRing4.offsetX, -sideRing4.offsetY, -sideRing4.offsetZ);
-        GL11.glTranslatef(-sideRing4.rotationPointX * f5, -sideRing4.rotationPointY * f5, -sideRing4.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -sideRing4.rotationPointX * f5,
+            -sideRing4.rotationPointY * f5,
+            -sideRing4.rotationPointZ * f5);
         sideRing4.render(f5);
         GL11.glPopMatrix();
     }
 
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z)
-    {
+    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;

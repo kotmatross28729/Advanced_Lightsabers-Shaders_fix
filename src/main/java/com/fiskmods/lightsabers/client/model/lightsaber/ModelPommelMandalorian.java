@@ -4,8 +4,8 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class ModelPommelMandalorian extends ModelBase
-{
+public class ModelPommelMandalorian extends ModelBase {
+
     public ModelRenderer body1;
     public ModelRenderer body2;
     public ModelRenderer body4;
@@ -33,8 +33,7 @@ public class ModelPommelMandalorian extends ModelBase
     public ModelRenderer body24;
     public ModelRenderer body26;
 
-    public ModelPommelMandalorian()
-    {
+    public ModelPommelMandalorian() {
         textureWidth = 64;
         textureHeight = 32;
         body18 = new ModelRenderer(this, 0, 14);
@@ -172,13 +171,11 @@ public class ModelPommelMandalorian extends ModelBase
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-    {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         body1.render(f5);
     }
 
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z)
-    {
+    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;

@@ -31,8 +31,8 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.Lists;
 
-public class SaberBuilder extends UIWindow
-{
+public class SaberBuilder extends UIWindow {
+
     private static final Map<String, Hilt> HILTS = new LinkedHashMap<>();
     private static final BiMap<Hilt, Integer> HILT_IDS = HashBiMap.create();
 
@@ -40,7 +40,7 @@ public class SaberBuilder extends UIWindow
     private final int width;
     private AbstractLightsaberData data = new LData(0);
 
-    private final String[] partNames = {"Emitter", "Switch Section", "Grip", "Pommel"};
+    private final String[] partNames = { "Emitter", "Switch Section", "Grip", "Pommel" };
     private final JComboBox[] hiltParts = new JComboBox[partNames.length];
     private final JComboBox[] focusingCrystals = new JComboBox[2];
 
@@ -50,21 +50,18 @@ public class SaberBuilder extends UIWindow
     private final JTextField hexField = new JTextField("#0");
     private final JTextField commandField = new JTextField();
 
-    private SaberBuilder(String title, int width, int height)
-    {
+    private SaberBuilder(String title, int width, int height) {
         super(title, width, height);
         this.width = width;
         {
             Vector v = new Vector<>(HILTS.keySet());
 
-            for (int i = 0; i < partNames.length; ++i)
-            {
+            for (int i = 0; i < partNames.length; ++i) {
                 JComboBox box = hiltParts[i] = new JComboBox<>(v);
                 add(i % 2 + 1, 2, partNames[i], box, i / 2);
 
                 int j = i;
-                box.addActionListener(e ->
-                {
+                box.addActionListener(e -> {
                     data.set(PartType.values()[j], HILTS.get(box.getSelectedItem()));
                     updateScreen();
                 });
@@ -74,14 +71,12 @@ public class SaberBuilder extends UIWindow
             List list = Lists.newArrayList(FocusingCrystal.values());
             list.add(0, "-");
             Vector v = new Vector<>(list);
-            
+
             add(1, 2, "Focusing Crystals", focusingCrystals[0] = new JComboBox<>(v), 2);
             add(2, 2, "", focusingCrystals[1] = new JComboBox<>(v), 2);
-            
-            for (int i = 0; i < 2; ++i)
-            {
-                focusingCrystals[i].addActionListener(e ->
-                {
+
+            for (int i = 0; i < 2; ++i) {
+                focusingCrystals[i].addActionListener(e -> {
                     data.set(getFocusingCrystal(0), getFocusingCrystal(1));
                     updateScreen();
                 });
@@ -90,8 +85,7 @@ public class SaberBuilder extends UIWindow
         {
             colorPreview.setFocusable(false);
             colorPreview.setBorderPainted(true);
-            colorCrystal.addActionListener(e ->
-            {
+            colorCrystal.addActionListener(e -> {
                 data.set(getColor());
                 updateScreen();
             });
@@ -102,21 +96,18 @@ public class SaberBuilder extends UIWindow
             Font f = hexField.getFont();
             hexField.setFont(new Font(f.getName(), Font.BOLD, f.getSize() * 2));
             hexField.addActionListener(e -> loadHex());
-            hexField.addFocusListener(new FocusListener()
-            {
+            hexField.addFocusListener(new FocusListener() {
+
                 @Override
-                public void focusLost(FocusEvent e)
-                {
+                public void focusLost(FocusEvent e) {
                     updateScreen();
                 }
 
                 @Override
-                public void focusGained(FocusEvent e)
-                {
+                public void focusGained(FocusEvent e) {
                     String s = hexField.getText();
 
-                    if (s.startsWith("#"))
-                    {
+                    if (s.startsWith("#")) {
                         hexField.setText(s.substring(1));
                     }
                 }
@@ -134,16 +125,12 @@ public class SaberBuilder extends UIWindow
         updateScreen();
     }
 
-    private void loadHex()
-    {
+    private void loadHex() {
         String s = hexField.getText();
 
-        if (s.isEmpty())
-        {
+        if (s.isEmpty()) {
             s = "0";
-        }
-        else if (!s.startsWith("#"))
-        {
+        } else if (!s.startsWith("#")) {
             s = "#" + s;
         }
 
@@ -151,106 +138,92 @@ public class SaberBuilder extends UIWindow
         updateScreen();
     }
 
-    private void setHash(long hash)
-    {
+    private void setHash(long hash) {
         data = new LData(hash).strip();
         colorCrystal.setSelectedItem(data.getColor());
 
-        for (int i = 0; i < partNames.length; ++i)
-        {
+        for (int i = 0; i < partNames.length; ++i) {
             int id = HILT_IDS.getOrDefault(data.get(PartType.values()[i]), 0);
 
-            if (id >= HILTS.size())
-            {
+            if (id >= HILTS.size()) {
                 id = 0;
             }
 
             hiltParts[i].setSelectedIndex(id);
         }
-        
+
         FocusingCrystal[] crystals = data.getFocusingCrystals();
         focusingCrystals[0].setSelectedIndex(0);
         focusingCrystals[1].setSelectedIndex(0);
 
-        for (int i = 0; i < crystals.length; ++i)
-        {
+        for (int i = 0; i < crystals.length; ++i) {
             focusingCrystals[i].setSelectedIndex(crystals[i].ordinal() + 1);
         }
     }
 
-    private void updateScreen()
-    {
-        String s = Long.toHexString(data.hash).toUpperCase(Locale.ROOT);
-        
-        if (!hexField.hasFocus())
-        {
+    private void updateScreen() {
+        String s = Long.toHexString(data.hash)
+            .toUpperCase(Locale.ROOT);
+
+        if (!hexField.hasFocus()) {
             s = "#" + s;
         }
 
         hexField.setText(s);
         colorPreview.setBackground(new Color(getColor().color));
-        
-        if (!s.startsWith("#"))
-        {
+
+        if (!s.startsWith("#")) {
             s = "#" + s;
         }
-        
-        commandField.setText(String.format("/give @p %s:lightsaber 1 0 {%s:\"%s\"}", Lightsabers.MODID, ALConstants.TAG_LIGHTSABER, s));
+
+        commandField.setText(
+            String.format("/give @p %s:lightsaber 1 0 {%s:\"%s\"}", Lightsabers.MODID, ALConstants.TAG_LIGHTSABER, s));
     }
-    
-    private FocusingCrystal getFocusingCrystal(int slot)
-    {
+
+    private FocusingCrystal getFocusingCrystal(int slot) {
         Object obj = focusingCrystals[slot].getSelectedItem();
-        
-        if (obj instanceof FocusingCrystal)
-        {
+
+        if (obj instanceof FocusingCrystal) {
             return (FocusingCrystal) obj;
         }
-        
+
         return null;
     }
-    
-    private CrystalColor getColor()
-    {
+
+    private CrystalColor getColor() {
         return (CrystalColor) colorCrystal.getSelectedItem();
     }
 
-    private void add(int index, int stack, String text, JComponent comp, int row)
-    {
+    private void add(int index, int stack, String text, JComponent comp, int row) {
         int w = width - margin * (stack - 1);
         add(text, comp, margin * index + w / stack * (index - 1), margin + row * 45, w / stack);
     }
 
-    private void add(String text, JComponent comp, int x, int y, int width)
-    {
-        if (!text.isEmpty())
-        {
+    private void add(String text, JComponent comp, int x, int y, int width) {
+        if (!text.isEmpty()) {
             add(text, x, y, width - 5, 20);
         }
 
         add(comp, x, y + 20, width, 20);
     }
 
-    public static void main(String[] args)
-    {
-        try
-        {
+    public static void main(String[] args) {
+        try {
             int nextId = -1;
 
-            for (Field field : HiltManager.class.getFields())
-            {
-                if (Hilt.class.isAssignableFrom(field.getType()))
-                {
+            for (Field field : HiltManager.class.getFields()) {
+                if (Hilt.class.isAssignableFrom(field.getType())) {
                     Hilt hilt = (Hilt) field.get(null);
-                    HILTS.put(field.getName().toLowerCase(Locale.ROOT), hilt);
+                    HILTS.put(
+                        field.getName()
+                            .toLowerCase(Locale.ROOT),
+                        hilt);
                     HILT_IDS.put(hilt, ++nextId);
                 }
             }
 
             new SaberBuilder("Lightsaber Builder", 400, 300).open();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             int width = 400;
             int height = 200;
             UIWindow window = new UIWindow("Lightsaber Builder", width, height);
@@ -258,7 +231,9 @@ public class SaberBuilder extends UIWindow
             JTextArea log = new JTextArea();
 
             e.printStackTrace(new PrintWriter(w));
-            log.setText(w.getBuffer().toString());
+            log.setText(
+                w.getBuffer()
+                    .toString());
             log.setForeground(Color.RED);
             log.setEditable(false);
 
@@ -269,28 +244,28 @@ public class SaberBuilder extends UIWindow
         }
     }
 
-    private static class LData extends AbstractLightsaberData
-    {
-        private LData(long hashCode)
-        {
+    private static class LData extends AbstractLightsaberData {
+
+        private LData(long hashCode) {
             super(hashCode);
         }
 
         @Override
-        protected int getIDForObject(Hilt hilt)
-        {
+        protected int getIDForObject(Hilt hilt) {
             return HILT_IDS.getOrDefault(hilt, 0);
         }
 
         @Override
-        protected Hilt getObjectById(int id)
-        {
-            return HILT_IDS.inverse().getOrDefault(id, HILT_IDS.inverse().get(0));
+        protected Hilt getObjectById(int id) {
+            return HILT_IDS.inverse()
+                .getOrDefault(
+                    id,
+                    HILT_IDS.inverse()
+                        .get(0));
         }
 
         @Override
-        protected AbstractLightsaberData createNew(long hashCode)
-        {
+        protected AbstractLightsaberData createNew(long hashCode) {
             return new LData(hashCode);
         }
     }

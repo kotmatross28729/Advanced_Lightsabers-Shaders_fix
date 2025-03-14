@@ -6,17 +6,15 @@ import com.fiskmods.lightsabers.common.lightsaber.CrystalColor;
 import com.fiskmods.lightsabers.common.lightsaber.FocusingCrystal;
 import com.fiskmods.lightsabers.common.lightsaber.PartType;
 
-public abstract class AbstractLightsaberData
-{
+public abstract class AbstractLightsaberData {
+
     public long hash;
 
-    public AbstractLightsaberData()
-    {
+    public AbstractLightsaberData() {
         this(0);
     }
 
-    public AbstractLightsaberData(long hashCode)
-    {
+    public AbstractLightsaberData(long hashCode) {
         hash = hashCode;
     }
 
@@ -31,8 +29,7 @@ public abstract class AbstractLightsaberData
      *
      * @return this
      */
-    public AbstractLightsaberData copy()
-    {
+    public AbstractLightsaberData copy() {
         return createNew(hash);
     }
 
@@ -41,9 +38,10 @@ public abstract class AbstractLightsaberData
      *
      * @return this
      */
-    public AbstractLightsaberData strip()
-    {
-        hash = createNew(0).set(getHilt()).set(getColor()).set(getFocusingCrystals()).hash;
+    public AbstractLightsaberData strip() {
+        hash = createNew(0).set(getHilt())
+            .set(getColor())
+            .set(getFocusingCrystals()).hash;
         return this;
     }
 
@@ -51,20 +49,17 @@ public abstract class AbstractLightsaberData
      * @param type - The {@link PartType} slot of the piece
      * @return The {@link Hilt} design of the specified part of this lightsaber.
      */
-    public Hilt get(PartType type)
-    {
+    public Hilt get(PartType type) {
         return getObjectById((int) (hash >> type.ordinal() * 6) & Hilt.MAX_ID);
     }
 
     /**
      * @return An array containing all {@link Hilt} parts.
      */
-    public Hilt[] getHilt()
-    {
+    public Hilt[] getHilt() {
         Hilt[] hilt = new Hilt[4];
 
-        for (int i = 0; i < hilt.length; ++i)
-        {
+        for (int i = 0; i < hilt.length; ++i) {
             hilt[i] = get(PartType.values()[i]);
         }
 
@@ -75,14 +70,11 @@ public abstract class AbstractLightsaberData
      * @return true if all {@link Hilt} parts belong to the same set.
      * @see AbstractLightsaberData#set(Hilt)
      */
-    public boolean isHiltUniform()
-    {
+    public boolean isHiltUniform() {
         Hilt[] hilt = getHilt();
 
-        for (int i = 0; i < hilt.length; ++i)
-        {
-            if (i > 0 && hilt[i - 1] != hilt[i])
-            {
+        for (int i = 0; i < hilt.length; ++i) {
+            if (i > 0 && hilt[i - 1] != hilt[i]) {
                 return false;
             }
         }
@@ -93,28 +85,24 @@ public abstract class AbstractLightsaberData
     /**
      * @return The bits representing the four hilt pieces.
      */
-    public long getHiltBits()
-    {
+    public long getHiltBits() {
         return hash & 0xFFFFFF;
     }
 
     /**
      * @return The {@link Part} object representing the specified component of this lightsaber.
      */
-    public Part getPart(PartType type)
-    {
+    public Part getPart(PartType type) {
         return get(type).getPart(type);
     }
 
     /**
      * @return The height of this hilt in pixels.
      */
-    public float getHeight()
-    {
+    public float getHeight() {
         float height = 0;
 
-        for (PartType type : PartType.values())
-        {
+        for (PartType type : PartType.values()) {
             height += getPart(type).height;
         }
 
@@ -124,16 +112,14 @@ public abstract class AbstractLightsaberData
     /**
      * @return The height of this hilt in centimeters.
      */
-    public float getHeightCm()
-    {
+    public float getHeightCm() {
         return getHeight() * 0.575F;
     }
 
     /**
      * @return The {@link CrystalColor color of crystal} used in this lightsaber.
      */
-    public CrystalColor getColor()
-    {
+    public CrystalColor getColor() {
         return CrystalColor.get((int) (hash >> 24 & 0xFF));
     }
 
@@ -141,23 +127,19 @@ public abstract class AbstractLightsaberData
      * @return An array containing the {@link FocusingCrystal focusing crystals} present in this
      *         lightsaber.
      */
-    public FocusingCrystal[] getFocusingCrystals()
-    {
+    public FocusingCrystal[] getFocusingCrystals() {
         FocusingCrystal[] crystals = new FocusingCrystal[FocusingCrystal.values().length];
         int i = -1;
 
-        for (FocusingCrystal crystal : FocusingCrystal.values())
-        {
-            if (hasFocusingCrystal(crystal))
-            {
+        for (FocusingCrystal crystal : FocusingCrystal.values()) {
+            if (hasFocusingCrystal(crystal)) {
                 crystals[++i] = crystal;
             }
         }
 
         FocusingCrystal[] array = new FocusingCrystal[++i];
 
-        if (array.length > 0)
-        {
+        if (array.length > 0) {
             System.arraycopy(crystals, 0, array, 0, i);
         }
 
@@ -168,8 +150,7 @@ public abstract class AbstractLightsaberData
      * @param crystal - The {@link FocusingCrystal} to be queried
      * @return true if this lightsaber contains the specified focusing crystal.
      */
-    public boolean hasFocusingCrystal(FocusingCrystal crystal)
-    {
+    public boolean hasFocusingCrystal(FocusingCrystal crystal) {
         return (hash >> 32 & crystal.getCode()) == crystal.getCode();
     }
 
@@ -179,8 +160,7 @@ public abstract class AbstractLightsaberData
      * @param type - The component slot
      * @return this
      */
-    public AbstractLightsaberData set(PartType type, Hilt hilt)
-    {
+    public AbstractLightsaberData set(PartType type, Hilt hilt) {
         int shift = type.ordinal() * 6;
         hash &= ~(0x3FL << shift);
         hash |= (long) getIDForObject(hilt) << shift;
@@ -200,10 +180,8 @@ public abstract class AbstractLightsaberData
      * @param hilt - The array of {@link Hilt} designs
      * @return this
      */
-    public AbstractLightsaberData set(Hilt... hilt)
-    {
-        for (int i = 0; i < Math.min(PartType.values().length, hilt.length); ++i)
-        {
+    public AbstractLightsaberData set(Hilt... hilt) {
+        for (int i = 0; i < Math.min(PartType.values().length, hilt.length); ++i) {
             set(PartType.values()[i], hilt[i]);
         }
 
@@ -217,8 +195,7 @@ public abstract class AbstractLightsaberData
      * @return this
      * @see AbstractLightsaberData#isHiltUniform()
      */
-    public AbstractLightsaberData set(Hilt hilt)
-    {
+    public AbstractLightsaberData set(Hilt hilt) {
         return set(hilt, hilt, hilt, hilt);
     }
 
@@ -228,8 +205,7 @@ public abstract class AbstractLightsaberData
      * @param color - The {@link CrystalColor} to represent the blade's color
      * @return this
      */
-    public AbstractLightsaberData set(CrystalColor color)
-    {
+    public AbstractLightsaberData set(CrystalColor color) {
         hash &= ~(0xFFL << 24);
         hash |= (long) (color.id & 0xFF) << 24;
 
@@ -244,14 +220,11 @@ public abstract class AbstractLightsaberData
      * @param crystals - The new array of crystals
      * @return this
      */
-    public AbstractLightsaberData set(FocusingCrystal... crystals)
-    {
+    public AbstractLightsaberData set(FocusingCrystal... crystals) {
         hash &= ~(0xFFFFL << 32);
 
-        for (FocusingCrystal crystal : crystals)
-        {
-            if (crystal != null)
-            {
+        for (FocusingCrystal crystal : crystals) {
+            if (crystal != null) {
                 add(crystal);
             }
         }
@@ -265,8 +238,7 @@ public abstract class AbstractLightsaberData
      * @param crystal - The crystal to be added
      * @return this
      */
-    public AbstractLightsaberData add(FocusingCrystal crystal)
-    {
+    public AbstractLightsaberData add(FocusingCrystal crystal) {
         hash |= crystal.getCode() << 32;
         return this;
     }
@@ -277,21 +249,18 @@ public abstract class AbstractLightsaberData
      * @param crystal - The crystal to be removed
      * @return this
      */
-    public AbstractLightsaberData remove(FocusingCrystal crystal)
-    {
+    public AbstractLightsaberData remove(FocusingCrystal crystal) {
         hash &= ~(crystal.getCode() << 32);
         return this;
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         return (int) (hash & 0xFFFFFFF) * 31 + (int) (hash >> 32);
     }
 
     @Override
-    public boolean equals(Object obj)
-    {
+    public boolean equals(Object obj) {
         return obj instanceof AbstractLightsaberData && hash == ((AbstractLightsaberData) obj).hash;
     }
 }

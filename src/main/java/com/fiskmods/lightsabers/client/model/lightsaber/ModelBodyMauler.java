@@ -1,13 +1,13 @@
 package com.fiskmods.lightsabers.client.model.lightsaber;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class ModelBodyMauler extends ModelBase
-{
+import org.lwjgl.opengl.GL11;
+
+public class ModelBodyMauler extends ModelBase {
+
     public ModelRenderer body1;
     public ModelRenderer cylinder1;
     public ModelRenderer ring5_1;
@@ -89,8 +89,7 @@ public class ModelBodyMauler extends ModelBase
     public ModelRenderer button2_7;
     public ModelRenderer button2_8;
 
-    public ModelBodyMauler()
-    {
+    public ModelBodyMauler() {
         textureWidth = 64;
         textureHeight = 32;
         upperCylinder1 = new ModelRenderer(this, 0, 17);
@@ -478,14 +477,19 @@ public class ModelBodyMauler extends ModelBase
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-    {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         GL11.glPushMatrix();
         GL11.glTranslatef(upperCylinder1.offsetX, upperCylinder1.offsetY, upperCylinder1.offsetZ);
-        GL11.glTranslatef(upperCylinder1.rotationPointX * f5, upperCylinder1.rotationPointY * f5, upperCylinder1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            upperCylinder1.rotationPointX * f5,
+            upperCylinder1.rotationPointY * f5,
+            upperCylinder1.rotationPointZ * f5);
         GL11.glScaled(1.1D, 1.1D, 1.1D);
         GL11.glTranslatef(-upperCylinder1.offsetX, -upperCylinder1.offsetY, -upperCylinder1.offsetZ);
-        GL11.glTranslatef(-upperCylinder1.rotationPointX * f5, -upperCylinder1.rotationPointY * f5, -upperCylinder1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -upperCylinder1.rotationPointX * f5,
+            -upperCylinder1.rotationPointY * f5,
+            -upperCylinder1.rotationPointZ * f5);
         upperCylinder1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
@@ -518,7 +522,10 @@ public class ModelBodyMauler extends ModelBase
         GL11.glTranslatef(button2_1.rotationPointX * f5, button2_1.rotationPointY * f5, button2_1.rotationPointZ * f5);
         GL11.glScaled(0.3D, 0.3D, 0.3D);
         GL11.glTranslatef(-button2_1.offsetX, -button2_1.offsetY, -button2_1.offsetZ);
-        GL11.glTranslatef(-button2_1.rotationPointX * f5, -button2_1.rotationPointY * f5, -button2_1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -button2_1.rotationPointX * f5,
+            -button2_1.rotationPointY * f5,
+            -button2_1.rotationPointZ * f5);
         button2_1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
@@ -526,7 +533,10 @@ public class ModelBodyMauler extends ModelBase
         GL11.glTranslatef(button1_1.rotationPointX * f5, button1_1.rotationPointY * f5, button1_1.rotationPointZ * f5);
         GL11.glScaled(0.3D, 0.3D, 0.3D);
         GL11.glTranslatef(-button1_1.offsetX, -button1_1.offsetY, -button1_1.offsetZ);
-        GL11.glTranslatef(-button1_1.rotationPointX * f5, -button1_1.rotationPointY * f5, -button1_1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -button1_1.rotationPointX * f5,
+            -button1_1.rotationPointY * f5,
+            -button1_1.rotationPointZ * f5);
         button1_1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
@@ -534,7 +544,10 @@ public class ModelBodyMauler extends ModelBase
         GL11.glTranslatef(cylinder1.rotationPointX * f5, cylinder1.rotationPointY * f5, cylinder1.rotationPointZ * f5);
         GL11.glScaled(1.1D, 1.0D, 1.1D);
         GL11.glTranslatef(-cylinder1.offsetX, -cylinder1.offsetY, -cylinder1.offsetZ);
-        GL11.glTranslatef(-cylinder1.rotationPointX * f5, -cylinder1.rotationPointY * f5, -cylinder1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -cylinder1.rotationPointX * f5,
+            -cylinder1.rotationPointY * f5,
+            -cylinder1.rotationPointZ * f5);
         cylinder1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
@@ -555,8 +568,7 @@ public class ModelBodyMauler extends ModelBase
         GL11.glPopMatrix();
     }
 
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z)
-    {
+    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;

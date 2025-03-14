@@ -3,10 +3,11 @@ package com.fiskmods.lightsabers.client.model.lightsaber;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+
 import org.lwjgl.opengl.GL11;
 
-public class ModelEmitterRebel extends ModelBase
-{
+public class ModelEmitterRebel extends ModelBase {
+
     public ModelRenderer ring3_1;
     public ModelRenderer shell1;
     public ModelRenderer innerRing1;
@@ -60,8 +61,7 @@ public class ModelEmitterRebel extends ModelBase
     public ModelRenderer body21;
     public ModelRenderer body22;
 
-    public ModelEmitterRebel()
-    {
+    public ModelEmitterRebel() {
         textureWidth = 64;
         textureHeight = 32;
         body21 = new ModelRenderer(this, 0, 24);
@@ -321,8 +321,7 @@ public class ModelEmitterRebel extends ModelBase
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-    {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         GL11.glPushMatrix();
         GL11.glTranslatef(body1.offsetX, body1.offsetY, body1.offsetZ);
         GL11.glTranslatef(body1.rotationPointX * f5, body1.rotationPointY * f5, body1.rotationPointZ * f5);
@@ -341,10 +340,16 @@ public class ModelEmitterRebel extends ModelBase
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(innerRing1.offsetX, innerRing1.offsetY, innerRing1.offsetZ);
-        GL11.glTranslatef(innerRing1.rotationPointX * f5, innerRing1.rotationPointY * f5, innerRing1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            innerRing1.rotationPointX * f5,
+            innerRing1.rotationPointY * f5,
+            innerRing1.rotationPointZ * f5);
         GL11.glScaled(0.9D, 0.9D, 0.9D);
         GL11.glTranslatef(-innerRing1.offsetX, -innerRing1.offsetY, -innerRing1.offsetZ);
-        GL11.glTranslatef(-innerRing1.rotationPointX * f5, -innerRing1.rotationPointY * f5, -innerRing1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -innerRing1.rotationPointX * f5,
+            -innerRing1.rotationPointY * f5,
+            -innerRing1.rotationPointZ * f5);
         innerRing1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
@@ -357,8 +362,7 @@ public class ModelEmitterRebel extends ModelBase
         GL11.glPopMatrix();
     }
 
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z)
-    {
+    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;

@@ -11,38 +11,41 @@ import org.objectweb.asm.tree.MethodNode;
 
 import com.fiskmods.lightsabers.asm.ASMHooks;
 
-public class ClassTransformerEntityMob extends ClassTransformerBase
-{
+public class ClassTransformerEntityMob extends ClassTransformerBase {
+
     public static String varPlayer;
     public static String varEntity;
 
-    public ClassTransformerEntityMob()
-    {
+    public ClassTransformerEntityMob() {
         super("net.minecraft.entity.monster.EntityMob");
     }
 
     @Override
-    public boolean processMethods(List<MethodNode> methods)
-    {
+    public boolean processMethods(List<MethodNode> methods) {
         boolean flag = false;
 
-        for (MethodNode method : methods)
-        {
-            if (method.name.equals(getMappedName("n", "attackEntityAsMob")) && method.desc.equals("(L" + varEntity + ";)Z"))
-            {
+        for (MethodNode method : methods) {
+            if (method.name.equals(getMappedName("n", "attackEntityAsMob"))
+                && method.desc.equals("(L" + varEntity + ";)Z")) {
                 InsnList list = new InsnList();
 
-                for (int i = 0; i < method.instructions.size(); ++i)
-                {
+                for (int i = 0; i < method.instructions.size(); ++i) {
                     AbstractInsnNode node = method.instructions.get(i);
 
-                    if (node instanceof MethodInsnNode)
-                    {
+                    if (node instanceof MethodInsnNode) {
                         MethodInsnNode methodNode = (MethodInsnNode) node;
 
-                        if (methodNode.name.equals(getMappedName("a", "attackEntityFrom")) && methodNode.desc.equals(getMappedName("(Lro;F)Z", "(Lnet/minecraft/util/DamageSource;F)Z")))
-                        {
-                            list.add(new MethodInsnNode(INVOKESTATIC, Type.getInternalName(ASMHooks.class), "attackEntityFrom", getMappedName("(L" + varEntity + ";Lro;F)Z", "(L" + varEntity + ";Lnet/minecraft/util/DamageSource;F)Z"), false));
+                        if (methodNode.name.equals(getMappedName("a", "attackEntityFrom")) && methodNode.desc
+                            .equals(getMappedName("(Lro;F)Z", "(Lnet/minecraft/util/DamageSource;F)Z"))) {
+                            list.add(
+                                new MethodInsnNode(
+                                    INVOKESTATIC,
+                                    Type.getInternalName(ASMHooks.class),
+                                    "attackEntityFrom",
+                                    getMappedName(
+                                        "(L" + varEntity + ";Lro;F)Z",
+                                        "(L" + varEntity + ";Lnet/minecraft/util/DamageSource;F)Z"),
+                                    false));
                             continue;
                         }
                     }
@@ -60,14 +63,12 @@ public class ClassTransformerEntityMob extends ClassTransformerBase
     }
 
     @Override
-    public boolean processFields(List<FieldNode> fields)
-    {
+    public boolean processFields(List<FieldNode> fields) {
         return true;
     }
 
     @Override
-    public void setupMappings()
-    {
+    public void setupMappings() {
         varPlayer = getMappedName("yz", "net/minecraft/entity/player/EntityPlayer");
         varEntity = getMappedName("sa", "net/minecraft/entity/Entity");
     }

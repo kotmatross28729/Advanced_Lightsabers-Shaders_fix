@@ -1,12 +1,12 @@
 package com.fiskmods.lightsabers.client.model.tile;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 
-public class ModelLightsaberStand extends ModelBase
-{
+import org.lwjgl.opengl.GL11;
+
+public class ModelLightsaberStand extends ModelBase {
+
     public ModelRenderer base1;
     public ModelRenderer lStandAngle;
     public ModelRenderer lStandTip;
@@ -17,8 +17,7 @@ public class ModelLightsaberStand extends ModelBase
     public ModelRenderer trimR;
     public ModelRenderer trimTop;
 
-    public ModelLightsaberStand()
-    {
+    public ModelLightsaberStand() {
         textureWidth = 64;
         textureHeight = 32;
         trimBtm = new ModelRenderer(this, "trimBtm").setTextureOffset(10, 9);
@@ -57,30 +56,40 @@ public class ModelLightsaberStand extends ModelBase
         trimL.addChild(trimR);
     }
 
-    public void render()
-    {
+    public void render() {
         GL11.glPushMatrix();
         GL11.glTranslatef(trimL.offsetX, trimL.offsetY, trimL.offsetZ);
-        GL11.glTranslatef(trimL.rotationPointX * 0.0625F, trimL.rotationPointY * 0.0625F, trimL.rotationPointZ * 0.0625F);
+        GL11.glTranslatef(
+            trimL.rotationPointX * 0.0625F,
+            trimL.rotationPointY * 0.0625F,
+            trimL.rotationPointZ * 0.0625F);
         GL11.glScaled(0.7, 0.4, 0.7);
         GL11.glTranslatef(-trimL.offsetX, -trimL.offsetY, -trimL.offsetZ);
-        GL11.glTranslatef(-trimL.rotationPointX * 0.0625F, -trimL.rotationPointY * 0.0625F, -trimL.rotationPointZ * 0.0625F);
+        GL11.glTranslatef(
+            -trimL.rotationPointX * 0.0625F,
+            -trimL.rotationPointY * 0.0625F,
+            -trimL.rotationPointZ * 0.0625F);
         trimL.render(0.0625F);
         GL11.glPopMatrix();
         rStandTip.render(0.0625F);
         lStandTip.render(0.0625F);
         GL11.glPushMatrix();
         GL11.glTranslatef(base1.offsetX, base1.offsetY, base1.offsetZ);
-        GL11.glTranslatef(base1.rotationPointX * 0.0625F, base1.rotationPointY * 0.0625F, base1.rotationPointZ * 0.0625F);
+        GL11.glTranslatef(
+            base1.rotationPointX * 0.0625F,
+            base1.rotationPointY * 0.0625F,
+            base1.rotationPointZ * 0.0625F);
         GL11.glScaled(0.7, 1.0, 0.6);
         GL11.glTranslatef(-base1.offsetX, -base1.offsetY, -base1.offsetZ);
-        GL11.glTranslatef(-base1.rotationPointX * 0.0625F, -base1.rotationPointY * 0.0625F, -base1.rotationPointZ * 0.0625F);
+        GL11.glTranslatef(
+            -base1.rotationPointX * 0.0625F,
+            -base1.rotationPointY * 0.0625F,
+            -base1.rotationPointZ * 0.0625F);
         base1.render(0.0625F);
         GL11.glPopMatrix();
     }
 
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z)
-    {
+    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;

@@ -3,8 +3,8 @@ package com.fiskmods.lightsabers.common.hilt;
 import java.lang.reflect.Field;
 import java.util.Locale;
 
-public class HiltManager
-{
+public class HiltManager {
+
     public static final Hilt GRAFLEX = new HiltGraflex();
     public static final Hilt REDEEMER = new HiltRedeemer();
     public static final Hilt MAULER = new HiltMauler();
@@ -22,18 +22,15 @@ public class HiltManager
     public static final Hilt IMPERIAL = new HiltImperial();
     public static final Hilt REBORN = new HiltReborn();
 
-    public static void register()
-    {
-        for (Field field : HiltManager.class.getFields())
-        {
-            if (Hilt.class.isAssignableFrom(field.getType()))
-            {
-                try
-                {
-                    Hilt.register(field.getName().toLowerCase(Locale.ROOT), (Hilt) field.get(null));
-                }
-                catch (Exception e)
-                {
+    public static void register() {
+        for (Field field : HiltManager.class.getFields()) {
+            if (Hilt.class.isAssignableFrom(field.getType())) {
+                try {
+                    Hilt.register(
+                        field.getName()
+                            .toLowerCase(Locale.ROOT),
+                        (Hilt) field.get(null));
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -54,8 +51,7 @@ public class HiltManager
         map(FURY, "Fury");
     }
 
-    private static void map(Hilt value, String legacy)
-    {
+    private static void map(Hilt value, String legacy) {
         Hilt.LEGACY_MAPPINGS.put(legacy, value.delegate.name());
     }
 }
