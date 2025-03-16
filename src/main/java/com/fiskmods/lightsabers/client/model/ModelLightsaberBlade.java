@@ -12,7 +12,9 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.item.ItemStack;
 
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL20;
 
+import com.fiskmods.lightsabers.Lightsabers;
 import com.fiskmods.lightsabers.common.config.ModConfig;
 import com.fiskmods.lightsabers.common.lightsaber.FocusingCrystal;
 import com.fiskmods.lightsabers.common.lightsaber.LightsaberData;
@@ -150,7 +152,7 @@ public class ModelLightsaberBlade extends ModelBase {
     }
 
     public void renderOuter(LightsaberData data, ItemStack itemstack, float[] rgb, boolean inWorld) {
-        int prog = AngelicaUtils.GLGetCurrentProgram();
+        int prog = GL11.glGetInteger(GL20.GL_CURRENT_PROGRAM);
         boolean fineCut = data.hasFocusingCrystal(FocusingCrystal.FINE_CUT);
         int smooth = 10;
         float width = 0.6F;
@@ -205,9 +207,15 @@ public class ModelLightsaberBlade extends ModelBase {
                 GL11.glTranslatef(0, 0, 0.005F + f4 * 0.00001F);
             }
 
-            AngelicaUtils.GLUseDefaultProgram();
-            blade.render(0.0625F);
-            AngelicaUtils.GLUseProgram(prog);
+            if (ModConfig.enableLightsaberShaderBypass) {
+                if (Lightsabers.IS_ANGELICA_PRESENT) {
+                    AngelicaUtils.GLUseDefaultProgram();
+                }
+                blade.render(0.0625F);
+                GL20.glUseProgram(prog);
+            } else {
+                blade.render(0.0625F);
+            }
 
             GL11.glPopMatrix();
         }
@@ -216,7 +224,7 @@ public class ModelLightsaberBlade extends ModelBase {
     }
 
     public void renderCrossguardOuter(LightsaberData data, ItemStack itemstack, float[] rgb, boolean inWorld) {
-        int prog = AngelicaUtils.GLGetCurrentProgram();
+        int prog = GL11.glGetInteger(GL20.GL_CURRENT_PROGRAM);
         boolean fineCut = data.hasFocusingCrystal(FocusingCrystal.FINE_CUT);
         int smooth = 10;
         float width = 0.4F;
@@ -274,9 +282,15 @@ public class ModelLightsaberBlade extends ModelBase {
                 GL11.glTranslatef(0, 0, 0.005F + f4 * 0.00001F);
             }
 
-            AngelicaUtils.GLUseDefaultProgram();
-            blade.render(0.0625F);
-            AngelicaUtils.GLUseProgram(prog);
+            if (ModConfig.enableLightsaberShaderBypass) {
+                if (Lightsabers.IS_ANGELICA_PRESENT) {
+                    AngelicaUtils.GLUseDefaultProgram();
+                }
+                blade.render(0.0625F);
+                GL20.glUseProgram(prog);
+            } else {
+                blade.render(0.0625F);
+            }
 
             GL11.glPopMatrix();
         }

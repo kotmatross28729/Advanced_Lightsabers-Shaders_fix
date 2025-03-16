@@ -20,9 +20,10 @@ public class ModConfig {
     public static boolean enableShaders;
 
     public static boolean enableStunShaderBypass;
-
     public static boolean disableEffectMeditation;
     public static boolean disableEffectEnergyResist;
+
+    public static boolean enableLightsaberShaderBypass;
 
     public static boolean denyAnimations;
     public static boolean disableCaves;
@@ -89,7 +90,13 @@ public class ModConfig {
             "Enable Stun Shader Bypass",
             CATEGORY_RENDERING,
             true,
-            "Uses the default GL program when rendering the stun effect, which improves the render quality. Disable it if you don't like the way it looks.");
+            "Uses the default GL program when rendering stun effect, which improves the render quality. Disable it if you don't like the way it looks.");
+
+        enableLightsaberShaderBypass = configFile.getBoolean(
+            "Enable Lightsaber Shader Bypass",
+            CATEGORY_RENDERING,
+            true,
+            "Uses the default GL program when rendering lightsaber. Allows rendering of the lightsaber outer part with some shaders, but also causes some graphical artifacts");
 
         disableEffectMeditation = configFile.getBoolean(
             "Disable Effect Meditation",

@@ -24,6 +24,7 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
+import org.lwjgl.opengl.GL20;
 
 import com.fiskmods.lightsabers.ALConstants;
 import com.fiskmods.lightsabers.Lightsabers;
@@ -225,6 +226,8 @@ public class ClientEventHandler {
             float prevWidth = GL11.glGetFloat(GL11.GL_LINE_WIDTH);
 
             GL11.glPushMatrix();
+            GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS);
+
             GL11.glTranslated(event.x, event.y + entity.height / 2, event.z);
             Tessellator tessellator = Tessellator.instance;
 
@@ -256,11 +259,12 @@ public class ClientEventHandler {
 
                         Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
 
-                        int prog = 0;
+                        int prog = GL11.glGetInteger(GL20.GL_CURRENT_PROGRAM);
 
                         if (ModConfig.enableStunShaderBypass) {
-                            prog = AngelicaUtils.GLGetCurrentProgram();
-                            AngelicaUtils.GLUseDefaultProgram();
+                            if (Lightsabers.IS_ANGELICA_PRESENT) {
+                                AngelicaUtils.GLUseDefaultProgram();
+                            }
                         }
 
                         tessellator.startDrawing(3);
@@ -283,7 +287,7 @@ public class ClientEventHandler {
 
                         tessellator.draw();
                         if (ModConfig.enableStunShaderBypass) {
-                            AngelicaUtils.GLUseProgram(prog);
+                            GL20.glUseProgram(prog);
                         }
 
                         GL11.glPopMatrix();
@@ -309,6 +313,8 @@ public class ClientEventHandler {
             }
 
             ALRenderHelper.resetLighting();
+
+            GL11.glPopAttrib();
             GL11.glPopMatrix();
         }
     }
