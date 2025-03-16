@@ -74,7 +74,11 @@ public class RenderHolocron extends TileEntitySpecialRenderer {
         GL11.glTranslatef(0, size / 2 + (size / 2 + f1) * f, 0);
 
         for (int i = 0; i < 6; ++i) {
+
+            // TODO tessellator.setNormal
+
             tessellator.startDrawingQuads();
+            tessellator.setNormal(1, 0, 0);
             tessellator.addVertexWithUV(-size / 2, 0, size / 2, maxU, maxV);
             tessellator.addVertexWithUV(0, -size / 2, size / 2, maxU, minV);
             tessellator.addVertexWithUV(size / 2, 0, size / 2, minU, minV);
@@ -194,6 +198,7 @@ public class RenderHolocron extends TileEntitySpecialRenderer {
 
         for (int i = 0; i < 4; ++i) {
             tessellator.startDrawing(GL11.GL_TRIANGLES);
+            tessellator.setNormal(0.0F, 1.0F, 0.0F);
             minU = iconSide.getInterpolatedU(0);
             maxU = iconSide.getInterpolatedU(8);
             minV = iconSide.getInterpolatedV(0);

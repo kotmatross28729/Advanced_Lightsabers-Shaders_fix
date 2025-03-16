@@ -18,6 +18,11 @@ public class ModConfig {
     public static float renderSmoothingMultiplier;
     public static float renderLightingMultiplier;
     public static boolean enableShaders;
+    
+    public static boolean enableStunShaderBypass;
+    
+    public static boolean disableEffectMeditation;
+    public static boolean disableEffectEnergyResist;
 
     public static boolean denyAnimations;
     public static boolean disableCaves;
@@ -79,6 +84,16 @@ public class ModConfig {
             "Multiplier for lightsaber lighting.");
         enableShaders = configFile
             .getBoolean("Enable Shaders", CATEGORY_RENDERING, true, "Enable use of shaders for certain Force powers?");
+    
+        enableStunShaderBypass = configFile
+                .getBoolean("Enable Stun Shader Bypass", CATEGORY_RENDERING, true, "Uses the default GL program when rendering the stun effect, which improves the render quality. Disable it if you don't like the way it looks.");
+    
+        disableEffectMeditation = configFile
+                 .getBoolean("Disable Effect Meditation", CATEGORY_RENDERING, true, "Disables rendering of the meditation effect, since it breaks the player's rendering.");
+    
+        disableEffectEnergyResist = configFile
+                .getBoolean("Disable Effect Energy Resist", CATEGORY_RENDERING, true, "Disables rendering of the energy resist effect, since it breaks the player's rendering.");
+    
         fullDenyAnimations = config
             .getBoolean("Completely deny animations", CATEGORY_OTHER, false, "Disable all animations from this mod?");
         denyAnimations = config.getBoolean(

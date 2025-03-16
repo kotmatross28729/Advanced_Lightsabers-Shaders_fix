@@ -95,8 +95,8 @@ public class RenderItemDoubleLightsaber implements IItemRenderer {
             GL11.glDisable(GL11.GL_LIGHTING);
             GL11.glDisable(GL11.GL_TEXTURE_2D);
             GL11.glColor4f(rgb[0], rgb[1], rgb[2], 1);
-            tessellator.startDrawing(GL11.GL_TRIANGLES);
             Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
+            tessellator.startDrawing(GL11.GL_TRIANGLES);
             tessellator.addVertex(triangle / 2, triangle / 2, 0);
             tessellator.addVertex(triangle, 0, 0);
             tessellator.addVertex(0, 0, 0);
@@ -104,7 +104,6 @@ public class RenderItemDoubleLightsaber implements IItemRenderer {
             rgb = array[1].getRGB(itemstack);
             GL11.glColor4f(rgb[0], rgb[1], rgb[2], 1);
             tessellator.startDrawing(GL11.GL_TRIANGLES);
-            Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
             tessellator.addVertex(0, triangle, 0);
             tessellator.addVertex(triangle / 2, triangle / 2, 0);
             tessellator.addVertex(0, 0, 0);
@@ -115,7 +114,6 @@ public class RenderItemDoubleLightsaber implements IItemRenderer {
 
             if (array[0].hasFocusingCrystal(FocusingCrystal.INVERTING)) {
                 tessellator.startDrawing(GL11.GL_TRIANGLES);
-                Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
                 tessellator.addVertex(triangle / 2, triangle / 2, 0);
                 tessellator.addVertex(triangle, 0, 0);
                 tessellator.addVertex(0, 0, 0);
@@ -124,7 +122,6 @@ public class RenderItemDoubleLightsaber implements IItemRenderer {
 
             if (array[1].hasFocusingCrystal(FocusingCrystal.INVERTING)) {
                 tessellator.startDrawing(GL11.GL_TRIANGLES);
-                Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
                 tessellator.addVertex(0, triangle, 0);
                 tessellator.addVertex(triangle / 2, triangle / 2, 0);
                 tessellator.addVertex(0, 0, 0);

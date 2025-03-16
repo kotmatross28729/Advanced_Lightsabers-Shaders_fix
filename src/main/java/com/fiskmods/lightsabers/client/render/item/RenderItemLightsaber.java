@@ -81,8 +81,8 @@ public class RenderItemLightsaber implements IItemRenderer {
             GL11.glDisable(GL11.GL_LIGHTING);
             GL11.glDisable(GL11.GL_TEXTURE_2D);
             GL11.glColor4f(rgb[0], rgb[1], rgb[2], 1);
-            tessellator.startDrawingQuads();
             Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
+            tessellator.startDrawingQuads();
             tessellator.addVertex(triangle / 2, triangle / 2, 0);
             tessellator.addVertex(triangle, 0, 0);
             tessellator.addVertex(0, 0, 0);

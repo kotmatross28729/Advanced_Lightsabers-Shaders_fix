@@ -38,7 +38,7 @@ dependencies {
     compileOnly name: 'Dynamic+Lights-1.3.9a-MC1.7.10'
     compileOnly name: 'CodeChickenLib-1.1.8-dev'
     compileOnly name: 'NotEnoughItems-2.3.81-GTNH-dev'
-
+    compileOnly name: 'angelica-1.0.0-beta35-dev'
 
     compileOnly fileTree(dir: 'libs', include: '*.jar')
     compileOnly fileTree(dir: 'libs', include: '*.zip')

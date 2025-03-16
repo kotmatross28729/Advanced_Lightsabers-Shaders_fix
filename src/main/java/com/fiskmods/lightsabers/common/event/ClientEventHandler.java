@@ -4,6 +4,7 @@ import static com.fiskmods.lightsabers.client.render.entity.RenderLightsaber.sha
 
 import java.util.Map;
 
+import com.fiskmods.lightsabers.helper.AngelicaUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.renderer.Tessellator;
@@ -253,8 +254,16 @@ public class ClientEventHandler {
                             GL11.glScalef(-1, -1, -1);
                         }
 
-                        tessellator.startDrawing(3);
                         Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
+                        
+                        int prog = 0;
+                                
+                        if(ModConfig.enableStunShaderBypass) {
+                            prog = AngelicaUtils.GLGetCurrentProgram();
+                            AngelicaUtils.GLUseDefaultProgram();
+                        }
+
+                        tessellator.startDrawing(3);
                         tessellator.setColorRGBA(
                             54,
                             84,
@@ -273,6 +282,10 @@ public class ClientEventHandler {
                         }
 
                         tessellator.draw();
+                        if(ModConfig.enableStunShaderBypass) {
+                            AngelicaUtils.GLUseProgram(prog);
+                        }
+
                         GL11.glPopMatrix();
                     }
                 }
@@ -388,7 +401,7 @@ public class ClientEventHandler {
             }
         }
 
-        if (effectMeditation != null && !entity.isInvisibleToPlayer(mc.thePlayer)) {
+        if (!ModConfig.disableEffectMeditation && effectMeditation != null && !entity.isInvisibleToPlayer(mc.thePlayer)) {
             if (entity.stepHeight > 0) {
                 int i = effectMeditation.duration;
                 float f = 0.7F + MathHelper.sin((i - renderTick) * (float) Math.PI * 0.1F) * 0.3F;
@@ -447,7 +460,7 @@ public class ClientEventHandler {
             }
         }
 
-        if (effectEnergyResist != null && !entity.isInvisibleToPlayer(mc.thePlayer)) {
+        if (!ModConfig.disableEffectEnergyResist && effectEnergyResist != null && !entity.isInvisibleToPlayer(mc.thePlayer)) {
             if (entity.stepHeight > 0) {
                 int i = effectEnergyResist.duration;
                 float f = 0.7F + MathHelper.sin((i - renderTick) * (float) Math.PI * 0.1F) * 0.3F;

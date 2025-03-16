@@ -254,7 +254,7 @@ public class ALRenderHelper {
 
                     mc.getTextureManager()
                         .bindTexture(TextureMap.locationItemsTexture);
-                    Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
+                    //Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix); //TODO
                     TextureUtil.func_152777_a(false, false, 1.0F);
                     GL11.glPushMatrix();
                     GL11.glEnable(GL12.GL_RESCALE_NORMAL);
@@ -361,8 +361,8 @@ public class ALRenderHelper {
         float f1 = f / 2;
 
         Tessellator tessellator = Tessellator.instance;
-        tessellator.startDrawingQuads();
         Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
+        tessellator.startDrawingQuads();
         tessellator.addVertex(size, size, 0);
         tessellator.addVertex(-size, size, 0);
         tessellator.addVertex(-size + f1, -size - tip, -f1);
@@ -487,13 +487,13 @@ public class ALRenderHelper {
             return;
         }
 
+        Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
         Tessellator tessellator = Tessellator.instance;
         float prevWidth = GL11.glGetFloat(GL11.GL_LINE_WIDTH);
 
         if (lineWidth > 0.0F) {
             GL11.glLineWidth(lineWidth);
             tessellator.startDrawing(3);
-            Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
             tessellator.setColorRGBA_F((float) color.xCoord, (float) color.yCoord, (float) color.zCoord, alpha);
             tessellator.addVertex(start.xCoord, start.yCoord, start.zCoord);
             tessellator.addVertex(end.xCoord, end.yCoord, end.zCoord);
@@ -503,7 +503,6 @@ public class ALRenderHelper {
         if (innerLineWidth > 0.0F) {
             GL11.glLineWidth(innerLineWidth);
             tessellator.startDrawing(3);
-            Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
             tessellator.setColorRGBA_F(1.0F, 1.0F, 1.0F, MathHelper.clamp_float(alpha - 0.2F, 0.0F, 1.0F));
             tessellator.addVertex(start.xCoord, start.yCoord, start.zCoord);
             tessellator.addVertex(end.xCoord, end.yCoord, end.zCoord);

@@ -17,6 +17,7 @@ import com.fiskmods.lightsabers.common.config.ModConfig;
 import com.fiskmods.lightsabers.common.lightsaber.FocusingCrystal;
 import com.fiskmods.lightsabers.common.lightsaber.LightsaberData;
 import com.fiskmods.lightsabers.helper.ALRenderHelper;
+import com.fiskmods.lightsabers.helper.AngelicaUtils;
 
 public class ModelLightsaberBlade extends ModelBase {
 
@@ -88,6 +89,7 @@ public class ModelLightsaberBlade extends ModelBase {
             }
         }
 
+        Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
         if (fineCut) {
             Tessellator tessellator = Tessellator.instance;
             float f = 0.0625F;
@@ -98,8 +100,10 @@ public class ModelLightsaberBlade extends ModelBase {
             float edge1 = f / 2;
             float tip = f * 1.5F;
 
+            // int prog = AngelicaUtils.GLGetCurrentProgram();
+            // AngelicaUtils.GLUseDefaultProgram();
+
             tessellator.startDrawingQuads();
-            Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
             tessellator.addVertex(-f / 2, -length, f / 2);
             tessellator.addVertex(0, -length, edge);
             tessellator.addVertex(0, edgeAngle, edge);
@@ -138,10 +142,10 @@ public class ModelLightsaberBlade extends ModelBase {
             tessellator.addVertex(f / 2, 0 - f * bladeLength, f / 2);
             tessellator.draw();
 
-            Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
+            // AngelicaUtils.GLUseProgram(prog);
+
             blade.render(0.0625F);
         } else {
-            Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
             blade.render(0.0625F);
             GL11.glTranslatef(0, -0.0625F * (0.5F + bladeLength), 0.0625F / 2);
             ALRenderHelper.drawTip(0.03125F, 0.125F);
@@ -204,7 +208,12 @@ public class ModelLightsaberBlade extends ModelBase {
             }
 
             Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
+
+            int prog = AngelicaUtils.GLGetCurrentProgram();
+            AngelicaUtils.GLUseDefaultProgram();
             blade.render(0.0625F);
+            AngelicaUtils.GLUseProgram(prog);
+
             GL11.glPopMatrix();
         }
 

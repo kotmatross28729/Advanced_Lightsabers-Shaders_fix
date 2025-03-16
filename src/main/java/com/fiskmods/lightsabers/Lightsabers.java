@@ -63,9 +63,15 @@ public class Lightsabers {
     public static boolean isBattlegearLoaded;
     public static boolean isDynamicLightsLoaded;
 
+    public static boolean IS_ANGELICA_PRESENT = false;
+
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         FiskUtils.hook(Hook.PREINIT);
+
+        if (Loader.isModLoaded("angelica")) {
+            IS_ANGELICA_PRESENT = true;
+        }
 
         isBattlegearLoaded = Loader.isModLoaded(ALConstants.BATTLEGEAR);
         isDynamicLightsLoaded = Loader.isModLoaded(ALConstants.DYNAMIC_LIGHTS);
