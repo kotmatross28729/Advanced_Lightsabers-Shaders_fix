@@ -73,7 +73,7 @@
 //
 // for (boolean flag = random.nextInt(6) == 0; argI1 < argI2; ++argI1)
 // {
-// double width = 1.5D + MathHelper.sin(argI1 * (float) Math.PI / argI2) * widthFactor * 1.0F; // TODO: Mess with the
+// double width = 1.5D + MathHelper.sin(argI1 * (float) Math.PI / argI2) * widthFactor * 1.0F;
 // 1.0F
 // double height = width * heightFactor;
 // float cosVertical = MathHelper.cos(vertical);

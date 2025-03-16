@@ -16,6 +16,8 @@ import com.fiskmods.lightsabers.helper.ALRenderHelper;
 
 public class RenderHolocron extends TileEntitySpecialRenderer {
 
+    // TODO
+
     public void render(TileEntityHolocron tile, double x, double y, double z, float partialTicks) {
         int metadata = 0;
 
@@ -35,7 +37,7 @@ public class RenderHolocron extends TileEntitySpecialRenderer {
         GL11.glAlphaFunc(GL11.GL_GREATER, 0.1F);
         OpenGlHelper.glBlendFunc(770, 771, 1, 0);
 
-        tessellator.setNormal(0, 10, 10);
+        // tessellator.setNormal(0, 10, 10);
         bindTexture(TextureMap.locationBlocksTexture);
         GL11.glColor4f(1, 1, 1, 1);
 
@@ -99,6 +101,7 @@ public class RenderHolocron extends TileEntitySpecialRenderer {
         for (int i = 0; i < 2; ++i) {
             for (int j = 0; j < 4; ++j) {
                 tessellator.startDrawing(GL11.GL_TRIANGLES);
+                tessellator.setNormal(0.0F, 1.0F, 0.0F);
                 minU = iconCorner.getInterpolatedU(0);
                 maxU = iconCorner.getInterpolatedU(8);
                 minV = iconCorner.getInterpolatedV(0);
@@ -123,6 +126,7 @@ public class RenderHolocron extends TileEntitySpecialRenderer {
                 GL11.glPopMatrix();
 
                 tessellator.startDrawing(GL11.GL_TRIANGLES);
+                tessellator.setNormal(0.0F, 1.0F, 0.0F);
                 minU = iconCornerBottom.getInterpolatedU(0);
                 maxU = iconCornerBottom.getInterpolatedU(8);
                 minV = iconCornerBottom.getInterpolatedV(0);
@@ -150,6 +154,7 @@ public class RenderHolocron extends TileEntitySpecialRenderer {
 
                 for (int k = 0; k < 3; ++k) {
                     tessellator.startDrawing(GL11.GL_TRIANGLES);
+                    tessellator.setNormal(0.0F, 1.0F, 0.0F);
                     minU = iconCornerSide.getInterpolatedU(8);
                     maxU = iconCornerSide.getInterpolatedU(16);
                     minV = iconCornerSide.getInterpolatedV(0);

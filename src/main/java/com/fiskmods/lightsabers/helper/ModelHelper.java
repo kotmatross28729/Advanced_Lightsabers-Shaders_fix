@@ -147,7 +147,6 @@ public class ModelHelper {
                 float right = ALData.RIGHT_ARM_TIMER.interpolate(entity);
                 float left = ALData.LEFT_ARM_TIMER.interpolate(entity);
 
-                // TODO: Use one of the interpolate methods instead
                 model.bipedRightArm.rotateAngleX = model.bipedRightArm.rotateAngleX * (1 - push)
                     + (f4 / (180F / (float) Math.PI) - (float) Math.PI / 2) * push;
                 model.bipedRightArm.rotateAngleY = model.bipedRightArm.rotateAngleY * (1 - push)

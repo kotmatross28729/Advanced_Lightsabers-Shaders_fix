@@ -203,7 +203,7 @@ public class ALRenderHelper {
                             float f = insn[i];
 
                             if ((i & 1) == 0) {
-                                GL11.glTranslatef(0, f / 16, 0); // TODO: Move to HiltRenderer
+                                GL11.glTranslatef(0, f / 16, 0);
                             } else {
                                 GL11.glRotatef(f, 1, 0, 0);
                             }
@@ -254,7 +254,6 @@ public class ALRenderHelper {
 
                     mc.getTextureManager()
                         .bindTexture(TextureMap.locationItemsTexture);
-                    //Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix); //TODO
                     TextureUtil.func_152777_a(false, false, 1.0F);
                     GL11.glPushMatrix();
                     GL11.glEnable(GL12.GL_RESCALE_NORMAL);
@@ -300,8 +299,7 @@ public class ALRenderHelper {
             GL11.glDisable(GL11.GL_ALPHA_TEST);
             GL11.glDisable(GL11.GL_CULL_FACE);
 
-            if (emitter.hasCrossguard()) // TODO: Move to HiltRenderer
-            {
+            if (emitter.hasCrossguard()) {
                 for (int i = -1; i <= 1; i += 2) {
                     GL11.glPushMatrix();
                     GL11.glTranslatef(crossguard[0], crossguard[1], crossguard[2] * -i);
@@ -312,11 +310,13 @@ public class ALRenderHelper {
                     }
 
                     CROSSGUARD_BLADE.renderCrossguardOuter(data, itemstack, rgb, inWorld);
+
                     GL11.glPopMatrix();
                 }
             }
 
             LIGHTSABER_BLADE.renderOuter(data, itemstack, rgb, inWorld);
+
             GL11.glDisable(GL11.GL_BLEND);
             // GL11.glEnable(GL11.GL_ALPHA_TEST);
             GL11.glDepthMask(true);

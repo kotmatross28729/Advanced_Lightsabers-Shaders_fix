@@ -9,8 +9,7 @@ import com.fiskmods.lightsabers.common.item.ItemLightsaber;
 
 public class ASMHooks {
 
-    public static boolean attackEntityFrom(Entity entity, DamageSource source, float damage) // TODO: Remove?
-    {
+    public static boolean attackEntityFrom(Entity entity, DamageSource source, float damage) {
         if (source.getEntity() instanceof EntityLivingBase) {
             EntityLivingBase attacker = (EntityLivingBase) source.getEntity();
 

@@ -51,6 +51,8 @@ public class ModelLightsaberBlade extends ModelBase {
             GL11.glScalef(0.6F, 1, 0.6F);
         }
 
+        Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
+
         if (data.hasFocusingCrystal(FocusingCrystal.CRACKED)) {
             float divider = 60;
             int ticks = Minecraft.getMinecraft().thePlayer.ticksExisted;
@@ -79,7 +81,6 @@ public class ModelLightsaberBlade extends ModelBase {
                 }
 
                 if (!fineCut) {
-                    Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
                     blade.render(0.0625F);
                     GL11.glTranslatef(0, -(0.5F + bladeLength) / 16, 1F / 32);
                     ALRenderHelper.drawTip(0.03125F, 0.125F);
@@ -89,7 +90,6 @@ public class ModelLightsaberBlade extends ModelBase {
             }
         }
 
-        Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
         if (fineCut) {
             Tessellator tessellator = Tessellator.instance;
             float f = 0.0625F;
@@ -99,9 +99,6 @@ public class ModelLightsaberBlade extends ModelBase {
             float length1 = f * bladeLength * 0.3F;
             float edge1 = f / 2;
             float tip = f * 1.5F;
-
-            // int prog = AngelicaUtils.GLGetCurrentProgram();
-            // AngelicaUtils.GLUseDefaultProgram();
 
             tessellator.startDrawingQuads();
             tessellator.addVertex(-f / 2, -length, f / 2);
@@ -142,8 +139,6 @@ public class ModelLightsaberBlade extends ModelBase {
             tessellator.addVertex(f / 2, 0 - f * bladeLength, f / 2);
             tessellator.draw();
 
-            // AngelicaUtils.GLUseProgram(prog);
-
             blade.render(0.0625F);
         } else {
             blade.render(0.0625F);
@@ -155,6 +150,7 @@ public class ModelLightsaberBlade extends ModelBase {
     }
 
     public void renderOuter(LightsaberData data, ItemStack itemstack, float[] rgb, boolean inWorld) {
+        int prog = AngelicaUtils.GLGetCurrentProgram();
         boolean fineCut = data.hasFocusingCrystal(FocusingCrystal.FINE_CUT);
         int smooth = 10;
         float width = 0.6F;
@@ -194,6 +190,8 @@ public class ModelLightsaberBlade extends ModelBase {
         int layerCount = 5 * smooth;
         float opacityMultiplier = inWorld ? ModConfig.renderGlobalMultiplier * ModConfig.renderOpacityMultiplier : 1;
 
+        Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
+
         for (int i = 0; i < layerCount; ++i) {
             GL11.glColor4f(rgb[0], rgb[1], rgb[2], f3 / smooth * opacityMultiplier);
             float scale = 1 + i * (width / smooth);
@@ -207,9 +205,6 @@ public class ModelLightsaberBlade extends ModelBase {
                 GL11.glTranslatef(0, 0, 0.005F + f4 * 0.00001F);
             }
 
-            Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
-
-            int prog = AngelicaUtils.GLGetCurrentProgram();
             AngelicaUtils.GLUseDefaultProgram();
             blade.render(0.0625F);
             AngelicaUtils.GLUseProgram(prog);
@@ -217,15 +212,11 @@ public class ModelLightsaberBlade extends ModelBase {
             GL11.glPopMatrix();
         }
 
-        // if (data.hasFocusingCrystal(FocusingCrystal.CHARGED))
-        // {
-        // renderLightning(data, itemstack, rgb, inWorld, true);
-        // }
-
         GL11.glColor4f(1, 1, 1, 1);
     }
 
     public void renderCrossguardOuter(LightsaberData data, ItemStack itemstack, float[] rgb, boolean inWorld) {
+        int prog = AngelicaUtils.GLGetCurrentProgram();
         boolean fineCut = data.hasFocusingCrystal(FocusingCrystal.FINE_CUT);
         int smooth = 10;
         float width = 0.4F;
@@ -264,6 +255,8 @@ public class ModelLightsaberBlade extends ModelBase {
 
         int layerCount = 5 * smooth;
 
+        Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
+
         for (int i = 0; i < layerCount; ++i) {
             GL11.glColor4f(
                 rgb[0],
@@ -281,58 +274,13 @@ public class ModelLightsaberBlade extends ModelBase {
                 GL11.glTranslatef(0, 0, 0.005F + f4 * 0.00001F);
             }
 
-            Minecraft.getMinecraft().renderEngine.bindTexture(shaders_fix);
+            AngelicaUtils.GLUseDefaultProgram();
             blade.render(0.0625F);
+            AngelicaUtils.GLUseProgram(prog);
+
             GL11.glPopMatrix();
         }
 
-        // if (data.hasFocusingCrystal(FocusingCrystal.CHARGED))
-        // {
-        // renderLightning(data, itemstack, rgb, inWorld, true);
-        // }
-
         GL11.glColor4f(1, 1, 1, 1);
     }
-
-    // private void renderLightning(LightsaberData data, ItemStack itemstack, float[] rgb, boolean inWorld, boolean
-    // isCrossguard)
-    // {
-    // float divider = 60;
-    // int ticks = Minecraft.getMinecraft().thePlayer.ticksExisted;
-    // Random rand = new Random(ticks % 100 * 1000);
-    // Random prev = new Random((ticks - 1) % 100 * 1000);
-    //
-    // GL11.glColor4f(rgb[0], rgb[1], rgb[2], 0.5F * (inWorld ? ModConfig.renderGlobalMultiplier *
-    // ModConfig.renderOpacityMultiplier : 1));
-    // Supplier<Float> nextFloat = () -> ALRenderHelper.median(rand.nextFloat(), prev.nextFloat());
-    //
-    // for (int i = 0; i < 4; ++i)
-    // {
-    // GL11.glPushMatrix();
-    //
-    // if (i != 0)
-    // {
-    // GL11.glTranslatef((nextFloat.get() - 0.5F) / divider, 0, (nextFloat.get() - 0.5F) / divider);
-    //
-    // for (int j = 0; j < bladeLength; ++j)
-    // {
-    // GL11.glPushMatrix();
-    // GL11.glRotatef(nextFloat.get() * 360, 0, 1, 0);
-    // GL11.glRotatef(90, 1, 0, 0);
-    // GL11.glTranslatef(0, 0.05F + (1 + nextFloat.get() * 0.2F) / 16, (1 + nextFloat.get() * bladeLength) / 16);
-    // ALRenderHelper.drawTip(0.04F, 0);
-    // GL11.glPopMatrix();
-    // }
-    // }
-    //
-    //// if (!fineCut)
-    //// {
-    //// blade.render(0.0625F);
-    //// GL11.glTranslatef(0, -0.0625F * (0.5F + bladeLength), 0.0625F / 2);
-    //// ALRenderHelper.drawTip(0.03125F, 0.125F);
-    //// }
-    //
-    // GL11.glPopMatrix();
-    // }
-    // }
 }
